@@ -1,22 +1,22 @@
-import jsonServerApi from "./jsonServerApi";
+import djangoApi from "./djangoApi";
 
 export const getQuizzes = async () => {
-  return await jsonServerApi.get("/quiz");
+  return await djangoApi.get("/api/quiz/quiz");
 };
 
 export const getQuiz = async (id) => {
-  return await jsonServerApi.get(`/quiz/${id}`);
+  return await djangoApi.get(`/api/quiz/quiz/${id}`);
 };
 
 export const postCreateQuiz = async (quiz) => {
-  return await jsonServerApi.post("/quiz", quiz);
+  return await djangoApi.post("/api/quiz/quiz", quiz);
 };
 
 export const patchQuiz = async (quiz) => {
-  return await jsonServerApi.patch(`/quiz/${quiz.id}`, quiz);
+  return await djangoApi.patch(`/api/quiz/quiz/${quiz.id}`, quiz);
 };
 
 export const deleteQuiz = async (id) => {
-  await jsonServerApi.delete(`/quiz/${id}`);
+  await djangoApi.delete(`/api/quiz/quiz/${id}`);
   return { data: { deletedId: id } };
 };

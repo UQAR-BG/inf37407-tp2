@@ -1,0 +1,10 @@
+
+from rest_framework import fields, serializers
+
+from quiz.models import Quiz
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ("name", "description")
