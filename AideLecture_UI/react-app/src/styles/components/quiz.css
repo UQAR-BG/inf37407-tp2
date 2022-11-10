@@ -1,0 +1,22 @@
+p, span, a {
+    font-size: 16px;
+}
+
+h3, h4 {
+    font-size: 20px;
+}
+
+table.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+}
+table.table-fit tbody td {
+    width: auto !important;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.question-word {
+    font-weight: bold;
+    font-size: 20px;
+}

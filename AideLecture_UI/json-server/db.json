@@ -1,0 +1,2786 @@
+{
+  "users": [
+    {
+      "firstName": "Admin",
+      "lastName": "Account",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "role": "admin",
+      "id": 1
+    },
+    {
+      "firstName": "Victor",
+      "lastName": "Trencic",
+      "email": "test@gmail.com",
+      "password": "test123",
+      "role": "participant",
+      "id": 2,
+      "quizzesAnswers": {
+        "1": [
+          {
+            "datetime": "2022-10-12T21:35:19.547Z",
+            "choices": {
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0"
+            },
+            "score": 6
+          },
+          {
+            "datetime": "2022-10-12T21:35:38.355Z",
+            "choices": {
+              "1": "0",
+              "2": "2",
+              "3": "0",
+              "4": "3",
+              "5": "1",
+              "6": "3"
+            },
+            "score": 2
+          },
+          {
+            "datetime": "2022-10-20T19:30:02.184Z",
+            "choices": {
+              "1": "1",
+              "2": "2",
+              "3": "0",
+              "4": "3",
+              "5": "3",
+              "6": "3"
+            },
+            "score": 1
+          },
+          {
+            "datetime": "2022-10-23T18:54:23.848Z",
+            "choices": {
+              "1": "1",
+              "2": "2",
+              "3": "1",
+              "4": "1",
+              "5": "2",
+              "6": "0"
+            },
+            "score": 1
+          },
+          {
+            "datetime": "2022-11-08T21:16:47.758Z",
+            "choices": {
+              "1": "1",
+              "2": "0",
+              "3": "1",
+              "4": "3",
+              "5": "3",
+              "6": "0"
+            },
+            "score": 2
+          }
+        ],
+        "2": [
+          {
+            "datetime": "2022-10-12T21:34:31.297Z",
+            "choices": {
+              "7": "2",
+              "8": "2",
+              "9": "1",
+              "10": "0",
+              "11": "2",
+              "12": "3"
+            },
+            "score": 1
+          },
+          {
+            "datetime": "2022-10-12T21:35:29.328Z",
+            "choices": {
+              "7": "2",
+              "8": "0",
+              "9": "3",
+              "10": "3",
+              "11": "3",
+              "12": "1"
+            },
+            "score": 1
+          },
+          {
+            "datetime": "2022-10-13T17:01:16.253Z",
+            "choices": {
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "1",
+              "11": "0",
+              "12": "0"
+            },
+            "score": 5
+          },
+          {
+            "datetime": "2022-10-20T19:38:23.823Z",
+            "choices": {
+              "7": "0",
+              "8": "2",
+              "9": "0",
+              "10": "0",
+              "11": "3",
+              "12": "3"
+            },
+            "score": 3
+          }
+        ]
+      }
+    },
+    {
+      "firstName": "Bastien",
+      "lastName": "Goulet",
+      "email": "bastien.goulet@uqar.ca",
+      "password": "bastien123",
+      "role": "participant",
+      "id": 3,
+      "quizzesAnswers": {
+        "1": [
+          {
+            "datetime": "2022-11-08T21:25:17.942Z",
+            "choices": {
+              "1": "2",
+              "2": "3",
+              "3": "3",
+              "4": "3",
+              "5": "3",
+              "6": "1"
+            },
+            "score": 0
+          }
+        ]
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "name": "Le troisième lien entre Québec et Lévis",
+      "description": "Le troisième lien entre Québec et Lévis",
+      "id": 1
+    },
+    {
+      "name": "La voiture à essence et la voiture électrique",
+      "description": "La voiture à essence et la voiture électrique",
+      "id": 2
+    },
+    {
+      "name": "Le Carnaval de Québec",
+      "description": "Le Carnaval de Québec",
+      "id": 3
+    },
+    {
+      "name": "La diversité corporelle",
+      "description": "La diversité corporelle",
+      "id": 4
+    },
+    {
+      "name": "La guerre en Ukraine",
+      "description": "La guerre en Ukraine",
+      "id": 5
+    },
+    {
+      "name": "La Journée des peuples autochtones",
+      "description": "La Journée des peuples autochtones",
+      "id": 6
+    },
+    {
+      "name": "La protection des caribous",
+      "description": "La protection des caribous",
+      "id": 7
+    },
+    {
+      "name": "Le roi Charles 3",
+      "description": "Le roi Charles 3",
+      "id": 8
+    },
+    {
+      "name": "Le compost",
+      "description": "Le compost",
+      "id": 9
+    },
+    {
+      "name": "Le jardin communautaire",
+      "description": "Le jardin communautaire",
+      "id": 10
+    },
+    {
+      "name": "Un nouveau quiz",
+      "description": "Un nouveau quiz",
+      "id": 11
+    }
+  ],
+  "phrases": [
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_01.mp3",
+      "name": "sentence_01",
+      "statement": "Québec et Lévis sont deux villes.",
+      "words": [
+        {
+          "statement": "Québec",
+          "image": ""
+        },
+        {
+          "statement": "et",
+          "image": ""
+        },
+        {
+          "statement": "Lévis",
+          "image": ""
+        },
+        {
+          "statement": "sont",
+          "image": ""
+        },
+        {
+          "statement": "deux",
+          "image": ""
+        },
+        {
+          "statement": "villes.",
+          "image": "3e_lien/ville.png"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_02.mp3",
+      "name": "sentence_02",
+      "statement": "Elles sont très proches.",
+      "words": [
+        {
+          "statement": "Elles",
+          "image": ""
+        },
+        {
+          "statement": "sont",
+          "image": ""
+        },
+        {
+          "statement": "très",
+          "image": ""
+        },
+        {
+          "statement": "proches.",
+          "image": "3e_lien/proche.png"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_03.mp3",
+      "name": "sentence_03",
+      "statement": "Le fleuve Saint-Laurent sépare Québec et Lévis.",
+      "words": [
+        {
+          "statement": "Le",
+          "image": ""
+        },
+        {
+          "statement": "fleuve",
+          "image": "3e_lien/fleuve.png"
+        },
+        {
+          "statement": "Saint-Laurent",
+          "image": ""
+        },
+        {
+          "statement": "sépare",
+          "image": "3e_lien/separe.png"
+        },
+        {
+          "statement": "Québec",
+          "image": ""
+        },
+        {
+          "statement": "et",
+          "image": ""
+        },
+        {
+          "statement": "Lévis.",
+          "image": ""
+        }
+      ],
+      "id": 3
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_04.mp3",
+      "name": "sentence_04",
+      "statement": "Il y a 2 ponts pour se rendre à Québec ou à Lévis.",
+      "words": [
+        {
+          "statement": "Il",
+          "image": ""
+        },
+        {
+          "statement": "y",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "2",
+          "image": "3e_lien/deux.png"
+        },
+        {
+          "statement": "ponts",
+          "image": "3e_lien/pont.png"
+        },
+        {
+          "statement": "pour",
+          "image": ""
+        },
+        {
+          "statement": "se",
+          "image": ""
+        },
+        {
+          "statement": "rendre",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "Québec",
+          "image": ""
+        },
+        {
+          "statement": "ou",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "Lévis.",
+          "image": ""
+        }
+      ],
+      "id": 4
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_05.mp3",
+      "name": "sentence_05",
+      "statement": "Beaucoup de travailleurs traversent le pont le matin et le soir.",
+      "words": [
+        {
+          "statement": "Beaucoup",
+          "image": "3e_lien/beaucoup.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "travailleurs",
+          "image": "3e_lien/travailleurs.png"
+        },
+        {
+          "statement": "traversent",
+          "image": "3e_lien/traverser.png"
+        },
+        {
+          "statement": "le",
+          "image": ""
+        },
+        {
+          "statement": "pont",
+          "image": "3e_lien/pont.png"
+        },
+        {
+          "statement": "le",
+          "image": ""
+        },
+        {
+          "statement": "matin",
+          "image": ""
+        },
+        {
+          "statement": "et",
+          "image": "3e_lien/matin_et_soir.png"
+        },
+        {
+          "statement": "le",
+          "image": ""
+        },
+        {
+          "statement": "soir.",
+          "image": ""
+        }
+      ],
+      "id": 5
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_06.mp3",
+      "name": "sentence_06",
+      "statement": "Les travailleurs traversent le pont en voiture.",
+      "words": [
+        {
+          "statement": "Les",
+          "image": ""
+        },
+        {
+          "statement": "travailleurs",
+          "image": "3e_lien/travailleurs.png"
+        },
+        {
+          "statement": "traversent",
+          "image": "3e_lien/traverser.png"
+        },
+        {
+          "statement": "le",
+          "image": ""
+        },
+        {
+          "statement": "pont",
+          "image": "3e_lien/pont.png"
+        },
+        {
+          "statement": "en",
+          "image": ""
+        },
+        {
+          "statement": "voiture.",
+          "image": "3e_lien/voiture.png"
+        }
+      ],
+      "id": 6
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_07.mp3",
+      "name": "sentence_07",
+      "statement": "Le matin et le soir, il y a des problèmes de circulation.",
+      "words": [
+        {
+          "statement": "Le",
+          "image": ""
+        },
+        {
+          "statement": "matin",
+          "image": ""
+        },
+        {
+          "statement": "et",
+          "image": "3e_lien/matin_et_soir.png"
+        },
+        {
+          "statement": "le",
+          "image": ""
+        },
+        {
+          "statement": "soir,",
+          "image": ""
+        },
+        {
+          "statement": "il",
+          "image": ""
+        },
+        {
+          "statement": "y",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "problèmes",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": "3e_lien/probleme_de_circulation.png"
+        },
+        {
+          "statement": "circulation.",
+          "image": ""
+        }
+      ],
+      "id": 7
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_08.mp3",
+      "name": "sentence_08",
+      "statement": "Il y a beaucoup de voiture qui traversent à Québec et à Lévis.",
+      "words": [
+        {
+          "statement": "Il",
+          "image": ""
+        },
+        {
+          "statement": "y",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "beaucoup",
+          "image": "3e_lien/beaucoup.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "voiture",
+          "image": "3e_lien/voiture.png"
+        },
+        {
+          "statement": "qui",
+          "image": ""
+        },
+        {
+          "statement": "traversent",
+          "image": "3e_lien/traverser.png"
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "Québec",
+          "image": ""
+        },
+        {
+          "statement": "et",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "Lévis.",
+          "image": ""
+        }
+      ],
+      "id": 8
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_09.mp3",
+      "name": "sentence_09",
+      "statement": "Beaucoup de personnes aimeraient avoir 3 ponts entre les 2 villes.",
+      "words": [
+        {
+          "statement": "Beaucoup",
+          "image": "3e_lien/beaucoup.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "personnes",
+          "image": "3e_lien/personnes.png"
+        },
+        {
+          "statement": "aimeraient",
+          "image": ""
+        },
+        {
+          "statement": "avoir",
+          "image": ""
+        },
+        {
+          "statement": "3",
+          "image": "3e_lien/troisième.png"
+        },
+        {
+          "statement": "ponts",
+          "image": "3e_lien/pont.png"
+        },
+        {
+          "statement": "entre",
+          "image": ""
+        },
+        {
+          "statement": "les",
+          "image": ""
+        },
+        {
+          "statement": "2",
+          "image": ""
+        },
+        {
+          "statement": "villes.",
+          "image": ""
+        }
+      ],
+      "id": 9
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_10.mp3",
+      "name": "sentence_10",
+      "statement": "Des personnes veulent un gros pont.",
+      "words": [
+        {
+          "statement": "Des",
+          "image": ""
+        },
+        {
+          "statement": "personnes",
+          "image": "3e_lien/personnes.png"
+        },
+        {
+          "statement": "veulent",
+          "image": ""
+        },
+        {
+          "statement": "un",
+          "image": ""
+        },
+        {
+          "statement": "gros",
+          "image": "3e_lien/gros.png"
+        },
+        {
+          "statement": "pont.",
+          "image": "3e_lien/pont.png"
+        }
+      ],
+      "id": 10
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_11.mp3",
+      "name": "sentence_11",
+      "statement": "Des personnes veulent un petit pont.",
+      "words": [
+        {
+          "statement": "Des",
+          "image": ""
+        },
+        {
+          "statement": "personnes",
+          "image": "3e_lien/personnes.png"
+        },
+        {
+          "statement": "veulent",
+          "image": ""
+        },
+        {
+          "statement": "un",
+          "image": ""
+        },
+        {
+          "statement": "petit",
+          "image": "3e_lien/petit.png"
+        },
+        {
+          "statement": "pont.",
+          "image": "3e_lien/pont.png"
+        }
+      ],
+      "id": 11
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_12.mp3",
+      "name": "sentence_12",
+      "statement": "Des personnes veulent un pont-tunnel qui passe sous l’eau.",
+      "words": [
+        {
+          "statement": "Des",
+          "image": ""
+        },
+        {
+          "statement": "personnes",
+          "image": "3e_lien/personnes.png"
+        },
+        {
+          "statement": "veulent",
+          "image": ""
+        },
+        {
+          "statement": "un",
+          "image": "3e_lien/pont.png"
+        },
+        {
+          "statement": "pont-tunnel",
+          "image": "3e_lien/tunnel.png"
+        },
+        {
+          "statement": "qui",
+          "image": ""
+        },
+        {
+          "statement": "passe",
+          "image": ""
+        },
+        {
+          "statement": "sous",
+          "image": ""
+        },
+        {
+          "statement": "l'eau.",
+          "image": ""
+        }
+      ],
+      "id": 12
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_13.mp3",
+      "name": "sentence_13",
+      "statement": "Des personnes ne veulent pas de nouveau pont.",
+      "words": [
+        {
+          "statement": "Des",
+          "image": ""
+        },
+        {
+          "statement": "personnes",
+          "image": "3e_lien/personnes.png"
+        },
+        {
+          "statement": "ne",
+          "image": ""
+        },
+        {
+          "statement": "veulent",
+          "image": ""
+        },
+        {
+          "statement": "pas",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": "3e_lien/pas_de_nouveau_pont.png"
+        },
+        {
+          "statement": "nouveau",
+          "image": ""
+        },
+        {
+          "statement": "pont.",
+          "image": ""
+        }
+      ],
+      "id": 13
+    },
+    {
+      "quizId": "1",
+      "audio": "3e_lien/sentence_14.mp3",
+      "name": "sentence_14",
+      "statement": "Quand ce sera décidé, il y a aura peut-être un nouveau pont.",
+      "words": [
+        {
+          "statement": "Quand",
+          "image": "3e_lien/decider.png"
+        },
+        {
+          "statement": "ce",
+          "image": ""
+        },
+        {
+          "statement": "sera",
+          "image": ""
+        },
+        {
+          "statement": "décidé,",
+          "image": ""
+        },
+        {
+          "statement": "il",
+          "image": ""
+        },
+        {
+          "statement": "y",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "aura",
+          "image": ""
+        },
+        {
+          "statement": "peut-être",
+          "image": "3e_lien/peut_etre.png"
+        },
+        {
+          "statement": "un",
+          "image": ""
+        },
+        {
+          "statement": "nouveau",
+          "image": "3e_lien/nouveau.png"
+        },
+        {
+          "statement": "pont.",
+          "image": "3e_lien/pont.png"
+        }
+      ],
+      "id": 14
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_01.mp3",
+      "name": "sentence_01",
+      "statement": "Au Québec, il y a beaucoup de voitures.",
+      "words": [
+        {
+          "statement": "Au",
+          "image": ""
+        },
+        {
+          "statement": "Québec,",
+          "image": "auto_electrique/quebec.png"
+        },
+        {
+          "statement": "il",
+          "image": ""
+        },
+        {
+          "statement": "y",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "beaucoup",
+          "image": "auto_electrique/beaucoup.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "voitures.",
+          "image": "auto_electrique/voiture.png"
+        }
+      ],
+      "id": 15
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_02.mp3",
+      "name": "sentence_02",
+      "statement": "Il y a des voitures à essence et des voitures électriques. ",
+      "words": [
+        {
+          "statement": "Il",
+          "image": ""
+        },
+        {
+          "statement": "y",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "voitures",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": "auto_electrique/voiture_a_essence.png"
+        },
+        {
+          "statement": "essence",
+          "image": ""
+        },
+        {
+          "statement": "et",
+          "image": ""
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "voitures",
+          "image": "auto_electrique/recharger.png"
+        },
+        {
+          "statement": "électriques.",
+          "image": ""
+        }
+      ],
+      "id": 16
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_03.mp3",
+      "name": "sentence_03",
+      "statement": "La plupart des voitures avancent avec de l’essence.",
+      "words": [
+        {
+          "statement": "La",
+          "image": ""
+        },
+        {
+          "statement": "plupart",
+          "image": "auto_electrique/la_plupart.png"
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "voitures",
+          "image": "auto_electrique/voiture.png"
+        },
+        {
+          "statement": "avancent",
+          "image": ""
+        },
+        {
+          "statement": "avec",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "l'essence.",
+          "image": "auto_electrique/essence.png"
+        }
+      ],
+      "id": 17
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_04.mp3",
+      "name": "sentence_04",
+      "statement": "L’essence coûte cher.",
+      "words": [
+        {
+          "statement": "L'essence",
+          "image": "auto_electrique/essence.png"
+        },
+        {
+          "statement": "coûte",
+          "image": "auto_electrique/cher.png"
+        },
+        {
+          "statement": "cher.",
+          "image": ""
+        }
+      ],
+      "id": 18
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_05.mp3",
+      "name": "sentence_05",
+      "statement": "L’essence est difficile à trouver.",
+      "words": [
+        {
+          "statement": "L'essence",
+          "image": "auto_electrique/essence.png"
+        },
+        {
+          "statement": "est",
+          "image": ""
+        },
+        {
+          "statement": "difficile",
+          "image": "auto_electrique/trouver.png"
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "trouver.",
+          "image": ""
+        }
+      ],
+      "id": 19
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_06.mp3",
+      "name": "sentence_06",
+      "statement": "Pour trouver de l’essence, il faut détruire beaucoup l’environnement.",
+      "words": [
+        {
+          "statement": "Pour",
+          "image": ""
+        },
+        {
+          "statement": "trouver",
+          "image": "auto_electrique/trouver.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "l'essence",
+          "image": "auto_electrique/essence.png"
+        },
+        {
+          "statement": "il",
+          "image": ""
+        },
+        {
+          "statement": "faut",
+          "image": ""
+        },
+        {
+          "statement": "détruire",
+          "image": "auto_electrique/ne_detruit_pas.png"
+        },
+        {
+          "statement": "beaucoup",
+          "image": ""
+        },
+        {
+          "statement": "l'environnement.",
+          "image": "auto_electrique/environnement.png"
+        }
+      ],
+      "id": 20
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_07.mp3",
+      "name": "sentence_07",
+      "statement": "Pour mettre de l’essence, il faut aller à la station-service.",
+      "words": [
+        {
+          "statement": "Pour",
+          "image": ""
+        },
+        {
+          "statement": "mettre",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "l'essence,",
+          "image": "auto_electrique/essence.png"
+        },
+        {
+          "statement": "il",
+          "image": ""
+        },
+        {
+          "statement": "faut",
+          "image": ""
+        },
+        {
+          "statement": "aller",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "la",
+          "image": ""
+        },
+        {
+          "statement": "station-service.",
+          "image": "auto_electrique/station_service.png"
+        }
+      ],
+      "id": 21
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_08.mp3",
+      "name": "sentence_08",
+      "statement": "Il faut mettre de l’essence dans la voiture toutes les semaines.",
+      "words": [
+        {
+          "statement": "Il",
+          "image": ""
+        },
+        {
+          "statement": "faut",
+          "image": ""
+        },
+        {
+          "statement": "mettre",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "l'essence",
+          "image": "auto_electrique/essence.png"
+        },
+        {
+          "statement": "dans",
+          "image": ""
+        },
+        {
+          "statement": "la",
+          "image": ""
+        },
+        {
+          "statement": "voiture",
+          "image": "auto_electrique/voiture.png"
+        },
+        {
+          "statement": "toutes",
+          "image": ""
+        },
+        {
+          "statement": "les",
+          "image": ""
+        },
+        {
+          "statement": "semaines.",
+          "image": "auto_electrique/tous_les_jours.png"
+        }
+      ],
+      "id": 22
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_09.mp3",
+      "name": "sentence_09",
+      "statement": "Quelques voitures avancent avec de l’électricité.",
+      "words": [
+        {
+          "statement": "Quelques",
+          "image": "auto_electrique/quelques.png"
+        },
+        {
+          "statement": "voitures",
+          "image": "auto_electrique/voiture.png"
+        },
+        {
+          "statement": "avancent",
+          "image": ""
+        },
+        {
+          "statement": "avec",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "l'électricité.",
+          "image": "auto_electrique/electricite.png"
+        }
+      ],
+      "id": 23
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_10.mp3",
+      "name": "sentence_10",
+      "statement": "L’automobile électrique a une batterie spéciale.",
+      "words": [
+        {
+          "statement": "L'automobile",
+          "image": "auto_electrique/recharger.png"
+        },
+        {
+          "statement": "électrique",
+          "image": ""
+        },
+        {
+          "statement": "a",
+          "image": ""
+        },
+        {
+          "statement": "une",
+          "image": ""
+        },
+        {
+          "statement": "batterie",
+          "image": "auto_electrique/batterie.png"
+        },
+        {
+          "statement": "spéciale.",
+          "image": ""
+        }
+      ],
+      "id": 24
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_11.mp3",
+      "name": "sentence_11",
+      "statement": "La batterie spéciale fonctionne avec l’électricité. ",
+      "words": [
+        {
+          "statement": "La",
+          "image": ""
+        },
+        {
+          "statement": "batterie",
+          "image": "auto_electrique/batterie.png"
+        },
+        {
+          "statement": "spéciale",
+          "image": ""
+        },
+        {
+          "statement": "fonctionne",
+          "image": ""
+        },
+        {
+          "statement": "avec",
+          "image": ""
+        },
+        {
+          "statement": "l'électricité.",
+          "image": "auto_electrique/electricite.png"
+        }
+      ],
+      "id": 25
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_12.mp3",
+      "name": "sentence_12",
+      "statement": "Produire de l’électricité au Québec ne détruit pas beaucoup l’environnement.",
+      "words": [
+        {
+          "statement": "Produire",
+          "image": ""
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "l'électricité",
+          "image": "auto_electrique/electricite.png"
+        },
+        {
+          "statement": "au",
+          "image": ""
+        },
+        {
+          "statement": "Québec",
+          "image": "auto_electrique/quebec.png"
+        },
+        {
+          "statement": "ne",
+          "image": ""
+        },
+        {
+          "statement": "détruit",
+          "image": "auto_electrique/ne_detruit_pas.png"
+        },
+        {
+          "statement": "pas",
+          "image": ""
+        },
+        {
+          "statement": "beaucoup",
+          "image": ""
+        },
+        {
+          "statement": "l'environnement.",
+          "image": "auto_electrique/environnement.png"
+        }
+      ],
+      "id": 26
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_13.mp3",
+      "name": "sentence_13",
+      "statement": "C’est la même électricité que celle des lumières de la maison.",
+      "words": [
+        {
+          "statement": "C'est",
+          "image": ""
+        },
+        {
+          "statement": "la",
+          "image": ""
+        },
+        {
+          "statement": "même",
+          "image": "auto_electrique/pareil.png"
+        },
+        {
+          "statement": "électricité",
+          "image": "auto_electrique/electricite.png"
+        },
+        {
+          "statement": "que",
+          "image": ""
+        },
+        {
+          "statement": "celle",
+          "image": ""
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "lumières",
+          "image": "auto_electrique/lumiere.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "la",
+          "image": ""
+        },
+        {
+          "statement": "maison.",
+          "image": "auto_electrique/maison.png"
+        }
+      ],
+      "id": 27
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_14.mp3",
+      "name": "sentence_14",
+      "statement": "Il faut recharger la voiture électrique tous les jours.",
+      "words": [
+        {
+          "statement": "Il",
+          "image": ""
+        },
+        {
+          "statement": "faut",
+          "image": ""
+        },
+        {
+          "statement": "recharger",
+          "image": "auto_electrique/recharger.png"
+        },
+        {
+          "statement": "la",
+          "image": ""
+        },
+        {
+          "statement": "voiture",
+          "image": ""
+        },
+        {
+          "statement": "électrique",
+          "image": "auto_electrique/recharger.png"
+        },
+        {
+          "statement": "tous",
+          "image": ""
+        },
+        {
+          "statement": "les",
+          "image": ""
+        },
+        {
+          "statement": "jours.",
+          "image": "auto_electrique/tous_les_jours.png"
+        }
+      ],
+      "id": 28
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_15.mp3",
+      "name": "sentence_15",
+      "statement": "Tu peux recharger une automobile électrique à la maison.",
+      "words": [
+        {
+          "statement": "Tu",
+          "image": ""
+        },
+        {
+          "statement": "peux",
+          "image": ""
+        },
+        {
+          "statement": "recharger",
+          "image": "auto_electrique/recharger.png"
+        },
+        {
+          "statement": "une",
+          "image": ""
+        },
+        {
+          "statement": "automobile",
+          "image": ""
+        },
+        {
+          "statement": "électrique",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "la",
+          "image": ""
+        },
+        {
+          "statement": "maison.",
+          "image": "auto_electrique/maison.png"
+        }
+      ],
+      "id": 29
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_16.mp3",
+      "name": "sentence_16",
+      "statement": "Tu peux aussi recharger une automobile électrique à une borne électrique.",
+      "words": [
+        {
+          "statement": "Tu",
+          "image": ""
+        },
+        {
+          "statement": "peux",
+          "image": ""
+        },
+        {
+          "statement": "aussi",
+          "image": ""
+        },
+        {
+          "statement": "recharger",
+          "image": "auto_electrique/recharger.png"
+        },
+        {
+          "statement": "une",
+          "image": ""
+        },
+        {
+          "statement": "automobile",
+          "image": ""
+        },
+        {
+          "statement": "électrique",
+          "image": ""
+        },
+        {
+          "statement": "à",
+          "image": ""
+        },
+        {
+          "statement": "une",
+          "image": ""
+        },
+        {
+          "statement": "borne",
+          "image": "auto_electrique/borne_de_rechange.png"
+        },
+        {
+          "statement": "électrique.",
+          "image": ""
+        }
+      ],
+      "id": 30
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_17.mp3",
+      "name": "sentence_17",
+      "statement": "Les stationnements de restaurant ont parfois des bornes électriques.",
+      "words": [
+        {
+          "statement": "Les",
+          "image": ""
+        },
+        {
+          "statement": "stationnements",
+          "image": "auto_electrique/stationnement.png"
+        },
+        {
+          "statement": "de",
+          "image": ""
+        },
+        {
+          "statement": "restaurant",
+          "image": "auto_electrique/restaurant_2.png"
+        },
+        {
+          "statement": "ont",
+          "image": ""
+        },
+        {
+          "statement": "parfois",
+          "image": ""
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "bornes",
+          "image": "auto_electrique/borne_de_rechange.png"
+        },
+        {
+          "statement": "électriques.",
+          "image": ""
+        }
+      ],
+      "id": 31
+    },
+    {
+      "quizId": "2",
+      "audio": "auto_electrique/sentence_18.mp3",
+      "name": "sentence_18",
+      "statement": "Vois-tu parfois des automobiles électriques?",
+      "words": [
+        {
+          "statement": "Vois-tu",
+          "image": "auto_electrique/voir.png"
+        },
+        {
+          "statement": "parfois",
+          "image": ""
+        },
+        {
+          "statement": "des",
+          "image": ""
+        },
+        {
+          "statement": "automobiles",
+          "image": ""
+        },
+        {
+          "statement": "électriques?",
+          "image": "auto_electrique/recharger.png"
+        }
+      ],
+      "id": 32
+    },
+    {
+      "quizId": "11",
+      "audio": "nouveau_quiz.mp3",
+      "name": "un nouveau texte",
+      "statement": "Ceci est un nouveau quiz pour nous!",
+      "words": [
+        {
+          "statement": "Ceci",
+          "image": "ceci.png"
+        },
+        {
+          "statement": "est",
+          "image": ""
+        },
+        {
+          "statement": "un",
+          "image": ""
+        },
+        {
+          "statement": "nouveau",
+          "image": ""
+        },
+        {
+          "statement": "quiz",
+          "image": ""
+        },
+        {
+          "statement": "pour",
+          "image": ""
+        },
+        {
+          "statement": "nous!",
+          "image": ""
+        }
+      ],
+      "id": 33
+    }
+  ],
+  "questions": [
+    {
+      "quizId": "1",
+      "questionAudio": "3e_lien/question_01/question.mp3",
+      "name": "Pourquoi on veut construire un nouveau pont?",
+      "statement": "Pourquoi on veut construire un nouveau pont?",
+      "words": [
+        {
+          "statement": "Pourquoi",
+          "image": "3e_lien/Pourquoi.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "on",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "veut",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "construire",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "un",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "nouveau",
+          "image": "3e_lien/nouveau.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "pont?",
+          "image": "3e_lien/pont.png",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "On veut construire un pont parce qu’il y a des problèmes de circulation.",
+          "image": "3e_lien/probleme_de_circulation.png",
+          "audio": "3e_lien/question_01/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "On veut construire un pont parce que le pont est sale.",
+          "image": "3e_lien/sale.png",
+          "audio": "3e_lien/question_01/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "On veut construire un pont parce que le pont est vieux.",
+          "image": "3e_lien/vieux.png",
+          "audio": "3e_lien/question_01/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Le fleuve Saint-Laurent sépare Québec et Lévis.",
+          "image": "3e_lien/fleuve.png",
+          "audio": "3e_lien/question_01/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 1
+    },
+    {
+      "quizId": "1",
+      "questionAudio": "3e_lien/question_02/question.mp3",
+      "name": "Qui utilise le pont le matin et le soir?",
+      "statement": "Qui utilise le pont le matin et le soir?",
+      "words": [
+        {
+          "statement": "Qui",
+          "image": "3e_lien/Qui.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "utilise",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "le",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "pont",
+          "image": "3e_lien/pont.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "le",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "matin",
+          "image": "3e_lien/matin_et_soir.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "et",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "le",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "soir?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Les travailleurs utilisent les ponts entre Québec et Lévis.",
+          "image": "3e_lien/travailleurs.png",
+          "audio": "3e_lien/question_02/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Les enfants utilisent les ponts entre Québec et Lévis.",
+          "image": "3e_lien/enfants.png",
+          "audio": "3e_lien/question_02/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Les chiens utilisent les ponts entre Québec et Lévis.",
+          "image": "3e_lien/chiens.png",
+          "audio": "3e_lien/question_02/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Des personnes veulent un petit pont.",
+          "image": "3e_lien/petit.png",
+          "audio": "3e_lien/question_02/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 2
+    },
+    {
+      "quizId": "1",
+      "questionAudio": "3e_lien/question_03/question.mp3",
+      "name": "Quand est-ce qu’il a des problèmes de circulation?",
+      "statement": "Quand est-ce qu’il a des problèmes de circulation?",
+      "words": [
+        {
+          "statement": "Quand",
+          "image": "3e_lien/Quand.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "est-ce",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "qu'il",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "a",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "des",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "problèmes",
+          "image": "3e_lien/probleme_de_circulation.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "circulation?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Les problèmes de circulation sont le matin et le soir.",
+          "image": "3e_lien/matin_et_soir.png",
+          "audio": "3e_lien/question_03/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Les problèmes de circulation sont en été.",
+          "image": "3e_lien/ete.png",
+          "audio": "3e_lien/question_03/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Les problèmes de circulation sont le samedi.",
+          "image": "3e_lien/Samedi.png",
+          "audio": "3e_lien/question_03/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Des personnes veulent un pont tunnel qui passe sous l’eau.",
+          "image": "3e_lien/tunnel.png",
+          "audio": "3e_lien/question_03/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 3
+    },
+    {
+      "quizId": "1",
+      "questionAudio": "3e_lien/question_04/question.mp3",
+      "name": "Où est la ville de Lévis?",
+      "statement": "Où est la ville de Lévis?",
+      "words": [
+        {
+          "statement": "Où",
+          "image": "3e_lien/ou.png",
+          "isQuestionWord": false,
+          "questionWordId": 1
+        },
+        {
+          "statement": "est",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "la",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "ville",
+          "image": "3e_lien/ville.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "Lévis?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "La ville de Lévis est près de la ville de Québec.",
+          "image": "3e_lien/proche.png",
+          "audio": "3e_lien/question_04/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "La ville de Lévis est dans le fleuve Saint-Laurent.",
+          "image": "3e_lien/fleuve.png",
+          "audio": "3e_lien/question_04/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "La ville de Lévis est dans la forêt.",
+          "image": "3e_lien/foret.png",
+          "audio": "3e_lien/question_04/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Les travailleurs traversent le pont en voiture.",
+          "image": "3e_lien/travailleurs.png",
+          "audio": "3e_lien/question_04/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 4
+    },
+    {
+      "quizId": "1",
+      "questionAudio": "3e_lien/question_05/question.mp3",
+      "name": "Combien y a-t-il de ponts pour traverser de Lévis à Québec?",
+      "statement": "Combien y a-t-il de ponts pour traverser de Lévis à Québec?",
+      "words": [
+        {
+          "statement": "Combien",
+          "image": "3e_lien/combien.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "y",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "a-t-il",
+          "image": "3e_lien/pont.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "ponts",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "pour",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "traverser",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "Lévis",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "à",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "Québec?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Il y a 2 ponts pour traverser de Lévis à Québec.",
+          "image": "3e_lien/deux.png",
+          "audio": "3e_lien/question_05/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Il n’y a pas de pont pour traverser de Lévis à Québec.",
+          "image": "3e_lien/pas_de_nouveau_pont.png",
+          "audio": "3e_lien/question_05/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Il y a trop de ponts pour traverser de Lévis à Québec.",
+          "image": "3e_lien/beaucoup.png",
+          "audio": "3e_lien/question_05/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Lévis est proche de Québec.",
+          "image": "3e_lien/proche.png",
+          "audio": "3e_lien/question_05/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 5
+    },
+    {
+      "quizId": "1",
+      "questionAudio": "3e_lien/question_06/question.mp3",
+      "name": "D’après toi, s’il y a un nouveau pont, ce sera dans combien de temps? ",
+      "statement": "D’après toi, s’il y a un nouveau pont, ce sera dans combien de temps? ",
+      "words": [
+        {
+          "statement": "D'après",
+          "image": "3e_lien/d_apres_toi.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "toi,",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "s'il",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "y",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "a",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "un",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "nouveau",
+          "image": "3e_lien/nouveau.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "pont,",
+          "image": "3e_lien/pont.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "ce",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "sera",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "dans",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "combien",
+          "image": "3e_lien/combien.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "temps?",
+          "image": "3e_lien/temps.png",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "D’après moi, ça sera dans plusieurs années.",
+          "image": "3e_lien/beaucoup.png",
+          "audio": "3e_lien/question_06/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "D’après moi, ça sera l’été prochain.",
+          "image": "3e_lien/ete.png",
+          "audio": "3e_lien/question_06/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "D’après moi, ça sera dans des semaines.",
+          "image": "3e_lien/semaines.png",
+          "audio": "3e_lien/question_06/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Quand ce sera décidé, il y aura peut-être un nouveau pont.",
+          "image": "3e_lien/decider.png",
+          "audio": "3e_lien/question_06/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 6
+    },
+    {
+      "quizId": "2",
+      "questionAudio": "auto_electrique/question_01/question.mp3",
+      "name": "Qu’est-ce qui détruit beaucoup l’environnement?",
+      "statement": "Qu’est-ce qui détruit beaucoup l’environnement?",
+      "words": [
+        {
+          "statement": "Qu'est-ce",
+          "image": "auto_electrique/qu_est_ce_que.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "qui",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "détruit",
+          "image": "auto_electrique/detruire.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "beaucoup",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "l'environnement?",
+          "image": "auto_electrique/environnement.png",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "L’essence détruit beaucoup l’environnement.\t",
+          "image": "auto_electrique/essence.png",
+          "audio": "auto_electrique/question_01/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "L’électricité détruit beaucoup l’environnement.",
+          "image": "auto_electrique/electricite.png",
+          "audio": "auto_electrique/question_01/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Le Québec détruit beaucoup l’environnement.",
+          "image": "auto_electrique/quebec.png",
+          "audio": "auto_electrique/question_01/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "L’essence coûte cher.",
+          "image": "auto_electrique/cher.png",
+          "audio": "auto_electrique/question_01/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 7
+    },
+    {
+      "quizId": "2",
+      "questionAudio": "auto_electrique/question_02/question.mp3",
+      "name": "Pourquoi irais-tu à la station-service? ",
+      "statement": "Pourquoi irais-tu à la station-service? ",
+      "words": [
+        {
+          "statement": "Pourquoi",
+          "image": "auto_electrique/pourquoi.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "irais-tu",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "à",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "la",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "station-service?",
+          "image": "auto_electrique/station_service.png",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Je vais à la station-service pour mettre de l’essence.",
+          "image": "auto_electrique/essence.png",
+          "audio": "auto_electrique/question_02/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Je vais à la station-service pour mettre de l’électricité.",
+          "image": "auto_electrique/electricite.png",
+          "audio": "auto_electrique/question_02/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Je vais à la station-service pour l’environnement.",
+          "image": "auto_electrique/environnement.png",
+          "audio": "auto_electrique/question_02/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "La batterie spéciale fonctionne avec l’électricité.",
+          "image": "auto_electrique/batterie.png",
+          "audio": "auto_electrique/question_02/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 8
+    },
+    {
+      "quizId": "2",
+      "questionAudio": "auto_electrique/question_03/question.mp3",
+      "name": "Quand doit-on recharger une voiture électrique?",
+      "statement": "Quand doit-on recharger une voiture électrique?",
+      "words": [
+        {
+          "statement": "Quand",
+          "image": "auto_electrique/quand.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "doit-on",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "recharger",
+          "image": "auto_electrique/recharger.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "une",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "voiture",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "électrique?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Je dois recharger une voiture électrique tous les jours.",
+          "image": "auto_electrique/tous_les_jours.png",
+          "audio": "auto_electrique/question_03/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Je dois recharger une voiture électrique toutes les semaines.",
+          "image": "auto_electrique/semaine.png",
+          "audio": "auto_electrique/question_03/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Je dois recharger une voiture électrique l’hiver.",
+          "image": "auto_electrique/hiver.png",
+          "audio": "auto_electrique/question_03/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Au Québec, il y a beaucoup de voitures.",
+          "image": "auto_electrique/quebec.png",
+          "audio": "auto_electrique/question_03/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 9
+    },
+    {
+      "quizId": "2",
+      "questionAudio": "auto_electrique/question_04/question.mp3",
+      "name": "Quand doit-on mettre de l’essence dans une voiture à essence?",
+      "statement": "Quand doit-on mettre de l’essence dans une voiture à essence?",
+      "words": [
+        {
+          "statement": "Quand",
+          "image": "auto_electrique/quand.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "doit-on",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "mettre",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "l'essence",
+          "image": "auto_electrique/essence.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "dans",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "une",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "voiture",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "à",
+          "image": "auto_electrique/voiture_a_essence.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "essence?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Je dois mettre de l’essence dans une voiture à essence tous les jours.",
+          "image": "auto_electrique/tous_les_jours.png",
+          "audio": "auto_electrique/question_04/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Je dois mettre de l’essence dans une voiture à essence toutes les semaines.",
+          "image": "auto_electrique/semaine.png",
+          "audio": "auto_electrique/question_04/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Je dois mettre de l’essence dans une voiture à essence l’hiver.",
+          "image": "auto_electrique/hiver.png",
+          "audio": "auto_electrique/question_04/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Je peux recharger une automobile électrique à la maison.",
+          "image": "auto_electrique/maison.png",
+          "audio": "auto_electrique/question_04/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 10
+    },
+    {
+      "quizId": "2",
+      "questionAudio": "auto_electrique/question_05/question.mp3",
+      "name": "Où se trouve les bornes électriques?",
+      "statement": "Où se trouve les bornes électriques?",
+      "words": [
+        {
+          "statement": "Où",
+          "image": "auto_electrique/ou.png",
+          "isQuestionWord": false,
+          "questionWordId": 1
+        },
+        {
+          "statement": "se",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "trouve",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "les",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "bornes",
+          "image": "auto_electrique/borne_de_rechange.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "électriques?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "Les bornes électriques se trouvent à la maison ou au restaurant.",
+          "image": "auto_electrique/maison_ou_restaurant.png",
+          "audio": "auto_electrique/question_05/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "Les bornes électriques se trouvent à la station-service.\t",
+          "image": "auto_electrique/station_service.png",
+          "audio": "auto_electrique/question_05/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "Les bornes électriques se trouvent dans l’environnement.",
+          "image": "auto_electrique/environnement.png",
+          "audio": "auto_electrique/question_05/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "L’essence est difficile à trouver.",
+          "image": "auto_electrique/trouver.png",
+          "audio": "auto_electrique/question_05/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 11
+    },
+    {
+      "quizId": "2",
+      "questionAudio": "auto_electrique/question_06/question.mp3",
+      "name": "D’après toi, vois-tu plus de voitures à essence ou de voitures électriques?",
+      "statement": "D’après toi, vois-tu plus de voitures à essence ou de voitures électriques?",
+      "words": [
+        {
+          "statement": "D'après",
+          "image": "auto_electrique/d_apres_toi.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "toi,",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "vois-tu",
+          "image": "auto_electrique/voir.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "plus",
+          "image": "auto_electrique/la_plupart.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "voitures",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "à",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "essence",
+          "image": "auto_electrique/voiture_a_essence.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "ou",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "de",
+          "image": "",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "voitures",
+          "image": "auto_electrique/recharger.png",
+          "isQuestionWord": false
+        },
+        {
+          "statement": "électriques?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "D’après moi, je vois plus de voitures à essence.",
+          "image": "auto_electrique/voiture_a_essence.png",
+          "audio": "auto_electrique/question_06/response_01.mp3",
+          "isRightAnswer": true
+        },
+        {
+          "id": 1,
+          "statement": "D’après moi, je vois plus de voitures électriques.",
+          "image": "auto_electrique/recharger.png",
+          "audio": "auto_electrique/question_06/response_02.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "D’après moi, je vois des voitures.",
+          "image": "auto_electrique/voiture.png",
+          "audio": "auto_electrique/question_06/response_03.mp3",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "Quelques voitures avancent avec de l’électricité.",
+          "image": "auto_electrique/quelques.png",
+          "audio": "auto_electrique/question_06/response_04.mp3",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "0",
+      "id": 12
+    },
+    {
+      "quizId": "11",
+      "questionAudio": "",
+      "name": "Ma nouvelle question",
+      "statement": "Qui que ceci est une nouvelle question?",
+      "words": [
+        {
+          "statement": "Qui",
+          "image": ""
+        },
+        {
+          "statement": "que",
+          "image": "que.png"
+        },
+        {
+          "statement": "ceci",
+          "image": ""
+        },
+        {
+          "statement": "est",
+          "image": ""
+        },
+        {
+          "statement": "une",
+          "image": ""
+        },
+        {
+          "statement": "nouvelle",
+          "image": ""
+        },
+        {
+          "statement": "question?",
+          "image": ""
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "une réponse 1",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": false
+        },
+        {
+          "id": 1,
+          "statement": "une réponse 2",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": true
+        },
+        {
+          "id": 2,
+          "statement": "une réponse 3",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": false
+        },
+        {
+          "id": 3,
+          "statement": "une réponse 4",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "1",
+      "id": 13
+    },
+    {
+      "quizId": "11",
+      "questionAudio": "",
+      "name": "Une autre question",
+      "statement": "Qui suis-je?",
+      "words": [
+        {
+          "statement": "Qui",
+          "image": "",
+          "isQuestionWord": false,
+          "questionWordId": 2
+        },
+        {
+          "statement": "suis-je?",
+          "image": "",
+          "isQuestionWord": false
+        }
+      ],
+      "answers": [
+        {
+          "id": 0,
+          "statement": "réponse",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": false
+        },
+        {
+          "id": 1,
+          "statement": "réponse",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": false
+        },
+        {
+          "id": 2,
+          "statement": "réponse",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": true
+        },
+        {
+          "id": 3,
+          "statement": "réponse",
+          "image": "",
+          "audio": "",
+          "isRightAnswer": false
+        }
+      ],
+      "rightAnswerId": "2",
+      "id": 14
+    }
+  ],
+  "question-words": [
+    {
+      "audio": "",
+      "name": "Où",
+      "statement": "Cherche un endroit ou une place",
+      "words": [
+        {
+          "statement": "Cherche",
+          "image": "auto_electrique/voiture_a_essence.png"
+        },
+        {
+          "statement": "un",
+          "image": ""
+        },
+        {
+          "statement": "endroit",
+          "image": ""
+        },
+        {
+          "statement": "ou",
+          "image": ""
+        },
+        {
+          "statement": "une",
+          "image": ""
+        },
+        {
+          "statement": "place",
+          "image": ""
+        }
+      ],
+      "id": 1
+    },
+    {
+      "audio": "",
+      "name": "Qui",
+      "statement": "Ceci est un mot",
+      "words": [
+        {
+          "statement": "Ceci",
+          "image": ""
+        },
+        {
+          "statement": "est",
+          "image": ""
+        },
+        {
+          "statement": "un",
+          "image": ""
+        },
+        {
+          "statement": "mot",
+          "image": ""
+        }
+      ],
+      "id": 2
+    }
+  ]
+}

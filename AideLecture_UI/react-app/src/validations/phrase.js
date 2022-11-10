@@ -1,0 +1,11 @@
+import * as Yup from "yup";
+
+const word = Yup.object({
+  statement: Yup.string().required("Ce champs est requis!"),
+});
+
+export const createPhraseValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Ce champs est requis!"),
+  statement: Yup.string().required("Ce champs est requis!"),
+  words: Yup.array().of(word),
+});
