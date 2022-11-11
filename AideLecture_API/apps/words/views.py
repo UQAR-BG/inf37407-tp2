@@ -7,53 +7,47 @@ from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
-from django.utils.timezone import get_current_timezone
-from datetime import datetime
-
 from drf_yasg.utils import swagger_auto_schema
 
-from quiz.models import Quiz
-from quiz.serializers import QuizSerializer
+from words.models import Word
+from words.serializers import WordSerializer
 
 # Create your views here.
 
 
-@swagger_auto_schema(methods=["GET", "DELETE"], tags=["Quiz"])
-@swagger_auto_schema(method="PATCH", tags=["Quiz"], request_body=QuizSerializer)
+@swagger_auto_schema(methods=["GET", "DELETE"], tags=["Word"])
+@swagger_auto_schema(method="PATCH", tags=["Word"], request_body=WordSerializer)
 @api_view(["GET", "PATCH", "DELETE"])
-def specific_quiz(request, id: int):
+def specific_word(request, id: int):
     if request.method == "GET":
-        quiz = Quiz.objects.filter(id=id).first()
+        word = Word.objects.filter(id=id).first()
 
-        if not quiz:
+        if not word:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return JsonResponse(
-            model_to_dict(quiz),
+            model_to_dict(word),
             status=status.HTTP_200_OK
         )
     elif request.method == "PATCH":
-        quiz = Quiz.objects.filter(id=id).first()
+        word = Word.objects.filter(id=id).first()
 
-        if not quiz:
+        if not word:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        quiz.name = request.data.get("name") or quiz.name
-        quiz.description = request.data.get("description") or quiz.description
-        quiz.date_modification = datetime.now()
-        quiz.save()
+        word = WordSerializer(word, request.data).save()
 
         return JsonResponse(
-            model_to_dict(quiz),
+            model_to_dict(word),
             status=status.HTTP_200_OK
         )
     elif request.method == "DELETE":
-        quiz = Quiz.objects.filter(id=id).first()
+        word = Word.objects.filter(id=id).first()
 
-        if not quiz:
+        if not word:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        quiz.delete()
+        word.delete()
 
         return Response(
             {
@@ -63,30 +57,26 @@ def specific_quiz(request, id: int):
         )
 
 
-@swagger_auto_schema(method="GET", tags=["Quiz"])
+@swagger_auto_schema(method="GET", tags=["Word"])
 @swagger_auto_schema(
-    method="post", tags=["Quiz"], request_body=QuizSerializer
+    method="post", tags=["Word"], request_body=WordSerializer
 )
 @api_view(["GET", "POST"])
-def quiz(request):
+def word(request):
     if request.method == "GET":
-        quizzes = Quiz.objects.all().values()
+        words = Word.objects.all().values()
 
-        if not quizzes:
+        if not words:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(
-            list(quizzes),
+            list(words),
             status=status.HTTP_200_OK,
         )
     if request.method == "POST":
-        name = request.data.get("name")
-        description = request.data.get("description")
-
-        quiz = Quiz(name=name, description=description)
-        quiz.save()
+        word = WordSerializer(request.data).save()
 
         return JsonResponse(
-            model_to_dict(quiz),
+            model_to_dict(word),
             status=status.HTTP_201_CREATED,
         )
