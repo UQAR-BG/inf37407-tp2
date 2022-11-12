@@ -79,7 +79,7 @@ const PhrasesPage = () => {
                         >
                           {
                             quizzes.find((quiz) => {
-                              return quiz.id.toString() === phrase.quizId;
+                              return quiz.id === phrase.quizId;
                             }).name
                           }
                         </Link>

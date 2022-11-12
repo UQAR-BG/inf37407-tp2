@@ -1,26 +1,26 @@
-import jsonServerApi from "./jsonServerApi";
+import djangoApi from "./djangoApi";
 
 export const getPhrases = async () => {
-  return await jsonServerApi.get("/phrases");
+  return await djangoApi.get("/api/phrase/phrase");
 };
 
 export const getPhrasesFromQuiz = async (quizId) => {
-  return await jsonServerApi.get(`/phrases?quizId=${quizId}`);
+  return await djangoApi.get(`/api/phrase/from-quiz?quizId=${quizId}`);
 };
 
 export const getPhrase = async (id) => {
-  return await jsonServerApi.get(`/phrases/${id}`);
+  return await djangoApi.get(`/api/phrase/phrase/${id}`);
 };
 
 export const postCreatePhrase = async (phrase) => {
-  return await jsonServerApi.post("/phrases", phrase);
+  return await djangoApi.post("/api/phrase/phrase", phrase);
 };
 
 export const patchPhrase = async (phrase) => {
-  return await jsonServerApi.patch(`/phrases/${phrase.id}`, phrase);
+  return await djangoApi.patch(`/api/phrase/phrase/${phrase.id}`, phrase);
 };
 
 export const deletePhrase = async (id) => {
-  await jsonServerApi.delete(`/phrases/${id}`);
+  await djangoApi.delete(`/api/phrase/phrase/${id}`);
   return { data: { deletedId: id } };
 };

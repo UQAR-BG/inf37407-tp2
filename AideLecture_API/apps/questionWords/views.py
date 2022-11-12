@@ -1,4 +1,3 @@
-from django.forms import ValidationError
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 
@@ -8,12 +7,8 @@ from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
-from django.utils.timezone import get_current_timezone
-from datetime import datetime
-
 from drf_yasg.utils import swagger_auto_schema
 
-from words.models import Word
 from questionWords.models import QuestionWord
 from questionWords.serializers import QuestionWordSerializer
 
@@ -26,10 +21,19 @@ from questionWords.serializers import QuestionWordSerializer
 def specific_question_word(request, id: int):
     if request.method == "GET":
         questionWord = QuestionWord.objects.filter(id=id).first()
-        words = list(questionWord.word_set.all().values())  # type: ignore
-
         if not questionWord:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+        words = questionWord.word_set.all()  # type: ignore
+        wordsData = []
+        for word in words:
+            wordsData.append({
+                "id": word.id,
+                "statement": word.statement,
+                "image": word.image,
+                "isQuestionWord": word.isQuestionWord,
+                "questionWordId": word.questionWordId_id
+            })
 
         return Response(
             {
@@ -37,13 +41,12 @@ def specific_question_word(request, id: int):
                 "name": questionWord.name,
                 "statement": questionWord.statement,
                 "audio": questionWord.audio,
-                "words": words
+                "words": wordsData
             },
             status=status.HTTP_200_OK
         )
     elif request.method == "PATCH":
         questionWord = QuestionWord.objects.filter(id=id).first()
-
         if not questionWord:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -59,7 +62,6 @@ def specific_question_word(request, id: int):
             )
     elif request.method == "DELETE":
         word = QuestionWord.objects.filter(id=id).first()
-
         if not word:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -81,20 +83,28 @@ def specific_question_word(request, id: int):
 def question_word(request):
     if request.method == "GET":
         questionWords = QuestionWord.objects.all()
+        if not questionWords:
+            return Response(status=status.HTTP_204_NO_CONTENT)
         data = []
 
         for questionWord in questionWords:
-            words = list(questionWord.word_set.all().values())  # type: ignore
+            words = questionWord.word_set.all()  # type: ignore
+            wordsData = []
+            for word in words:
+                wordsData.append({
+                    "id": word.id,
+                    "statement": word.statement,
+                    "image": word.image,
+                    "isQuestionWord": word.isQuestionWord,
+                    "questionWordId": word.questionWordId_id
+                })
             data.append({
                 "id": questionWord.id,
                 "name": questionWord.name,
                 "statement": questionWord.statement,
                 "audio": questionWord.audio,
-                "words": words
+                "words": wordsData
             })
-
-        if not questionWords:
-            return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(
             data,

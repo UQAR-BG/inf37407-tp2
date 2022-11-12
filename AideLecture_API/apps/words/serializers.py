@@ -30,4 +30,4 @@ class WordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Word
-        fields = ("statement", "image", "is_question_word")
+        fields = ("statement", "image", "isQuestionWord")

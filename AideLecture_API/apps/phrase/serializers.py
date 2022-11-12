@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from datetime import datetime
 
-from questionWords.models import QuestionWord
+from phrase.models import Phrase
 from words.models import Word
 from words.serializers import WordSerializer
 
 
-class QuestionWordSerializer(serializers.ModelSerializer):
+class PhraseSerializer(serializers.ModelSerializer):
     words = WordSerializer(many=True)
 
     def validate(self, attrs):
@@ -23,6 +23,10 @@ class QuestionWordSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "audio", "Vous devez fournir un fichier audio valide.")
 
+        if not attrs.get("quizId"):
+            errors.setdefault(
+                "quizId", "Le texte doit être associé à un quiz.")
+
         for word in attrs.get("words"):
             word_serializer = WordSerializer(data=word)
             word_serializer.validate(attrs=word)
@@ -36,31 +40,32 @@ class QuestionWordSerializer(serializers.ModelSerializer):
         name = validated_data.get("name")
         statement = validated_data.get("statement")
         audio = validated_data.get("audio") or ""
+        quiz = validated_data.get("quizId")
 
-        questionWord = QuestionWord(
-            name=name, statement=statement, audio=audio)
+        phrase = Phrase(
+            name=name, statement=statement, audio=audio, quizId=quiz)
 
-        questionWord.save()
+        phrase.save()
         for word in validated_data.get("words"):
             new_word = Word(**word)
-            new_word.questionWordId = questionWord  # type: ignore
+            new_word.phraseId = phrase  # type: ignore
             new_word.save()
 
-        return questionWord
+        return phrase
 
     def update(self, instance, validated_data):
         instance.date_modification = datetime.now()
         instance = super().update(instance, validated_data)
 
-        Word.objects.filter(questionWordId=instance.id).delete()
+        Word.objects.filter(phraseId=instance.id).delete()
 
         for word in validated_data.get("words"):
             new_word = Word(**word)
-            new_word.questionWordId = instance
+            new_word.phraseId = instance
             new_word.save()
 
         return instance
 
     class Meta:
-        model = QuestionWord
-        fields = ("name", "statement", "audio", "words")
+        model = Phrase
+        fields = ("name", "statement", "audio", "words", "quizId")

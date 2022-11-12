@@ -7,9 +7,6 @@ from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
-from django.utils.timezone import get_current_timezone
-from datetime import datetime
-
 from drf_yasg.utils import swagger_auto_schema
 
 from quiz.models import Quiz
@@ -24,7 +21,6 @@ from quiz.serializers import QuizSerializer
 def specific_quiz(request, id: int):
     if request.method == "GET":
         quiz = Quiz.objects.filter(id=id).first()
-
         if not quiz:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -34,22 +30,21 @@ def specific_quiz(request, id: int):
         )
     elif request.method == "PATCH":
         quiz = Quiz.objects.filter(id=id).first()
-
         if not quiz:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        quiz.name = request.data.get("name") or quiz.name
-        quiz.description = request.data.get("description") or quiz.description
-        quiz.date_modification = datetime.now()
-        quiz.save()
+        serializer = QuizSerializer(quiz, data=request.data)
+        serializer.validate(attrs=request.data)
 
-        return JsonResponse(
-            model_to_dict(quiz),
-            status=status.HTTP_200_OK
-        )
+        if serializer.is_valid():
+            quiz = serializer.save()
+
+            return JsonResponse(
+                model_to_dict(quiz),
+                status=status.HTTP_200_OK
+            )
     elif request.method == "DELETE":
         quiz = Quiz.objects.filter(id=id).first()
-
         if not quiz:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -71,7 +66,6 @@ def specific_quiz(request, id: int):
 def quiz(request):
     if request.method == "GET":
         quizzes = Quiz.objects.all().values()
-
         if not quizzes:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -80,13 +74,13 @@ def quiz(request):
             status=status.HTTP_200_OK,
         )
     if request.method == "POST":
-        name = request.data.get("name")
-        description = request.data.get("description")
+        serializer = QuizSerializer(data=request.data)
+        serializer.validate(attrs=request.data)
 
-        quiz = Quiz(name=name, description=description)
-        quiz.save()
+        if serializer.is_valid():
+            quiz = serializer.save()
 
-        return JsonResponse(
-            model_to_dict(quiz),
-            status=status.HTTP_201_CREATED,
-        )
+            return JsonResponse(
+                model_to_dict(quiz),
+                status=status.HTTP_201_CREATED,
+            )

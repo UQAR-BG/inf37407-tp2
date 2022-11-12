@@ -13,31 +13,20 @@ const AdminQuizEditPage = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    let nbOfModifiedFields = 0;
-    const modifiedFields = {
-      id: selectedQuiz.id,
-    };
-
-    if (selectedQuiz.name !== formValues.name) {
-      modifiedFields["name"] = formValues.name;
-      nbOfModifiedFields++;
-    }
-
-    if (selectedQuiz.description !== formValues.description) {
-      modifiedFields["description"] = formValues.description;
-      nbOfModifiedFields++;
-    }
-
-    if (nbOfModifiedFields > 0) {
-      dispatch(editQuiz(modifiedFields))
-        .unwrap()
-        .then(() => {
-          navigate("/page/admin/quizzes");
-        })
-        .catch((err) => {
-          errorDialogWrapper(err);
-        });
-    }
+    dispatch(
+      editQuiz({
+        id: selectedQuiz.id,
+        name: formValues.name,
+        description: formValues.description,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        navigate("/page/admin/quizzes");
+      })
+      .catch((err) => {
+        errorDialogWrapper(err);
+      });
   };
 
   return (

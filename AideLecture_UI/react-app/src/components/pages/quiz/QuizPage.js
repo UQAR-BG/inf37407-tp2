@@ -29,7 +29,7 @@ const QuizPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const quizzes = useSelector(selectQuizzes);
-  const quiz = useSelector(selectQuiz);
+  const selectedQuiz = useSelector(selectQuiz);
   const questions = useSelector(selectQuestions);
   const phrases = useSelector(selectPhrases);
   const dispatch = useDispatch();
@@ -82,7 +82,9 @@ const QuizPage = () => {
   return (
     <AdminPage>
       <h3>
-        {params.quizId && quiz ? `Quiz ${quiz.name}` : "Liste des questions"}
+        {params.quizId && selectedQuiz
+          ? `Quiz ${selectedQuiz.name}`
+          : "Liste des questions"}
       </h3>
 
       {phrases && params.quizId ? (
@@ -125,11 +127,7 @@ const QuizPage = () => {
                             className="text-decoration-none"
                             to={`/page/admin/quiz/view/${phrase.quizId}`}
                           >
-                            {
-                              quizzes.find((quiz) => {
-                                return quiz.id.toString() === phrase.quizId;
-                              }).name
-                            }
+                            {selectedQuiz.name}
                           </Link>
                         </td>
                         <td>
@@ -201,11 +199,7 @@ const QuizPage = () => {
                             className="text-decoration-none"
                             to={`/page/admin/quiz/view/${question.quizId}`}
                           >
-                            {
-                              quizzes.find((quiz) => {
-                                return quiz.id.toString() === question.quizId;
-                              }).name
-                            }
+                            {selectedQuiz.name}
                           </Link>
                         </td>
                         <td>
