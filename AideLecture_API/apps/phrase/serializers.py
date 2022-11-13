@@ -3,7 +3,7 @@ from datetime import datetime
 
 from phrase.models import Phrase
 from words.models import Word
-from words.serializers import WordSerializer
+from words.serializers import WordSerializer, WordDtoSerializer
 
 
 class PhraseSerializer(serializers.ModelSerializer):
@@ -69,3 +69,11 @@ class PhraseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Phrase
         fields = ("name", "statement", "audio", "words", "quizId")
+
+
+class PhraseDtoSerializer(serializers.ModelSerializer):
+    words = WordDtoSerializer(many=True)
+
+    class Meta:
+        model = Phrase
+        fields = ("id", "name", "statement", "audio", "quizId", "words")

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from question.models import Question, Answer
 from words.models import Word
-from words.serializers import WordSerializer
+from words.serializers import WordSerializer, WordDtoSerializer
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -135,3 +135,19 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = ("name", "statement", "questionAudio",
                   "words", "quizId", "answers")
+
+
+class AnswerDtoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = ("id", "statement", "image", "audio", "isRightAnswer")
+
+
+class QuestionDtoSerializer(serializers.ModelSerializer):
+    words = WordDtoSerializer(many=True)
+    answers = AnswerDtoSerializer(many=True)
+
+    class Meta:
+        model = Question
+        fields = ("id", "name", "statement", "questionAudio",
+                  "quizId", "rightAnswerId", "words", "answers")

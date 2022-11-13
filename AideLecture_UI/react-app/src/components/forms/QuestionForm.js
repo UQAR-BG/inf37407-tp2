@@ -55,22 +55,14 @@ const QuestionForm = (props) => {
 
   const getAnswersInitialValues = () => {
     if (isInEditMode()) {
-      const answers = !wordsDecomposed
+      return !wordsDecomposed
         ? props.questionToEdit.answers
         : answersOfQuestion;
-
-      return answers.map((answer) => {
-        return {
-          isRightAnswer: answer.isRightAnswer,
-          statement: answer.statement,
-          image: answer.image,
-          audio: answer.audio,
-        };
-      });
     } else {
       if (!wordsDecomposed) {
         return [1, 2, 3, 4].map((index) => {
           return {
+            id: index,
             isRightAnswer: index === 1,
             statement: "",
             image: "",
@@ -79,20 +71,15 @@ const QuestionForm = (props) => {
         });
       }
 
-      return answersOfQuestion.map((answer) => {
-        return {
-          isRightAnswer: answer.isRightAnswer,
-          statement: answer.statement,
-          image: answer.image,
-          audio: answer.audio,
-        };
-      });
+      return answersOfQuestion;
     }
   };
 
   const getRightAnswerInitialValue = () => {
     if (isInEditMode()) {
-      return props.questionToEdit.rightAnswerId;
+      return props.questionToEdit.answers.findIndex(
+        (answer) => answer.isRightAnswer
+      );
     } else {
       if (!wordsDecomposed) return 0;
       return answersOfQuestion.findIndex((answer) => answer.isRightAnswer);

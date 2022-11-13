@@ -11,7 +11,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from phrase.models import Phrase
-from phrase.serializers import PhraseSerializer
+from phrase.serializers import PhraseSerializer, PhraseDtoSerializer
 
 # Create your views here.
 
@@ -25,27 +25,11 @@ def specific_phrase(request, id: int):
         if not phrase:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        words = phrase.word_set.all()  # type: ignore
-        wordsData = []
-        for word in words:
-            wordsData.append({
-                "id": word.id,
-                "statement": word.statement,
-                "image": word.image,
-                "isQuestionWord": word.isQuestionWord,
-                "questionWordId": word.questionWordId_id,
-                "phraseId": word.phraseId_id
-            })
+        phrase.words = phrase.word_set.all()  # type: ignore
+        serializer = PhraseDtoSerializer(phrase)
 
         return Response(
-            {
-                "id": phrase.id,
-                "name": phrase.name,
-                "statement": phrase.statement,
-                "audio": phrase.audio,
-                "quizId": phrase.quizId.id,
-                "words": wordsData
-            },
+            serializer.data,
             status=status.HTTP_200_OK
         )
     elif request.method == "PATCH":
@@ -91,25 +75,10 @@ def phrase(request):
         data = []
 
         for phrase in phrases:
-            words = phrase.word_set.all()  # type: ignore
-            wordsData = []
-            for word in words:
-                wordsData.append({
-                    "id": word.id,
-                    "statement": word.statement,
-                    "image": word.image,
-                    "isQuestionWord": word.isQuestionWord,
-                    "questionWordId": word.questionWordId_id,
-                    "phraseId": word.phraseId_id
-                })
-            data.append({
-                "id": phrase.id,
-                "name": phrase.name,
-                "statement": phrase.statement,
-                "audio": phrase.audio,
-                "quizId": phrase.quizId.id,
-                "words": wordsData
-            })
+            phrase.words = phrase.word_set.all()      # type: ignore
+
+            serializer = PhraseDtoSerializer(phrase)
+            data.append(serializer.data)
 
         return Response(
             data,
@@ -143,25 +112,10 @@ def phrases_from_quiz(request):
         data = []
 
         for phrase in phrases:
-            words = phrase.word_set.all()  # type: ignore
-            wordsData = []
-            for word in words:
-                wordsData.append({
-                    "id": word.id,
-                    "statement": word.statement,
-                    "image": word.image,
-                    "isQuestionWord": word.isQuestionWord,
-                    "questionWordId": word.questionWordId_id,
-                    "phraseId": word.phraseId_id
-                })
-            data.append({
-                "id": phrase.id,
-                "name": phrase.name,
-                "statement": phrase.statement,
-                "audio": phrase.audio,
-                "quizId": phrase.quizId.id,
-                "words": wordsData
-            })
+            phrase.words = phrase.word_set.all()      # type: ignore
+
+            serializer = PhraseDtoSerializer(phrase)
+            data.append(serializer.data)
 
         return Response(
             data,

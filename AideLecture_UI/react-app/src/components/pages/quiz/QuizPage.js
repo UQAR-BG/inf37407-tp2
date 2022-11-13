@@ -159,79 +159,73 @@ const QuizPage = () => {
         </>
       ) : null}
 
-      {questions ? (
-        <>
-          {params.quizId && <h4 className="mt-4">Questions</h4>}
-          <div className="table-responsive">
-            <table className="table my-4">
-              <colgroup>
-                <col className="col-md-1" />
-                <col className="col-md-5" />
-                <col className="col-md-4" />
-                <col className="col-md-1" />
-                <col className="col-md-1" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Quiz associé</th>
-                  <th scope="col">Modifier</th>
-                  <th scope="col">Supprimer</th>
-                </tr>
-              </thead>
-              <tbody>
-                {questions &&
-                  questions.map((question, index) => {
-                    return (
-                      <tr key={++index}>
-                        <th scope="row">{++index}</th>
-                        <td>
-                          <Link
-                            className="text-decoration-none"
-                            to={`/page/admin/question/edit/${question.id}`}
-                          >
-                            {question.name}
-                          </Link>
-                        </td>
-                        <td>
-                          <Link
-                            className="text-decoration-none"
-                            to={`/page/admin/quiz/view/${question.quizId}`}
-                          >
-                            {selectedQuiz.name}
-                          </Link>
-                        </td>
-                        <td>
-                          <ActionButton
-                            icon="plus"
-                            color="success"
-                            onClick={() => focusQuestionForUpdate(question)}
-                          />
-                        </td>
-                        <td>
-                          <ActionButton
-                            icon="trash-can"
-                            color="danger"
-                            onClick={async () =>
-                              await handleDeleteQuestion(question)
-                            }
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-            <AddButton
-              label="Ajouter une question"
-              to="/page/admin/question/create"
-            />
-          </div>
-        </>
-      ) : (
-        <p>Chargement des données en cours...</p>
-      )}
+      {params.quizId && <h4 className="mt-4">Questions</h4>}
+      <div className="table-responsive">
+        <table className="table my-4">
+          <colgroup>
+            <col className="col-md-1" />
+            <col className="col-md-5" />
+            <col className="col-md-4" />
+            <col className="col-md-1" />
+            <col className="col-md-1" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Quiz associé</th>
+              <th scope="col">Modifier</th>
+              <th scope="col">Supprimer</th>
+            </tr>
+          </thead>
+          <tbody>
+            {questions &&
+              questions.map((question, index) => {
+                return (
+                  <tr key={++index}>
+                    <th scope="row">{++index}</th>
+                    <td>
+                      <Link
+                        className="text-decoration-none"
+                        to={`/page/admin/question/edit/${question.id}`}
+                      >
+                        {question.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link
+                        className="text-decoration-none"
+                        to={`/page/admin/quiz/view/${question.quizId}`}
+                      >
+                        {selectedQuiz.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <ActionButton
+                        icon="plus"
+                        color="success"
+                        onClick={() => focusQuestionForUpdate(question)}
+                      />
+                    </td>
+                    <td>
+                      <ActionButton
+                        icon="trash-can"
+                        color="danger"
+                        onClick={async () =>
+                          await handleDeleteQuestion(question)
+                        }
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+        <AddButton
+          label="Ajouter une question"
+          to="/page/admin/question/create"
+        />
+      </div>
     </AdminPage>
   );
 };

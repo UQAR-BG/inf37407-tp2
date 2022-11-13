@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 from drf_yasg.utils import swagger_auto_schema
 
 from questionWords.models import QuestionWord
-from questionWords.serializers import QuestionWordSerializer
+from questionWords.serializers import QuestionWordSerializer, QuestionWordDtoSerializer
 
 # Create your views here.
 
@@ -24,25 +24,11 @@ def specific_question_word(request, id: int):
         if not questionWord:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        words = questionWord.word_set.all()  # type: ignore
-        wordsData = []
-        for word in words:
-            wordsData.append({
-                "id": word.id,
-                "statement": word.statement,
-                "image": word.image,
-                "isQuestionWord": word.isQuestionWord,
-                "questionWordId": word.questionWordId_id
-            })
+        questionWord.words = questionWord.word_set.all()  # type: ignore
+        serializer = QuestionWordDtoSerializer(questionWord)
 
         return Response(
-            {
-                "id": questionWord.id,
-                "name": questionWord.name,
-                "statement": questionWord.statement,
-                "audio": questionWord.audio,
-                "words": wordsData
-            },
+            serializer.data,
             status=status.HTTP_200_OK
         )
     elif request.method == "PATCH":
@@ -88,23 +74,10 @@ def question_word(request):
         data = []
 
         for questionWord in questionWords:
-            words = questionWord.word_set.all()  # type: ignore
-            wordsData = []
-            for word in words:
-                wordsData.append({
-                    "id": word.id,
-                    "statement": word.statement,
-                    "image": word.image,
-                    "isQuestionWord": word.isQuestionWord,
-                    "questionWordId": word.questionWordId_id
-                })
-            data.append({
-                "id": questionWord.id,
-                "name": questionWord.name,
-                "statement": questionWord.statement,
-                "audio": questionWord.audio,
-                "words": wordsData
-            })
+            questionWord.words = questionWord.word_set.all()      # type: ignore
+
+            serializer = QuestionWordDtoSerializer(questionWord)
+            data.append(serializer.data)
 
         return Response(
             data,

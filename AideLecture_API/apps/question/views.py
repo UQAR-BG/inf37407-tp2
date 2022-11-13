@@ -11,7 +11,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from question.models import Question
-from question.serializers import QuestionSerializer
+from question.serializers import QuestionSerializer, QuestionDtoSerializer
 
 # Create your views here.
 
@@ -25,38 +25,13 @@ def specific_question(request, id: int):
         if not question:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        words = question.word_set.all()  # type: ignore
-        wordsData = []
-        for word in words:
-            wordsData.append({
-                "id": word.id,
-                "statement": word.statement,
-                "image": word.image,
-                "isQuestionWord": word.isQuestionWord,
-                "questionWordId": word.questionWordId_id,
-                "phraseId": word.phraseId_id
-            })
-        answers = question.answer_set.all()  # type: ignore
-        answersData = []
-        for answer in answers:
-            answersData.append({
-                "id": answer.id,
-                "statement": answer.statement,
-                "image": answer.image,
-                "audio": answer.audio,
-                "isRightAnswer": answer.isRightAnswer
-            })
+        question.words = question.word_set.all()      # type: ignore
+        question.answers = question.answer_set.all()  # type: ignore
+
+        serializer = QuestionDtoSerializer(question)
 
         return Response(
-            {
-                "id": question.id,
-                "name": question.name,
-                "statement": question.statement,
-                "audio": question.questionAudio,
-                "quizId": question.quizId.id,
-                "words": wordsData,
-                "answers": answersData
-            },
+            serializer.data,
             status=status.HTTP_200_OK
         )
     elif request.method == "PATCH":
@@ -102,36 +77,11 @@ def question(request):
         data = []
 
         for question in questions:
-            words = question.word_set.all()  # type: ignore
-            wordsData = []
-            for word in words:
-                wordsData.append({
-                    "id": word.id,
-                    "statement": word.statement,
-                    "image": word.image,
-                    "isQuestionWord": word.isQuestionWord,
-                    "questionWordId": word.questionWordId_id,
-                    "questionId": word.questionId_id
-                })
-            answers = question.answer_set.all()  # type: ignore
-            answersData = []
-            for answer in answers:
-                answersData.append({
-                    "id": answer.id,
-                    "statement": answer.statement,
-                    "image": answer.image,
-                    "audio": answer.audio,
-                    "isRightAnswer": answer.isRightAnswer
-                })
-            data.append({
-                "id": question.id,
-                "name": question.name,
-                "statement": question.statement,
-                "questionAudio": question.questionAudio,
-                "quizId": question.quizId.id,
-                "words": wordsData,
-                "answers": answersData
-            })
+            question.words = question.word_set.all()      # type: ignore
+            question.answers = question.answer_set.all()  # type: ignore
+
+            serializer = QuestionDtoSerializer(question)
+            data.append(serializer.data)
 
         return Response(
             data,
@@ -165,36 +115,11 @@ def questions_from_quiz(request):
         data = []
 
         for question in questions:
-            words = question.word_set.all()  # type: ignore
-            wordsData = []
-            for word in words:
-                wordsData.append({
-                    "id": word.id,
-                    "statement": word.statement,
-                    "image": word.image,
-                    "isQuestionWord": word.isQuestionWord,
-                    "questionWordId": word.questionWordId_id,
-                    "questionId": word.questionId_id
-                })
-            answers = question.answer_set.all()  # type: ignore
-            answersData = []
-            for answer in answers:
-                answersData.append({
-                    "id": answer.id,
-                    "statement": answer.statement,
-                    "image": answer.image,
-                    "audio": answer.audio,
-                    "isRightAnswer": answer.isRightAnswer
-                })
-            data.append({
-                "id": question.id,
-                "name": question.name,
-                "statement": question.statement,
-                "questionAudio": question.questionAudio,
-                "quizId": question.quizId.id,
-                "words": wordsData,
-                "answers": answersData
-            })
+            question.words = question.word_set.all()      # type: ignore
+            question.answers = question.answer_set.all()  # type: ignore
+
+            serializer = QuestionDtoSerializer(question)
+            data.append(serializer.data)
 
         return Response(
             data,

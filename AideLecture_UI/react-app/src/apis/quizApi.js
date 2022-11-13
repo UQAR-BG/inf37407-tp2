@@ -1,5 +1,4 @@
 import djangoApi from "./djangoApi";
-import jsonServerApi from "./jsonServerApi";
 
 export const getQuizzes = async () => {
   return await djangoApi.get("/api/quiz/quiz");
