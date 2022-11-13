@@ -14,6 +14,8 @@ class Word(models.Model):
         'questionWords.QuestionWord', on_delete=models.CASCADE, null=True, blank=True)
     phraseId = models.ForeignKey(
         'phrase.Phrase', on_delete=models.CASCADE, null=True, blank=True)
+    questionId = models.ForeignKey(
+        'question.Question', on_delete=models.CASCADE, null=True, blank=True)
     date_creation = models.DateTimeField(default=datetime.now, editable=False)
     date_modification = models.DateTimeField(null=True, blank=True)
 

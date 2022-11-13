@@ -65,7 +65,8 @@ INSTALLED_APPS = [
     'apps.phrase.apps.PhraseConfig',
     'apps.quiz.apps.QuizConfig',
     'apps.questionWords.apps.QuestionwordsConfig',
-    'apps.words.apps.WordsConfig'
+    'apps.words.apps.WordsConfig',
+    'apps.question.apps.QuestionConfig'
 ]
 
 REST_FRAMEWORK = {

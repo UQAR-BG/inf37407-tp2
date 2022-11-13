@@ -37,6 +37,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/phrase/', include('apps.phrase.urls')),
     path('api/quiz/', include('apps.quiz.urls')),
+    path('api/question/', include('apps.question.urls')),
     path('api/question-word/', include('apps.questionWords.urls')),
     path('api/word/', include('apps.words.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
