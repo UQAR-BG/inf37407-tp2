@@ -66,12 +66,16 @@ INSTALLED_APPS = [
     'apps.quiz.apps.QuizConfig',
     'apps.questionWords.apps.QuestionwordsConfig',
     'apps.words.apps.WordsConfig',
-    'apps.question.apps.QuestionConfig'
+    'apps.question.apps.QuestionConfig',
+    'apps.user.apps.UserConfig'
 ]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication"
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
     ]
 }
 
