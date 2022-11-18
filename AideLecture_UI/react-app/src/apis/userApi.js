@@ -10,8 +10,8 @@ export const logout = async () => {
   });
 };
 
-export const getUsers = async () => {
-  return await djangoApi.get("/api/user/users", {
+export const getUsers = async (isActive = true) => {
+  return await djangoApi.get(`/api/user/users?is_active=${isActive}`, {
     headers: authHeader(),
   });
 };

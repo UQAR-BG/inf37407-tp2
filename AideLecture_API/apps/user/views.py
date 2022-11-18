@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from user.serializers import LoginSerializer, RegisterSerializer, UserDtoSerializer, ParticipantUpdateSerializer, LoginDtoSerializer
@@ -95,12 +96,20 @@ def logout(request):
     )
 
 
-@swagger_auto_schema(method="GET", tags=["User"])
+is_active_param = openapi.Parameter(
+    'is_active', openapi.IN_QUERY, description="Retourne les utilisateurs actifs si true. Retourne tous les utilisateurs sinon.", type=openapi.TYPE_BOOLEAN)
+
+
+@swagger_auto_schema(method="GET", tags=["User"], manual_parameters=[is_active_param])
 @api_view(["GET"])
 @is_part_of_group(UserGroup.admin)
 def list_users(request):
     if request.method == "GET":
-        users = User.objects.filter(is_active=True)
+        if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+            users = User.objects.filter(is_active=True)
+        else:
+            users = User.objects.all()
+
         if not users:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -112,12 +121,16 @@ def list_users(request):
         )
 
 
-@swagger_auto_schema(method="GET", tags=["User"])
+@swagger_auto_schema(method="GET", tags=["User"], manual_parameters=[is_active_param])
 @api_view(["GET"])
 @is_part_of_group(UserGroup.admin)
 def user(request, id: int):
     if request.method == "GET":
-        user = User.objects.filter(id=id, is_active=True).first()
+        if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+            user = User.objects.filter(id=id, is_active=True).first()
+        else:
+            user = User.objects.filter(id=id).first()
+
         if not user:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

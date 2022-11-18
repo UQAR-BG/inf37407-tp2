@@ -69,7 +69,7 @@ export const deleteParticipant = createAsyncThunk(
 export const fetchUsersWithResults = createAsyncThunk(
   "user/fetchUsersWithResults",
   async () => {
-    var response = await getUsers();
+    var response = await getUsers(false);
     var users = response.data;
 
     response = await getResults();
