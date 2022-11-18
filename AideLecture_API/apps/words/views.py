@@ -3,80 +3,91 @@ from django.forms.models import model_to_dict
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status, viewsets
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authtoken.models import Token
+from rest_framework import status
 
 from drf_yasg.utils import swagger_auto_schema
 
 from words.models import Word
 from words.serializers import WordSerializer
+from user.decorators import is_part_of_group
+from user.constants import UserGroup
 
 # Create your views here.
 
 
-@swagger_auto_schema(methods=["GET", "DELETE"], tags=["Word"])
-@swagger_auto_schema(method="PATCH", tags=["Word"], request_body=WordSerializer)
-@api_view(["GET", "PATCH", "DELETE"])
-def specific_word(request, id: int):
-    if request.method == "GET":
-        word = Word.objects.filter(id=id).first()
+@swagger_auto_schema(method="GET", tags=["Word"])
+@api_view(["GET"])
+def word(request, id: int):
+    word = Word.objects.filter(id=id).first()
 
-        if not word:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    if not word:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-        return JsonResponse(
-            model_to_dict(word),
-            status=status.HTTP_200_OK
-        )
-    elif request.method == "PATCH":
-        word = Word.objects.filter(id=id).first()
+    return JsonResponse(
+        model_to_dict(word),
+        status=status.HTTP_200_OK
+    )
 
-        if not word:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        word = WordSerializer(word, request.data).save()
+@swagger_auto_schema(method="PUT", tags=["Word"], request_body=WordSerializer)
+@api_view(["PUT"])
+@is_part_of_group(UserGroup.admin)
+def put(request, id: int):
+    word = Word.objects.filter(id=id).first()
 
-        return JsonResponse(
-            model_to_dict(word),
-            status=status.HTTP_200_OK
-        )
-    elif request.method == "DELETE":
-        word = Word.objects.filter(id=id).first()
+    if not word:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-        if not word:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    word = WordSerializer(word, request.data).save()
 
-        word.delete()
+    return JsonResponse(
+        model_to_dict(word),
+        status=status.HTTP_200_OK
+    )
 
-        return Response(
-            {
-                "deletedId": id
-            },
-            status=status.HTTP_200_OK,
-        )
+
+@swagger_auto_schema(method="DELETE", tags=["Word"])
+@api_view(["DELETE"])
+@is_part_of_group(UserGroup.admin)
+def delete(request, id: int):
+    word = Word.objects.filter(id=id).first()
+
+    if not word:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    word.delete()
+
+    return Response(
+        {
+            "deletedId": id
+        },
+        status=status.HTTP_200_OK,
+    )
+
+
+@swagger_auto_schema(
+    method="POST", tags=["Word"], request_body=WordSerializer
+)
+@api_view(["POST"])
+@is_part_of_group(UserGroup.admin)
+def create(request):
+    word = WordSerializer(request.data).save()
+
+    return JsonResponse(
+        model_to_dict(word),
+        status=status.HTTP_201_CREATED,
+    )
 
 
 @swagger_auto_schema(method="GET", tags=["Word"])
-@swagger_auto_schema(
-    method="post", tags=["Word"], request_body=WordSerializer
-)
-@api_view(["GET", "POST"])
-def word(request):
-    if request.method == "GET":
-        words = Word.objects.all().values()
+@api_view(["GET"])
+def words(request):
+    words = Word.objects.all().values()
 
-        if not words:
-            return Response(status=status.HTTP_204_NO_CONTENT)
+    if not words:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-        return Response(
-            list(words),
-            status=status.HTTP_200_OK,
-        )
-    if request.method == "POST":
-        word = WordSerializer(request.data).save()
-
-        return JsonResponse(
-            model_to_dict(word),
-            status=status.HTTP_201_CREATED,
-        )
+    return Response(
+        list(words),
+        status=status.HTTP_200_OK,
+    )

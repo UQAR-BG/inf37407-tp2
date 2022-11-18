@@ -1,9 +1,12 @@
 from django.urls import path
 
-from .views import phrase, specific_phrase, phrases_from_quiz
+from phrase.views import phrase, phrases, phrases_from_quiz, put, create, delete
 
 urlpatterns = [
-    path("phrase", phrase, name="phrase"),
-    path("phrase/<int:id>", specific_phrase, name="specific_phrase"),
+    path("phrases", phrases, name="phrases"),
+    path("phrase/<int:id>", phrase, name="phrase"),
+    path("put/<int:id>", put, name="put"),
+    path("create", create, name="create"),
+    path("delete/<int:id>", delete, name="delete"),
     path("from-quiz", phrases_from_quiz, name="phrases_from_quiz")
 ]

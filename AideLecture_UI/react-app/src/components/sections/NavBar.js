@@ -7,7 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, authenticatedUser } from "../../redux/userSlice";
+import { postLogout, authenticatedUser } from "../../redux/userSlice";
 import { formLogo } from "../forms/defaults";
 
 const NavBar = () => {
@@ -16,7 +16,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const onLogout = () => {
-    dispatch(logout());
+    dispatch(postLogout());
     navigate("/");
   };
 
@@ -53,7 +53,7 @@ const NavBar = () => {
             {user && (
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title={`${user.firstName} ${user.lastName}`}
+                title={`${user.first_name} ${user.last_name}`}
                 menuVariant="dark"
                 align="end"
               >

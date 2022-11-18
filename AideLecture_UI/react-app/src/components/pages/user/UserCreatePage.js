@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createParticipantValidationSchema } from "../../../validations/user";
 import { errorDialogWrapper } from "../../modals/Dialog";
 import PublicPage from "../PublicPage";
 import ParticipantForm from "../../forms/ParticipantForm";
 import Header from "../../forms/layouts/Header";
 import { formLogo } from "../../forms/defaults";
-import {
-  login,
-  selectUsers,
-  fetchUsers,
-  addParticipant,
-} from "../../../redux/userSlice";
+import { addParticipant } from "../../../redux/userSlice";
 
 /* 
   Tout le crédit de la structure et des classes utilisées dans cette portion de code JSX 
@@ -22,35 +17,25 @@ import {
 
 const UserCreatePage = () => {
   const navigate = useNavigate();
-  const users = useSelector(selectUsers);
   const dispatch = useDispatch();
 
-  /* Hook useEffect est exécuté lors du premier render du composant. */
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-
   const onSubmit = async (formValues) => {
-    if (users.some((user) => user.email === formValues.email)) {
-      errorDialogWrapper("Cette adresse courriel est déjà en utilisation.");
-    } else {
-      dispatch(
-        addParticipant({
-          firstName: formValues.firstName,
-          lastName: formValues.lastName,
-          email: formValues.email,
-          password: formValues.password,
-        })
-      )
-        .unwrap()
-        .then((newParticipant) => {
-          dispatch(login(newParticipant));
-          navigate("/page/user");
-        })
-        .catch((err) => {
-          errorDialogWrapper(err);
-        });
-    }
+    dispatch(
+      addParticipant({
+        username: formValues.email,
+        first_name: formValues.firstName,
+        last_name: formValues.lastName,
+        email: formValues.email,
+        password: formValues.password,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        navigate("/page/user");
+      })
+      .catch(() => {
+        errorDialogWrapper("Cette adresse courriel est déjà en utilisation.");
+      });
   };
 
   return (

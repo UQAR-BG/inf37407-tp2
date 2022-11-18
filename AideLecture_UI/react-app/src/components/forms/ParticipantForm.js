@@ -7,8 +7,8 @@ import TextInput from "./fields/TextInputHook";
 
 const ParticipantForm = (props) => {
   const initialValues = {
-    firstName: props.user?.firstName,
-    lastName: props.user?.lastName,
+    firstName: props.user?.first_name,
+    lastName: props.user?.last_name,
     email: props.user?.email,
   };
 

@@ -10,8 +10,7 @@ import ParticipantForm from "../../forms/ParticipantForm";
 import Header from "../../forms/layouts/Header";
 import { formLogo } from "../../forms/defaults";
 import {
-  login,
-  logout,
+  logoutAction,
   focusUserForUpdate,
   authenticatedUser,
   selectedUser,
@@ -69,33 +68,39 @@ const UserEditPage = () => {
   const onSubmit = (formValues) => {
     let nbOfModifiedFields = 0;
     const modifiedFields = {
-      id: focusedUser.id,
+      first_name: "",
+      last_name: "",
+      updated_password: "",
     };
 
     if (focusedUser.firstName !== formValues.firstName) {
-      modifiedFields["firstName"] = formValues.firstName;
+      modifiedFields["first_name"] = formValues.firstName;
       nbOfModifiedFields++;
     }
 
     if (focusedUser.lastName !== formValues.lastName) {
-      modifiedFields["lastName"] = formValues.lastName;
+      modifiedFields["last_name"] = formValues.lastName;
       nbOfModifiedFields++;
     }
 
     if (formValues.password) {
-      modifiedFields["password"] = formValues.password;
+      modifiedFields["updated_password"] = formValues.password;
       nbOfModifiedFields++;
     }
 
     if (nbOfModifiedFields > 0) {
-      dispatch(editParticipant(modifiedFields))
+      dispatch(editParticipant({ id: focusedUser.id, data: modifiedFields }))
         .unwrap()
-        .then((modifiedParticipant) => {
-          dispatch(login(modifiedParticipant));
-          navigate("/page/user");
+        .then(() => {
+          if (authUser.id === focusedUser.id) {
+            dispatch(logoutAction());
+            navigate("/page/user");
+          } else {
+            navigate("/page/admin");
+          }
         })
         .catch((err) => {
-          errorDialogWrapper(err);
+          errorDialogWrapper(err.message);
         });
     }
   };
@@ -109,8 +114,12 @@ const UserEditPage = () => {
       ))
     ) {
       dispatch(deleteParticipant(focusedUser));
-      dispatch(logout());
-      navigate("/");
+      if (authUser.id === focusedUser.id) {
+        dispatch(logoutAction());
+        navigate("/");
+      } else {
+        navigate("/page/admin");
+      }
     }
   };
 

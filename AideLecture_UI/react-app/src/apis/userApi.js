@@ -1,21 +1,34 @@
-import jsonServerApi from "./jsonServerApi";
+import djangoApi, { authHeader } from "./djangoApi";
 
-export const getUsers = async () => {
-  return await jsonServerApi.get("/users");
+export const login = async (loginData) => {
+  return await djangoApi.post("/api/user/login", loginData);
 };
 
-export const postCreateParticipant = async (participant) => {
-  return await jsonServerApi.post("/users", {
-    ...participant,
-    role: "participant",
+export const logout = async () => {
+  return await djangoApi.get("/api/user/logout", {
+    headers: authHeader(),
   });
 };
 
-export const patchParticipant = async (participant) => {
-  return await jsonServerApi.patch(`/users/${participant.id}`, participant);
+export const getUsers = async () => {
+  return await djangoApi.get("/api/user/users", {
+    headers: authHeader(),
+  });
+};
+
+export const postCreateParticipant = async (participant) => {
+  return await djangoApi.post("/api/user/register", participant);
+};
+
+export const patchParticipant = async (id, data) => {
+  return await djangoApi.patch(`/api/user/update/${id}`, data, {
+    headers: authHeader(),
+  });
 };
 
 export const deleteUser = async (id) => {
-  await jsonServerApi.delete(`/users/${id}`);
+  await djangoApi.delete(`/api/user/delete/${id}`, {
+    headers: authHeader(),
+  });
   return { data: { deletedId: id } };
 };

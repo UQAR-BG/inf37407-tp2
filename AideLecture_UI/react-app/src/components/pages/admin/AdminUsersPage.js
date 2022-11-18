@@ -66,8 +66,8 @@ const AdminUsersPage = () => {
                     return (
                       <tr key={++index}>
                         <th scope="row">{++index}</th>
-                        <td>{user.firstName}</td>
-                        <td>{user.lastName}</td>
+                        <td>{user.first_name}</td>
+                        <td>{user.last_name}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
                         <td>

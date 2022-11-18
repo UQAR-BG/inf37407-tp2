@@ -6,11 +6,7 @@ import {
 } from "../../redux/questionSlice";
 import Question from "./Question";
 import { shuffleArray } from "../../utils/randomUtils";
-import {
-  authenticatedUser,
-  editParticipant,
-  login,
-} from "../../redux/userSlice";
+import { authenticatedUser, editParticipant } from "../../redux/userSlice";
 import { errorDialogWrapper } from "../modals/Dialog";
 
 const Quiz = ({ id }) => {
@@ -60,7 +56,7 @@ const Quiz = ({ id }) => {
     dispatch(editParticipant(modifiedFields))
       .unwrap()
       .then((modifiedParticipant) => {
-        dispatch(login(modifiedParticipant));
+        //dispatch(login(modifiedParticipant));
       })
       .catch((err) => {
         errorDialogWrapper(err);

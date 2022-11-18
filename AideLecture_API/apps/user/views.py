@@ -1,8 +1,7 @@
 from django.http import JsonResponse
 
-from django.contrib.auth.models import User, Group
-from django.contrib.auth.hashers import make_password, check_password
-import requests
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -12,7 +11,7 @@ from rest_framework.authtoken.models import Token
 
 from drf_yasg.utils import swagger_auto_schema
 
-from user.serializers import LoginSerializer, RegisterSerializer, UserDtoSerializer, ParticipantUpdateSerializer
+from user.serializers import LoginSerializer, RegisterSerializer, UserDtoSerializer, ParticipantUpdateSerializer, LoginDtoSerializer
 from user.decorators import is_part_of_group
 from user.constants import UserGroup
 
@@ -32,19 +31,21 @@ from user.constants import UserGroup
 @permission_classes([AllowAny])
 def register(request):
     if request.method == "POST":
+        email = request.data["username"]
+        user = User.objects.filter(email=email)
+        if user:
+            return Response(status=status.HTTP_409_CONFLICT)
+
         serializer = RegisterSerializer(data=request.data)
         serializer.validate(attrs=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            new_user = serializer.save()
 
-            login = LoginSerializer(request.data)
-            url = 'http://localhost:8000/api/user/login'
-            login_response = requests.post(url, headers={}, data=login.data)
-
-            return JsonResponse(
-                login_response.json(),
-                status=status.HTTP_201_CREATED,
+            loginDto = LoginDtoSerializer(new_user)
+            return Response(
+                loginDto.data,
+                status=status.HTTP_201_CREATED
             )
 
 
@@ -54,10 +55,10 @@ def register(request):
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def login(request):
-    username = request.data["username"]
+    email = request.data["username"]
     password = request.data["password"]
 
-    user = User.objects.filter(username=username).first()
+    user = User.objects.filter(email=email, is_active=True).first()
 
     if not user:
         return Response(
@@ -73,16 +74,10 @@ def login(request):
             status=status.HTTP_404_NOT_FOUND,
         )
 
-    token = Token.objects.filter(user=user).first()
-
-    if not token:
-        token = Token.objects.create(user=user)
-        return Response(
-            {"token": "Token {}".format(token.key)}, status=status.HTTP_200_OK
-        )
+    serializer = LoginDtoSerializer(user)
     return Response(
-        {"token": "Token {}".format(token.key)},
-        status=status.HTTP_200_OK,
+        serializer.data,
+        status=status.HTTP_200_OK
     )
 
 
@@ -122,7 +117,7 @@ def list_users(request):
 @is_part_of_group(UserGroup.admin)
 def user(request, id: int):
     if request.method == "GET":
-        user = User.objects.filter(id=id).first()
+        user = User.objects.filter(id=id, is_active=True).first()
         if not user:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -153,7 +148,7 @@ def whoami(request):
 @api_view(["PATCH"])
 def update_participant(request, id: int):
     if request.method == "PATCH":
-        user = User.objects.filter(id=id).first()
+        user = User.objects.filter(id=id, is_active=True).first()
         if not user:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -174,17 +169,16 @@ def update_participant(request, id: int):
 
 @swagger_auto_schema(method="DELETE", tags=["User"])
 @api_view(["DELETE"])
-@is_part_of_group(UserGroup.admin)
 def delete_participant(request, id: int):
     if request.method == "DELETE":
-        user = User.objects.filter(id=id).first()
+        user = User.objects.filter(id=id, is_active=True).first()
         if not user:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        if user.groups.filter(name=UserGroup.admin.value):
+        if user.username != request.user.username and not request.user.groups.filter(name=UserGroup.admin.value):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-        user.is_active = False
+        user.is_active = False  # type: ignore
         user.save()
 
         user_token = Token.objects.filter(user_id=id).first()

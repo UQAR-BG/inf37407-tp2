@@ -3,101 +3,114 @@ from django.forms.models import model_to_dict
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status, viewsets
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authtoken.models import Token
+from rest_framework import status
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from question.models import Question
 from question.serializers import QuestionSerializer, QuestionDtoSerializer
+from user.decorators import is_part_of_group
+from user.constants import UserGroup
 
 # Create your views here.
 
 
-@swagger_auto_schema(methods=["GET", "DELETE"], tags=["Question"])
-@swagger_auto_schema(method="PATCH", tags=["Question"], request_body=QuestionSerializer)
-@api_view(["GET", "PATCH", "DELETE"])
-def specific_question(request, id: int):
-    if request.method == "GET":
-        question = Question.objects.filter(id=id).first()
-        if not question:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+@swagger_auto_schema(method="GET", tags=["Question"])
+@api_view(["GET"])
+def question(request, id: int):
+    question = Question.objects.filter(id=id).first()
+    if not question:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-        question.words = question.word_set.all()      # type: ignore
-        question.answers = question.answer_set.all()  # type: ignore
+    question.words = question.word_set.filter(  # type: ignore
+        phraseId__isnull=True)
+    question.answers = question.answer_set.all()  # type: ignore
 
-        serializer = QuestionDtoSerializer(question)
+    serializer = QuestionDtoSerializer(question)
 
-        return Response(
-            serializer.data,
+    return Response(
+        serializer.data,
+        status=status.HTTP_200_OK
+    )
+
+
+@swagger_auto_schema(method="PUT", tags=["Question"], request_body=QuestionSerializer)
+@api_view(["PUT"])
+@is_part_of_group(UserGroup.admin)
+def put(request, id: int):
+    question = Question.objects.filter(id=id).first()
+    if not question:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = QuestionSerializer(question, data=request.data)
+    serializer.validate(attrs=request.data)
+
+    if serializer.is_valid():
+        question = serializer.save()
+
+        return JsonResponse(
+            model_to_dict(question),
             status=status.HTTP_200_OK
         )
-    elif request.method == "PATCH":
-        question = Question.objects.filter(id=id).first()
-        if not question:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = QuestionSerializer(question, data=request.data)
-        serializer.validate(attrs=request.data)
 
-        if serializer.is_valid():
-            question = serializer.save()
+@swagger_auto_schema(method="DELETE", tags=["Question"])
+@api_view(["DELETE"])
+@is_part_of_group(UserGroup.admin)
+def delete(request, id: int):
+    question = Question.objects.filter(id=id).first()
+    if not question:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-            return JsonResponse(
-                model_to_dict(question),
-                status=status.HTTP_200_OK
-            )
-    elif request.method == "DELETE":
-        question = Question.objects.filter(id=id).first()
-        if not question:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    question.delete()
 
-        question.delete()
-
-        return Response(
-            {
-                "deletedId": id
-            },
-            status=status.HTTP_200_OK,
-        )
+    return Response(
+        {
+            "deletedId": id
+        },
+        status=status.HTTP_200_OK,
+    )
 
 
 @swagger_auto_schema(method="GET", tags=["Question"])
+@api_view(["GET"])
+def questions(request):
+    questions = Question.objects.all()
+    if not questions:
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    data = []
+
+    for question in questions:
+        question.words = question.word_set.filter(  # type: ignore
+            phraseId__isnull=True)
+        question.answers = question.answer_set.all()  # type: ignore
+
+        serializer = QuestionDtoSerializer(question)
+        data.append(serializer.data)
+
+    return Response(
+        data,
+        status=status.HTTP_200_OK,
+    )
+
+
 @swagger_auto_schema(
-    method="post", tags=["Question"], request_body=QuestionSerializer
+    method="POST", tags=["Question"], request_body=QuestionSerializer
 )
-@api_view(["GET", "POST"])
-def question(request):
-    if request.method == "GET":
-        questions = Question.objects.all()
-        if not questions:
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        data = []
+@api_view(["POST"])
+@is_part_of_group(UserGroup.admin)
+def create(request):
+    serializer = QuestionSerializer(data=request.data)
+    serializer.validate(attrs=request.data)
 
-        for question in questions:
-            question.words = question.word_set.all()      # type: ignore
-            question.answers = question.answer_set.all()  # type: ignore
+    if serializer.is_valid():
+        question = serializer.save()
 
-            serializer = QuestionDtoSerializer(question)
-            data.append(serializer.data)
-
-        return Response(
-            data,
-            status=status.HTTP_200_OK,
+        return JsonResponse(
+            model_to_dict(question),
+            status=status.HTTP_201_CREATED,
         )
-    if request.method == "POST":
-        serializer = QuestionSerializer(data=request.data)
-        serializer.validate(attrs=request.data)
-
-        if serializer.is_valid():
-            question = serializer.save()
-
-            return JsonResponse(
-                model_to_dict(question),
-                status=status.HTTP_201_CREATED,
-            )
 
 
 quiz_id_param = openapi.Parameter(
@@ -115,7 +128,8 @@ def questions_from_quiz(request):
         data = []
 
         for question in questions:
-            question.words = question.word_set.all()      # type: ignore
+            question.words = question.word_set.filter(  # type: ignore
+                phraseId__isnull=True)
             question.answers = question.answer_set.all()  # type: ignore
 
             serializer = QuestionDtoSerializer(question)

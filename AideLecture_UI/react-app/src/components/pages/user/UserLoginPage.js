@@ -1,45 +1,36 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { dialogWrapper } from "../../modals/Dialog";
+import { useDispatch } from "react-redux";
 import PublicPage from "../PublicPage";
 import LoginForm from "../../forms/LoginForm";
 import Header from "../../forms/layouts/Header";
 import SideBar from "../../forms/layouts/SideBar";
+import { errorDialogWrapper } from "../../modals/Dialog";
 import { formLogo } from "../../forms/defaults";
-import { login, selectUsers, fetchUsers } from "../../../redux/userSlice";
+import { postLogin } from "../../../redux/userSlice";
 
 /* Tout le crédit de la structure et des classes utilisées dans cette portion de code JSX 
    doit être porté au compte de l'équipe MDBootstrap, pour le template open-source Login Template.
    Repéré à https://mdbootstrap.com/docs/standard/extended/login/*/
 
-const UserLoginPage = (props) => {
+const UserLoginPage = () => {
   const navigate = useNavigate();
-  const users = useSelector(selectUsers);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-
   const onSubmit = async (formValues) => {
-    const user = users.find(
-      (user) =>
-        user.email === formValues.email &&
-        user.password === formValues.password &&
-        user.role === "participant"
-    );
+    const loginData = {
+      username: formValues.email,
+      password: formValues.password,
+    };
 
-    if (user) {
-      dispatch(login(user));
-      navigate("/page/user");
-    } else {
-      dialogWrapper("Informations de connexion invalides.", {
-        title: "Erreur",
-        color: "danger",
-        label: "Fermer",
+    dispatch(postLogin(loginData))
+      .unwrap()
+      .then(() => {
+        navigate("/page/user");
+      })
+      .catch(() => {
+        errorDialogWrapper("Informations de connexion invalides.");
       });
-    }
   };
 
   return (

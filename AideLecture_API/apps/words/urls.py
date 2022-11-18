@@ -1,9 +1,11 @@
 from django.urls import path
 
-from .views import word, specific_word
+from words.views import word, words, put, create, delete
 
 urlpatterns = [
-    path("word", word, name="word"),  # type: ignore
-    path("word/<int:id>", specific_word,
-         name="specific_word"),  # type: ignore
+    path("words", words, name="words"),
+    path("put/<int:id>", put, name="put"),
+    path("create", create, name="create"),
+    path("delete/<int:id>", delete, name="delete"),
+    path("word/<int:id>", word, name="word"),
 ]

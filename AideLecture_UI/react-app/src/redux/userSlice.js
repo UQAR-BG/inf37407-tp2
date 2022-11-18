@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  login,
+  logout,
   getUsers,
   postCreateParticipant,
   patchParticipant,
@@ -14,6 +16,19 @@ const initialState = {
   ),
 };
 
+export const postLogin = createAsyncThunk(
+  "user/postLogin",
+  async (loginData) => {
+    const response = await login(loginData);
+    return response.data;
+  }
+);
+
+export const postLogout = createAsyncThunk("user/postLogout", async () => {
+  const response = await logout();
+  return response.data;
+});
+
 export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {
   const response = await getUsers();
   return response.data;
@@ -21,37 +36,25 @@ export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {
 
 export const addParticipant = createAsyncThunk(
   "user/addParticipant",
-  async (participant, { rejectWithValue }) => {
-    try {
-      const response = await postCreateParticipant(participant);
-      return response.data;
-    } catch (err) {
-      throw rejectWithValue(err.message);
-    }
+  async (participant) => {
+    const response = await postCreateParticipant(participant);
+    return response.data;
   }
 );
 
 export const editParticipant = createAsyncThunk(
   "user/editParticipant",
-  async (participant, { rejectWithValue }) => {
-    try {
-      const response = await patchParticipant(participant);
-      return response.data;
-    } catch (err) {
-      throw rejectWithValue(err.message);
-    }
+  async ({ id, data }) => {
+    const response = await patchParticipant(id, data);
+    return response.data;
   }
 );
 
 export const deleteParticipant = createAsyncThunk(
   "user/deleteParticipant",
-  async (participant, { rejectWithValue }) => {
-    try {
-      const response = await deleteUser(participant.id);
-      return response.data;
-    } catch (err) {
-      throw rejectWithValue(err.message);
-    }
+  async (participant) => {
+    const response = await deleteUser(participant.id);
+    return response.data;
   }
 );
 
@@ -66,16 +69,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action) => {
-      state.authenticatedUser = action.payload;
-      state.selectedUserForUpdate = action.payload;
-      localStorage.setItem("authenticatedUser", JSON.stringify(action.payload));
-      localStorage.setItem(
-        "selectedUserForUpdate",
-        JSON.stringify(action.payload)
-      );
-    },
-    logout: (state) => {
+    logoutAction: (state) => {
       state.authenticatedUser = null;
       state.selectedUserForUpdate = null;
       localStorage.clear();
@@ -90,11 +84,33 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(postLogin.fulfilled, (state, action) => {
+        state.authenticatedUser = action.payload;
+        state.selectedUserForUpdate = action.payload;
+        localStorage.setItem(
+          "authenticatedUser",
+          JSON.stringify(action.payload)
+        );
+        localStorage.setItem(
+          "selectedUserForUpdate",
+          JSON.stringify(action.payload)
+        );
+      })
+      .addCase(postLogout.fulfilled, (state) => {
+        state.authenticatedUser = null;
+        state.selectedUserForUpdate = null;
+        localStorage.clear();
+      })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.users = action.payload;
       })
       .addCase(addParticipant.fulfilled, (state, action) => {
         state.users.push(action.payload);
+        state.authenticatedUser = action.payload;
+        localStorage.setItem(
+          "authenticatedUser",
+          JSON.stringify(action.payload)
+        );
       })
       .addCase(editParticipant.fulfilled, (state, action) => {
         state.users = state.users.map((user) =>
@@ -109,7 +125,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout, focusUserForUpdate } = userSlice.actions;
+export const { logoutAction, focusUserForUpdate } = userSlice.actions;
 
 export const selectUsers = (state) => state.user.users;
 export const authenticatedUser = (state) => state.user.authenticatedUser;
