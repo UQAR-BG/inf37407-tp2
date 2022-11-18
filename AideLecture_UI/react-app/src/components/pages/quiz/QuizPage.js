@@ -127,7 +127,11 @@ const QuizPage = () => {
                             className="text-decoration-none"
                             to={`/page/admin/quiz/view/${phrase.quizId}`}
                           >
-                            {selectedQuiz.name}
+                            {
+                              quizzes.find((quiz) => {
+                                return quiz.id === phrase.quizId;
+                              }).name
+                            }
                           </Link>
                         </td>
                         <td>
@@ -197,7 +201,11 @@ const QuizPage = () => {
                         className="text-decoration-none"
                         to={`/page/admin/quiz/view/${question.quizId}`}
                       >
-                        {selectedQuiz.name}
+                        {
+                          quizzes.find((quiz) => {
+                            return quiz.id === question.quizId;
+                          }).name
+                        }
                       </Link>
                     </td>
                     <td>
