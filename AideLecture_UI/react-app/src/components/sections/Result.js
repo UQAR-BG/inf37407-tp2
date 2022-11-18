@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, selectUsers } from "../../redux/userSlice";
+import {
+  fetchUsersWithResults,
+  selectUsersWithResults,
+} from "../../redux/userSlice";
 import {
   fetchQuestionsFromQuiz,
   selectQuestions,
@@ -12,7 +15,7 @@ import Accordion from "react-bootstrap/Accordion";
 
 const Result = ({ quizId }) => {
   const dispatch = useDispatch();
-  const users = useSelector(selectUsers);
+  const users = useSelector(selectUsersWithResults);
   const quiz = useSelector(selectQuiz);
   const questions = useSelector(selectQuestions);
   let filteredUsers = useRef(null);
@@ -23,7 +26,7 @@ const Result = ({ quizId }) => {
   }, [dispatch, quizId]);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsersWithResults());
   }, [dispatch]);
 
   useEffect(() => {
@@ -106,7 +109,7 @@ const Result = ({ quizId }) => {
                                 return (
                                   <tr key={index}>
                                     <th>
-                                      {user.firstName} {user.lastName}
+                                      {user.first_name} {user.last_name}
                                     </th>
                                     <td>
                                       {
@@ -163,7 +166,7 @@ const Result = ({ quizId }) => {
                         <p className="me-4">
                           Essai #{index + 1} de{" "}
                           <b>
-                            {user.firstName} {user.lastName}
+                            {user.first_name} {user.last_name}
                           </b>{" "}
                           <i>
                             le {datetime.toLocaleDateString("fr")} à{" "}
@@ -235,7 +238,7 @@ const Result = ({ quizId }) => {
     );
   }
 
-  return <p>Chargement des données en cours...</p>;
+  return <h3>Aucune statistique n'a été trouvée pour ce quiz...</h3>;
 };
 
 export default Result;

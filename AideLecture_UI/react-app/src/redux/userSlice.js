@@ -3,6 +3,7 @@ import {
   login,
   logout,
   getUsers,
+  getResults,
   postCreateParticipant,
   patchParticipant,
   deleteUser,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
   users: [],
+  usersWithResults: [],
   authenticatedUser: JSON.parse(localStorage.getItem("authenticatedUser")),
   selectedUserForUpdate: JSON.parse(
     localStorage.getItem("selectedUserForUpdate")
@@ -55,6 +57,70 @@ export const deleteParticipant = createAsyncThunk(
   async (participant) => {
     const response = await deleteUser(participant.id);
     return response.data;
+  }
+);
+
+export const fetchUsersWithResults = createAsyncThunk(
+  "user/fetchUsersWithResults",
+  async () => {
+    var response = await getUsers();
+    var users = response.data;
+
+    response = await getResults();
+    var results = response.data;
+
+    var resultsPerUser = users.map((user) => {
+      var quizzesAnswers = {};
+      var attemptsToInclude = results.filter((attempt) => {
+        return attempt.userId === user.id;
+      });
+      var quizzesToInclude = [
+        ...new Set(attemptsToInclude.map((attempts) => attempts.quizId)),
+      ];
+
+      var attempts = quizzesToInclude.map((quizId) => {
+        var formattedAttemptsForQuiz = {};
+        var attemptsForQuiz = attemptsToInclude.filter((attempt) => {
+          return attempt.quizId === quizId;
+        });
+
+        formattedAttemptsForQuiz[quizId.toString()] = attemptsForQuiz.map(
+          (attempt) => {
+            var choices = {};
+            attempt.choices.forEach((choice) => {
+              choices[choice.questionId.toString()] = choice.answerId;
+            });
+
+            return {
+              datetime: attempt.datetime,
+              choices: choices,
+              score: attempt.score,
+            };
+          }
+        );
+        return formattedAttemptsForQuiz;
+      });
+
+      attempts.forEach((attemptsPerQuiz) => {
+        var quizId = Object.keys(attemptsPerQuiz)[0];
+        quizzesAnswers[quizId.toString()] = attemptsPerQuiz[quizId];
+      });
+
+      return quizzesAnswers;
+    });
+
+    if (resultsPerUser) {
+      users.forEach((user, index) => {
+        if (
+          resultsPerUser[index] &&
+          Object.keys(resultsPerUser[index]).length > 0
+        ) {
+          users[index]["quizzesAnswers"] = resultsPerUser[index];
+        }
+      });
+    }
+
+    return users;
   }
 );
 
@@ -121,6 +187,9 @@ export const userSlice = createSlice({
         state.users = state.users.filter(
           (user) => user.id !== action.payload.deletedId
         );
+      })
+      .addCase(fetchUsersWithResults.fulfilled, (state, action) => {
+        state.usersWithResults = action.payload;
       });
   },
 });
@@ -128,6 +197,7 @@ export const userSlice = createSlice({
 export const { logoutAction, focusUserForUpdate } = userSlice.actions;
 
 export const selectUsers = (state) => state.user.users;
+export const selectUsersWithResults = (state) => state.user.usersWithResults;
 export const authenticatedUser = (state) => state.user.authenticatedUser;
 export const selectedUser = (state) => state.user.selectedUserForUpdate;
 

@@ -16,6 +16,12 @@ export const getUsers = async () => {
   });
 };
 
+export const getResults = async () => {
+  return await djangoApi.get("/api/result/results", {
+    headers: authHeader(),
+  });
+};
+
 export const postCreateParticipant = async (participant) => {
   return await djangoApi.post("/api/user/register", participant);
 };
