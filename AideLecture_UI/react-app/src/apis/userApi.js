@@ -26,6 +26,12 @@ export const postCreateParticipant = async (participant) => {
   return await djangoApi.post("/api/user/register", participant);
 };
 
+export const postAddResult = async (result) => {
+  return await djangoApi.post("/api/result/post", result, {
+    headers: authHeader(),
+  });
+};
+
 export const patchParticipant = async (id, data) => {
   return await djangoApi.patch(`/api/user/update/${id}`, data, {
     headers: authHeader(),

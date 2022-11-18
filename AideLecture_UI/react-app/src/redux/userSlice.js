@@ -5,6 +5,7 @@ import {
   getUsers,
   getResults,
   postCreateParticipant,
+  postAddResult,
   patchParticipant,
   deleteUser,
 } from "../apis/userApi";
@@ -43,6 +44,11 @@ export const addParticipant = createAsyncThunk(
     return response.data;
   }
 );
+
+export const addResult = createAsyncThunk("user/addResult", async (result) => {
+  const response = await postAddResult(result);
+  return response.data;
+});
 
 export const editParticipant = createAsyncThunk(
   "user/editParticipant",

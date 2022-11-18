@@ -6,7 +6,11 @@ import {
 } from "../../redux/questionSlice";
 import Question from "./Question";
 import { shuffleArray } from "../../utils/randomUtils";
-import { authenticatedUser, editParticipant } from "../../redux/userSlice";
+import {
+  addResult,
+  authenticatedUser,
+  editParticipant,
+} from "../../redux/userSlice";
 import { errorDialogWrapper } from "../modals/Dialog";
 
 const Quiz = ({ id }) => {
@@ -29,7 +33,7 @@ const Quiz = ({ id }) => {
       (total, x) =>
         total +
         (randomized.find((q) => `${q.id}` === x).rightAnswerId ===
-        `${choices.current[x]}`
+        parseInt(choices.current[x])
           ? 1
           : 0),
       0
@@ -37,27 +41,22 @@ const Quiz = ({ id }) => {
 
   function saveUserAnswers() {
     if (!participant) return;
-    let quizzes = { ...(participant.quizzesAnswers ?? {}) };
-    let quiz = [...(quizzes[id] ?? [])];
 
-    quiz.push({
+    const attempt = {
       datetime: new Date(),
-      choices: choices.current,
+      choices: Object.keys(choices.current).map((questionId) => {
+        return {
+          questionId: parseInt(questionId),
+          answerId: parseInt(choices.current[questionId]),
+        };
+      }),
       score: calculateScore(),
-    });
-
-    quizzes[id] = quiz;
-
-    const modifiedFields = {
-      id: participant.id,
-      quizzesAnswers: quizzes,
+      userId: participant.id,
+      quizId: parseInt(id),
     };
 
-    dispatch(editParticipant(modifiedFields))
+    dispatch(addResult(attempt))
       .unwrap()
-      .then((modifiedParticipant) => {
-        //dispatch(login(modifiedParticipant));
-      })
       .catch((err) => {
         errorDialogWrapper(err);
       });

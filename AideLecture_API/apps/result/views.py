@@ -102,7 +102,6 @@ def results(request):
     method="POST", tags=["Statistics"], request_body=ResultSerializer
 )
 @api_view(["POST"])
-@is_part_of_group(UserGroup.admin)
 def post(request):
     serializer = ResultSerializer(data=request.data)
     serializer.validate(attrs=request.data)
