@@ -96,7 +96,9 @@ const QuestionForm = (props) => {
     words: getWordsInitialValues(),
     answers: getAnswersInitialValues(),
     rightAnswer: getRightAnswerInitialValue().toString(),
-    quiz: selectedQuiz?.id,
+    quiz: isInEditMode()
+      ? props.questionToEdit.quizId.toString()
+      : selectedQuiz?.id.toString(),
   };
 
   const methods = useForm({

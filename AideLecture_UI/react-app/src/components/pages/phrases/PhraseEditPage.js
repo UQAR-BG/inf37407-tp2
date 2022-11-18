@@ -28,7 +28,7 @@ const PhraseEditPage = () => {
     let quizId = formValues.quiz ?? phrase.quizId;
     const updatedPhrase = {
       ...phrase,
-      quizId: quizId.toString(),
+      quizId: quizId,
       audio: formValues.audio,
       name: formValues.name,
       statement: formValues.statement,

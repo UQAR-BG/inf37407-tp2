@@ -50,7 +50,9 @@ const PhraseForm = (props) => {
         ? wordsOfPhrase.join(" ")
         : props.phraseToEdit?.statement,
     words: getWordsInitialValues(),
-    quiz: selectedQuiz?.id,
+    quiz: isInEditMode()
+      ? props.phraseToEdit.quizId.toString()
+      : selectedQuiz?.id.toString(),
   };
 
   const methods = useForm({
