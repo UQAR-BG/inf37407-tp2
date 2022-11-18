@@ -1,9 +1,12 @@
 import djangoApi, { authHeader } from "./djangoApi";
 
-export const getQuestionWords = async () => {
-  return await djangoApi.get("/api/question-word/question_words", {
-    headers: authHeader(),
-  });
+export const getQuestionWords = async (isActive = true) => {
+  return await djangoApi.get(
+    `/api/question-word/question_words?is_active=${isActive}`,
+    {
+      headers: authHeader(),
+    }
+  );
 };
 
 export const getQuestionWord = async (id) => {

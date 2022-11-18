@@ -150,4 +150,4 @@ class QuestionDtoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ("id", "name", "statement", "questionAudio",
-                  "quizId", "rightAnswerId", "words", "answers")
+                  "quizId", "rightAnswerId", "is_active", "words", "answers")

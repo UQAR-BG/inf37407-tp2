@@ -77,7 +77,7 @@ is_active_param = openapi.Parameter(
 @swagger_auto_schema(method="GET", tags=["Quiz"], manual_parameters=[is_active_param])
 @api_view(["GET"])
 def quizzes(request):
-    if request.GET.get("is_active") and request.GET.get("is_active") == True:
+    if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
         quizzes = Quiz.objects.filter(is_active=True)
     else:
         quizzes = Quiz.objects.all().values()

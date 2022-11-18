@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from questionWords.models import QuestionWord
@@ -56,11 +57,12 @@ def put(request, id: int):
 @api_view(["DELETE"])
 @is_part_of_group(UserGroup.admin)
 def delete(request, id: int):
-    word = QuestionWord.objects.filter(id=id).first()
+    word = QuestionWord.objects.filter(id=id, is_active=True).first()
     if not word:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    word.delete()
+    word.is_active = False
+    word.save()
 
     return Response(
         {
@@ -70,10 +72,18 @@ def delete(request, id: int):
     )
 
 
-@swagger_auto_schema(method="GET", tags=["Question word"])
+is_active_param = openapi.Parameter(
+    'is_active', openapi.IN_QUERY, description="Retourne les mots d'interrogation actifs si true. Retourne tous les autres sinon.", type=openapi.TYPE_BOOLEAN)
+
+
+@swagger_auto_schema(method="GET", tags=["Question word"], manual_parameters=[is_active_param])
 @api_view(["GET"])
 def question_words(request):
-    questionWords = QuestionWord.objects.all()
+    if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+        questionWords = QuestionWord.objects.filter(is_active=True)
+    else:
+        questionWords = QuestionWord.objects.all()
+
     if not questionWords:
         return Response(status=status.HTTP_204_NO_CONTENT)
     data = []

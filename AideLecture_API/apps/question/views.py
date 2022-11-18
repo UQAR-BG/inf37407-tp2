@@ -59,11 +59,12 @@ def put(request, id: int):
 @api_view(["DELETE"])
 @is_part_of_group(UserGroup.admin)
 def delete(request, id: int):
-    question = Question.objects.filter(id=id).first()
+    question = Question.objects.filter(id=id, is_active=True).first()
     if not question:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    question.delete()
+    question.is_active = False
+    question.save()
 
     return Response(
         {
@@ -73,10 +74,18 @@ def delete(request, id: int):
     )
 
 
-@swagger_auto_schema(method="GET", tags=["Question"])
+is_active_param = openapi.Parameter(
+    'is_active', openapi.IN_QUERY, description="Retourne les questions actives si true. Retourne toutes les questions sinon.", type=openapi.TYPE_BOOLEAN)
+
+
+@swagger_auto_schema(method="GET", tags=["Question"], manual_parameters=[is_active_param])
 @api_view(["GET"])
 def questions(request):
-    questions = Question.objects.all()
+    if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+        questions = Question.objects.filter(is_active=True)
+    else:
+        questions = Question.objects.all()
+
     if not questions:
         return Response(status=status.HTTP_204_NO_CONTENT)
     data = []
@@ -117,12 +126,17 @@ quiz_id_param = openapi.Parameter(
     'quizId', openapi.IN_QUERY, description="L'identifiant du quiz associé à la question.", type=openapi.TYPE_INTEGER)
 
 
-@swagger_auto_schema(method="GET", tags=["Question"], manual_parameters=[quiz_id_param])
+@swagger_auto_schema(method="GET", tags=["Question"], manual_parameters=[quiz_id_param, is_active_param])
 @api_view(["GET"])
 def questions_from_quiz(request):
     if request.GET.get("quizId"):
         quizId = request.GET.get("quizId")
-        questions = Question.objects.filter(quizId=quizId)
+
+        if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+            questions = Question.objects.filter(quizId=quizId, is_active=True)
+        else:
+            questions = Question.objects.filter(quizId=quizId)
+
         if not questions:
             return Response(status=status.HTTP_204_NO_CONTENT)
         data = []

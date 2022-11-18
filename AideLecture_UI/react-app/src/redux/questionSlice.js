@@ -24,6 +24,14 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
+export const fetchAllQuestionsFromQuiz = createAsyncThunk(
+  "question/fetchAllQuestionsFromQuiz",
+  async (quizId) => {
+    const response = await getQuestionsFromQuiz(quizId, false);
+    return response.data;
+  }
+);
+
 export const fetchQuestionsFromQuiz = createAsyncThunk(
   "question/fetchQuestionsFromQuiz",
   async (quizId) => {
@@ -100,11 +108,14 @@ export const questionSlice = createSlice({
     clearQuestion: (state) => {
       state.selectedQuestion = null;
       localStorage.setItem("selectedQuestion", "");
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuestions.fulfilled, (state, action) => {
+        state.questions = action.payload;
+      })
+      .addCase(fetchAllQuestionsFromQuiz.fulfilled, (state, action) => {
         state.questions = action.payload;
       })
       .addCase(fetchQuestionsFromQuiz.fulfilled, (state, action) => {
@@ -138,7 +149,8 @@ export const questionSlice = createSlice({
   },
 });
 
-export const { focusQuestion, setWords, setAnswers, clearQuestion } = questionSlice.actions;
+export const { focusQuestion, setWords, setAnswers, clearQuestion } =
+  questionSlice.actions;
 
 export const selectQuestions = (state) => state.question.questions;
 export const selectQuestionsFromQuiz = (state) =>

@@ -87,7 +87,7 @@ const QuizPage = () => {
           : "Liste des questions"}
       </h3>
 
-      {phrases && params.quizId ? (
+      {params.quizId ? (
         <>
           <h4 className="mt-4">Textes</h4>
           <div className="table-responsive mb-4">

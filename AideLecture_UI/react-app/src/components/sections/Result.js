@@ -4,7 +4,7 @@ import {
   selectUsersWithResults,
 } from "../../redux/userSlice";
 import {
-  fetchQuestionsFromQuiz,
+  fetchAllQuestionsFromQuiz,
   selectQuestions,
 } from "../../redux/questionSlice";
 import { useEffect, useRef } from "react";
@@ -22,7 +22,7 @@ const Result = ({ quizId }) => {
 
   useEffect(() => {
     dispatch(fetchQuiz(quizId));
-    dispatch(fetchQuestionsFromQuiz(quizId));
+    dispatch(fetchAllQuestionsFromQuiz(quizId));
   }, [dispatch, quizId]);
 
   useEffect(() => {

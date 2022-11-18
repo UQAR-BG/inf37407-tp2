@@ -71,4 +71,4 @@ class QuestionWordDtoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QuestionWord
-        fields = ("id", "name", "statement", "audio", "words")
+        fields = ("id", "name", "statement", "audio", "is_active", "words")

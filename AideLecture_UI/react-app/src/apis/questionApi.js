@@ -1,15 +1,18 @@
 import djangoApi, { authHeader } from "./djangoApi";
 
-export const getQuestions = async () => {
-  return await djangoApi.get("/api/question/questions", {
+export const getQuestions = async (isActive = true) => {
+  return await djangoApi.get(`/api/question/questions?is_active=${isActive}`, {
     headers: authHeader(),
   });
 };
 
-export const getQuestionsFromQuiz = async (quizId) => {
-  return await djangoApi.get(`/api/question/from-quiz?quizId=${quizId}`, {
-    headers: authHeader(),
-  });
+export const getQuestionsFromQuiz = async (quizId, isActive = true) => {
+  return await djangoApi.get(
+    `/api/question/from-quiz?quizId=${quizId}&is_active=${isActive}`,
+    {
+      headers: authHeader(),
+    }
+  );
 };
 
 export const getQuestion = async (id) => {

@@ -57,11 +57,12 @@ def put(request, id: int):
 @api_view(["DELETE"])
 @is_part_of_group(UserGroup.admin)
 def delete(request, id: int):
-    phrase = Phrase.objects.filter(id=id).first()
+    phrase = Phrase.objects.filter(id=id, is_active=True).first()
     if not phrase:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    phrase.delete()
+    phrase.is_active = False
+    phrase.save()
 
     return Response(
         {
@@ -71,10 +72,18 @@ def delete(request, id: int):
     )
 
 
-@swagger_auto_schema(method="GET", tags=["Phrase"])
+is_active_param = openapi.Parameter(
+    'is_active', openapi.IN_QUERY, description="Retourne les textes actifs si true. Retourne tous les textes sinon.", type=openapi.TYPE_BOOLEAN)
+
+
+@swagger_auto_schema(method="GET", tags=["Phrase"], manual_parameters=[is_active_param])
 @api_view(["GET"])
 def phrases(request):
-    phrases = Phrase.objects.all()
+    if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+        phrases = Phrase.objects.filter(is_active=True)
+    else:
+        phrases = Phrase.objects.all()
+
     if not phrases:
         return Response(status=status.HTTP_204_NO_CONTENT)
     data = []
@@ -114,12 +123,17 @@ quiz_id_param = openapi.Parameter(
     'quizId', openapi.IN_QUERY, description="L'identifiant du quiz associé au texte.", type=openapi.TYPE_INTEGER)
 
 
-@swagger_auto_schema(method="GET", tags=["Phrase"], manual_parameters=[quiz_id_param])
+@swagger_auto_schema(method="GET", tags=["Phrase"], manual_parameters=[quiz_id_param, is_active_param])
 @api_view(["GET"])
 def phrases_from_quiz(request):
     if request.GET.get("quizId"):
         quizId = request.GET.get("quizId")
-        phrases = Phrase.objects.filter(quizId=quizId)
+
+        if request.GET.get("is_active") and request.GET.get("is_active") == 'true':
+            phrases = Phrase.objects.filter(quizId=quizId, is_active=True)
+        else:
+            phrases = Phrase.objects.filter(quizId=quizId)
+
         if not phrases:
             return Response(status=status.HTTP_204_NO_CONTENT)
         data = []

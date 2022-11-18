@@ -76,4 +76,5 @@ class PhraseDtoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Phrase
-        fields = ("id", "name", "statement", "audio", "quizId", "words")
+        fields = ("id", "name", "statement", "audio",
+                  "quizId", "is_active", "words")
