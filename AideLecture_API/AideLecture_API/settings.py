@@ -35,6 +35,18 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
 
 # Application definition
 
@@ -56,7 +68,8 @@ INSTALLED_APPS = [
     'apps.questionWords.apps.QuestionwordsConfig',
     'apps.words.apps.WordsConfig',
     'apps.question.apps.QuestionConfig',
-    'apps.user.apps.UserConfig'
+    'apps.user.apps.UserConfig',
+    'apps.result.apps.ResultConfig'
 ]
 
 REST_FRAMEWORK = {

@@ -1,8 +1,11 @@
 from django.urls import path
 
-from .views import quiz, specific_quiz
+from quiz.views import quiz, quizzes, patch, create, delete
 
 urlpatterns = [
-    path("quiz", quiz, name="quiz"),  # type: ignore
-    path("quiz/<int:id>", specific_quiz, name="specific_quiz"),  # type: ignore
+    path("quizzes", quizzes, name="quizzes"),
+    path("quiz/<int:id>", quiz, name="quiz"),
+    path("create", create, name="create"),
+    path("delete/<int:id>", delete, name="delete"),
+    path("patch/<int:id>", patch, name="patch")
 ]
