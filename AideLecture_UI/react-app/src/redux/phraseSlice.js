@@ -93,6 +93,10 @@ export const phraseSlice = createSlice({
     setWords: (state, action) => {
       state.words = action.payload;
     },
+    clearPhrase: (state) => {
+      state.selectedPhrase = null;
+      localStorage.setItem("selectedPhrase", "");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -127,7 +131,7 @@ export const phraseSlice = createSlice({
   },
 });
 
-export const { focusPhrase, setWords } = phraseSlice.actions;
+export const { focusPhrase, setWords, clearPhrase } = phraseSlice.actions;
 
 export const selectPhrases = (state) => state.phrase.phrases;
 export const selectPhrasesFromQuiz = (state) => state.phrase.phrasesFromQuiz;

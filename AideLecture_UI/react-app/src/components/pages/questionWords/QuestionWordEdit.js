@@ -6,6 +6,7 @@ import AdminPage from "../admin/AdminPage";
 import { errorDialogWrapper } from "../../modals/Dialog";
 import QuestionWordForm from "../../forms/QuestionWordForm";
 import {
+  clearQuestionWord,
   selectedQuestionWord,
   fetchQuestionWord,
   editQuestionWord,
@@ -19,6 +20,7 @@ const QuestionWordEditPage = () => {
   const questionWord = useSelector(selectedQuestionWord);
 
   useEffect(() => {
+    dispatch(clearQuestionWord());
     dispatch(fetchQuestionWord(params.wordId));
   }, [dispatch, fetchQuestionWord, params]);
 

@@ -88,6 +88,10 @@ export const questionWordSlice = createSlice({
     setWords: (state, action) => {
       state.words = action.payload;
     },
+    clearQuestionWord: (state) => {
+      state.selectedQuestionWord = null;
+      localStorage.setItem("selectedQuestionWord", "");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -119,7 +123,8 @@ export const questionWordSlice = createSlice({
   },
 });
 
-export const { focusQuestionWord, setWords } = questionWordSlice.actions;
+export const { focusQuestionWord, setWords, clearQuestionWord } =
+  questionWordSlice.actions;
 
 export const selectQuestionWords = (state) => state.questionWord.questionWords;
 export const selectedQuestionWord = (state) =>

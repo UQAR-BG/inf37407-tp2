@@ -6,6 +6,7 @@ import AdminPage from "../admin/AdminPage";
 import { errorDialogWrapper } from "../../modals/Dialog";
 import PhraseForm from "../../forms/PhraseForm";
 import {
+  clearPhrase,
   selectedPhrase,
   fetchPhrase,
   editPhrase,
@@ -19,6 +20,7 @@ const PhraseEditPage = () => {
   const phrase = useSelector(selectedPhrase);
 
   useEffect(() => {
+    dispatch(clearPhrase());
     dispatch(fetchPhrase(params.phraseId));
   }, [dispatch, fetchPhrase, params]);
 

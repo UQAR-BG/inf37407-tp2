@@ -16,7 +16,7 @@ const PhraseForm = (props) => {
   const [wordsDecomposed, setWordsDecomposed] = useState(false);
 
   const isInEditMode = () => {
-    return props.phraseToEdit != null;
+    return props.phraseToEdit;
   };
 
   const getWordsInitialValues = () => {
@@ -73,7 +73,7 @@ const PhraseForm = (props) => {
 
   const decomposePhrase = () => {
     let phrase;
-    let statementValue = methods.getValues("statement") ?? "";
+    let statementValue = methods.getValues("statement");
     if (statementValue) {
       phrase = statementValue;
     } else {
