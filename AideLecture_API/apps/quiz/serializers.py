@@ -38,3 +38,10 @@ class QuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = ("name", "description")
+
+
+class QuizDtoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ("id", "name", "description", "date_creation",
+                  "date_modification", "is_active")

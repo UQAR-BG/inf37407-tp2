@@ -63,13 +63,13 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_yasg",
     # our apps
-    'apps.phrase.apps.PhraseConfig',
-    'apps.quiz.apps.QuizConfig',
-    'apps.questionWords.apps.QuestionwordsConfig',
-    'apps.words.apps.WordsConfig',
-    'apps.question.apps.QuestionConfig',
     'apps.user.apps.UserConfig',
-    'apps.result.apps.ResultConfig'
+    'apps.phrase.apps.PhraseConfig',
+    'apps.question.apps.QuestionConfig',
+    'apps.questionWords.apps.QuestionwordsConfig',
+    'apps.quiz.apps.QuizConfig',
+    'apps.result.apps.ResultConfig',
+    'apps.words.apps.WordsConfig'
 ]
 
 REST_FRAMEWORK = {

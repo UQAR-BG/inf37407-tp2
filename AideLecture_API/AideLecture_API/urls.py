@@ -35,13 +35,13 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/user/', include('apps.user.urls')),
     path('api/phrase/', include('apps.phrase.urls')),
-    path('api/quiz/', include('apps.quiz.urls')),
     path('api/question/', include('apps.question.urls')),
     path('api/question-word/', include('apps.questionWords.urls')),
-    path('api/word/', include('apps.words.urls')),
-    path('api/user/', include('apps.user.urls')),
+    path('api/quiz/', include('apps.quiz.urls')),
     path('api/result/', include('apps.result.urls')),
+    path('api/word/', include('apps.words.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/swagger/', schema_view.with_ui('swagger',

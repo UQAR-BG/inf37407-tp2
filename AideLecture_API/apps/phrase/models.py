@@ -13,3 +13,4 @@ class Phrase(models.Model):
     quizId = models.ForeignKey('quiz.Quiz', on_delete=models.DO_NOTHING)
     date_creation = models.DateTimeField(default=datetime.now, editable=False)
     date_modification = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)

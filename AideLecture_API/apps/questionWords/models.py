@@ -12,3 +12,4 @@ class QuestionWord(models.Model):
     audio = models.CharField(max_length=300, null=True, blank=True)
     date_creation = models.DateTimeField(default=datetime.now, editable=False)
     date_modification = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)

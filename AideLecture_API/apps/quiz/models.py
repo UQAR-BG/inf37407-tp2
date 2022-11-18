@@ -11,6 +11,7 @@ class Quiz(models.Model):
     description = models.CharField(max_length=1000)
     date_creation = models.DateTimeField(default=datetime.now, editable=False)
     date_modification = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.name

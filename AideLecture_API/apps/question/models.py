@@ -26,3 +26,4 @@ class Question(models.Model):
     rightAnswerId = models.IntegerField(null=True, blank=True, editable=True)
     date_creation = models.DateTimeField(default=datetime.now, editable=False)
     date_modification = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
