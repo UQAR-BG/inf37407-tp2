@@ -19,10 +19,6 @@ class PhraseSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas être vide.")
 
-        if attrs.get("audio") and not attrs.get("audio").endswith(('.mp3', '.MP3')):
-            errors.setdefault(
-                "audio", "Vous devez fournir un fichier audio valide.")
-
         if not attrs.get("quizId"):
             errors.setdefault(
                 "quizId", "Le texte doit être associé à un quiz.")
@@ -39,11 +35,9 @@ class PhraseSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         name = validated_data.get("name")
         statement = validated_data.get("statement")
-        audio = validated_data.get("audio") or ""
         quiz = validated_data.get("quizId")
 
-        phrase = Phrase(
-            name=name, statement=statement, audio=audio, quizId=quiz)
+        phrase = Phrase(name=name, statement=statement, quizId=quiz)
 
         phrase.save()
         for word in validated_data.get("words"):
@@ -68,7 +62,7 @@ class PhraseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Phrase
-        fields = ("name", "statement", "audio", "words", "quizId")
+        fields = ("name", "statement", "words", "quizId")
 
 
 class PhraseDtoSerializer(serializers.ModelSerializer):

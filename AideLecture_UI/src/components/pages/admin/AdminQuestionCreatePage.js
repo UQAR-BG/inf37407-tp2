@@ -40,18 +40,16 @@ const AdminQuestionCreatePage = () => {
         id: i,
         statement: formValues.answers[i].statement,
         image: formValues.answers[i].image,
-        audio: formValues.answers[i].audio,
         isRightAnswer: formValues["rightAnswer"] === i.toString(),
       });
     }
     const question = {
-      quizId: quizId.toString(),
-      questionAudio: formValues.questionAudio,
+      quizId: parseInt(quizId),
       name: formValues.name,
       statement: formValues.statement,
       words: formValues.words,
       answers: answers,
-      rightAnswerId: formValues["rightAnswer"],
+      rightAnswerId: parseInt(formValues["rightAnswer"]),
     };
     const questionWord = questionWords.find(
       ({ name }) =>

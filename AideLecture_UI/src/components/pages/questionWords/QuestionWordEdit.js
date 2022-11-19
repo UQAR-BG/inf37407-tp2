@@ -27,7 +27,6 @@ const QuestionWordEditPage = () => {
   const onSubmit = async (formValues) => {
     const updatedQuestionWord = {
       ...questionWord,
-      audio: formValues.audio,
       name: formValues.name,
       statement: formValues.statement,
       words: formValues.words,

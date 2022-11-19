@@ -40,7 +40,7 @@ const QuestionWordForm = (props) => {
 
   const initialValues = {
     name: props.wordToEdit?.name,
-    audio: props.wordToEdit?.audio,
+    //audio: props.wordToEdit?.audio,
     statement:
       wordsDecomposed && isInEditMode() && props.wordToEdit.statement
         ? wordsOfQuestionWord.join(" ")
@@ -105,15 +105,6 @@ const QuestionWordForm = (props) => {
           </div>
         </div>
 
-        <TextInput
-          name="audio"
-          type="text"
-          label="Fichier audio"
-          className="mb-4"
-          id="txtExplanationAudio"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
         <TextInput
           name="statement"
           type="text"

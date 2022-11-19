@@ -44,7 +44,7 @@ const PhraseForm = (props) => {
 
   const initialValues = {
     name: props.phraseToEdit?.name,
-    audio: props.phraseToEdit?.audio,
+    //audio: props.phraseToEdit?.audio,
     statement:
       wordsDecomposed && isInEditMode() && props.phraseToEdit.statement
         ? wordsOfPhrase.join(" ")
@@ -129,15 +129,6 @@ const PhraseForm = (props) => {
           </div>
         </div>
 
-        <TextInput
-          name="audio"
-          type="text"
-          label="Fichier audio"
-          className="mb-4"
-          id="txtPhraseAudio"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
         <TextInput
           name="statement"
           type="text"

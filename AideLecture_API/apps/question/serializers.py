@@ -14,10 +14,6 @@ class AnswerSerializer(serializers.ModelSerializer):
             errors.setdefault("words", []).append(
                 {"statement": "L'énoncé du mot ne peut pas être vide."})
 
-        if attrs.get("audio") and not attrs.get("audio").endswith(('.mp3', '.MP3')):
-            errors.setdefault(
-                "audio", "Vous devez fournir un fichier audio valide.")
-
         if attrs.get("image") and not attrs.get("image").endswith(('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF')):
             errors.setdefault(
                 "image", "Vous devez fournir un fichier d'image valide.")
@@ -40,7 +36,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = ("statement", "image", "audio", "isRightAnswer")
+        fields = ("statement", "image", "isRightAnswer")
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -56,10 +52,6 @@ class QuestionSerializer(serializers.ModelSerializer):
         if not attrs.get("statement"):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas être vide.")
-
-        if attrs.get("questionAudio") and not attrs.get("questionAudio").endswith(('.mp3', '.MP3')):
-            errors.setdefault(
-                "questionAudio", "Vous devez fournir un fichier audio valide.")
 
         if not attrs.get("quizId"):
             errors.setdefault(
@@ -81,11 +73,9 @@ class QuestionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         name = validated_data.get("name")
         statement = validated_data.get("statement")
-        audio = validated_data.get("questionAudio") or ""
         quiz = validated_data.get("quizId")
 
-        question = Question(
-            name=name, statement=statement, questionAudio=audio, quizId=quiz)
+        question = Question(name=name, statement=statement, quizId=quiz)
 
         question.save()
         for word in validated_data.get("words"):
@@ -133,8 +123,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ("name", "statement", "questionAudio",
-                  "words", "quizId", "answers")
+        fields = ("name", "statement", "words", "quizId", "answers")
 
 
 class AnswerDtoSerializer(serializers.ModelSerializer):

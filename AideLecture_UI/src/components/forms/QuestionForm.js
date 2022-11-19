@@ -66,7 +66,7 @@ const QuestionForm = (props) => {
             isRightAnswer: index === 1,
             statement: "",
             image: "",
-            audio: "",
+            //audio: "",
           };
         });
       }
@@ -88,7 +88,7 @@ const QuestionForm = (props) => {
 
   const initialValues = {
     name: props.questionToEdit?.name,
-    questionAudio: props.questionToEdit?.questionAudio,
+    //questionAudio: props.questionToEdit?.questionAudio,
     statement:
       wordsDecomposed && isInEditMode() && props.questionToEdit.statement
         ? wordsOfQuestion.join(" ")
@@ -185,15 +185,6 @@ const QuestionForm = (props) => {
           </div>
         </div>
 
-        <TextInput
-          name="questionAudio"
-          type="text"
-          label="Fichier audio"
-          className="mb-4"
-          id="txtQuestionAudio"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
         <TextInput
           name="statement"
           type="text"

@@ -57,7 +57,8 @@ const Answers = () => {
                   </div>
                 )}
               </div>
-              <div className="col-3">
+              <div className="col-1"></div>
+              <div className="col-5">
                 <label className="form-label">Fichier d'image</label>
                 <Controller
                   render={({ field }) => (
@@ -70,22 +71,6 @@ const Answers = () => {
                   )}
                   defaultValue={field.image}
                   name={`answers[${index}].image`}
-                  control={control}
-                />
-              </div>
-              <div className="col-3">
-                <label className="form-label">Fichier audio</label>
-                <Controller
-                  render={({ field }) => (
-                    <input
-                      {...field}
-                      type="text"
-                      className="form-control"
-                      autoComplete="off"
-                    />
-                  )}
-                  defaultValue={field.audio}
-                  name={`answers[${index}].audio`}
                   control={control}
                 />
               </div>
