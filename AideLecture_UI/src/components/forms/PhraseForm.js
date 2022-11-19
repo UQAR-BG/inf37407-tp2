@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Form from "react-bootstrap/Form";
 import TextInput from "./fields/TextInputHook";
 import WordsEdit from "./WordsEdit";
+import ActionButton from "../forms/buttons/ActionButton";
 import { selectQuiz, selectQuizzes, fetchQuizzes } from "../../redux/quizSlice";
 import { selectWords, setWords } from "../../redux/phraseSlice";
 
 const PhraseForm = (props) => {
+  const audio = new Audio(`${DJANGO_API_URL}${props.phraseToEdit?.audio}`);
   const dispatch = useDispatch();
   const quizzes = useSelector(selectQuizzes);
   const selectedQuiz = useSelector(selectQuiz);
@@ -129,15 +132,41 @@ const PhraseForm = (props) => {
           </div>
         </div>
 
-        <TextInput
-          name="statement"
-          type="text"
-          label="Texte"
-          className="mb-4"
-          id="txtPhraseStatement"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
+        {isInEditMode() && props.phraseToEdit.audio ? (
+          <div className="row">
+            <div className="col-md-2">
+              <ActionButton
+                icon="volume-high"
+                color="primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  audio.play();
+                }}
+              />
+            </div>
+            <div className="col-md-10">
+              <TextInput
+                name="statement"
+                type="text"
+                label="Texte"
+                className="mb-4"
+                id="txtPhraseStatement"
+                register={methods.register}
+                errors={methods.formState.errors}
+              />
+            </div>
+          </div>
+        ) : (
+          <TextInput
+            name="statement"
+            type="text"
+            label="Texte"
+            className="mb-4"
+            id="txtPhraseStatement"
+            register={methods.register}
+            errors={methods.formState.errors}
+          />
+        )}
 
         <WordsEdit onHandleClick={decomposePhrase} />
 
