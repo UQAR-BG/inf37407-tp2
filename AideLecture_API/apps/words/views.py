@@ -8,7 +8,7 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 
 from words.models import Word
-from words.serializers import WordSerializer
+from words.serializers import WordSerializer, WordDtoSerializer
 from user.decorators import is_part_of_group
 from user.constants import UserGroup
 
@@ -19,12 +19,13 @@ from user.constants import UserGroup
 @api_view(["GET"])
 def word(request, id: int):
     word = Word.objects.filter(id=id).first()
-
     if not word:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    serializer = WordDtoSerializer(word)
+
     return JsonResponse(
-        model_to_dict(word),
+        serializer.data,
         status=status.HTTP_200_OK
     )
 
@@ -38,12 +39,16 @@ def put(request, id: int):
     if not word:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    word = WordSerializer(word, request.data).save()
+    serializer = WordSerializer(word, data=request.data)
+    serializer.validate(attrs=request.data)
 
-    return JsonResponse(
-        model_to_dict(word),
-        status=status.HTTP_200_OK
-    )
+    if serializer.is_valid():
+        word = serializer.save()
+
+        return JsonResponse(
+            model_to_dict(word),
+            status=status.HTTP_200_OK
+        )
 
 
 @swagger_auto_schema(method="DELETE", tags=["Word"])
@@ -71,23 +76,28 @@ def delete(request, id: int):
 @api_view(["POST"])
 @is_part_of_group(UserGroup.admin)
 def create(request):
-    word = WordSerializer(request.data).save()
+    serializer = WordSerializer(data=request.data)
+    serializer.validate(attrs=request.data)
 
-    return JsonResponse(
-        model_to_dict(word),
-        status=status.HTTP_201_CREATED,
-    )
+    if serializer.is_valid():
+        word = serializer.save()
+
+        return JsonResponse(
+            model_to_dict(word),
+            status=status.HTTP_201_CREATED,
+        )
 
 
 @swagger_auto_schema(method="GET", tags=["Word"])
 @api_view(["GET"])
 def words(request):
     words = Word.objects.all().values()
-
     if not words:
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    serializer = WordDtoSerializer(words, many=True)
+
     return Response(
-        list(words),
+        serializer.data,
         status=status.HTTP_200_OK,
     )

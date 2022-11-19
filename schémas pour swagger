@@ -36,3 +36,55 @@
     }
   ]
 }
+
+{
+  "quizId": 2,
+  "name": "sentence_09",
+  "statement": "Beaucoup de personnes aimeraient avoir 3 ponts entre les 2 villes.",
+  "words": [
+    {
+      "statement": "Beaucoup",
+      "image": "3e_lien/beaucoup.png"
+    },
+    {
+      "statement": "de",
+      "image": ""
+    },
+    {
+      "statement": "personnes",
+      "image": "3e_lien/personnes.png"
+    },
+    {
+      "statement": "aimeraient",
+      "image": ""
+    },
+    {
+      "statement": "avoir",
+      "image": ""
+    },
+    {
+      "statement": "3",
+      "image": "3e_lien/troisième.png"
+    },
+    {
+      "statement": "ponts",
+      "image": "3e_lien/pont.png"
+    },
+    {
+      "statement": "entre",
+      "image": ""
+    },
+    {
+      "statement": "les",
+      "image": ""
+    },
+    {
+      "statement": "2",
+      "image": ""
+    },
+    {
+      "statement": "villes.",
+      "image": ""
+    }
+  ]
+}

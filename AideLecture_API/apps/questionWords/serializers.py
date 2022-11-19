@@ -16,11 +16,17 @@ class QuestionWordSerializer(serializers.ModelSerializer):
         errors = {}
 
         if not attrs.get("name"):
-            errors.setdefault("name", "L'énoncé du mot ne peut pas être vide.")
+            errors.setdefault("name", "Le nom du mot ne peut pas être vide.")
+        elif len(attrs.get("name")) > 50:
+            errors.setdefault(
+                "name", "Le nom du mot ne peut pas dépasser 50 caractères.")
 
         if not attrs.get("statement"):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas être vide.")
+        elif len(attrs.get("statement")) > 300:
+            errors.setdefault(
+                "statement", "L'explication du mot ne peut pas dépasser 300 caractères.")
 
         for word in attrs.get("words"):
             word_serializer = WordSerializer(data=word)

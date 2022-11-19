@@ -4,6 +4,7 @@ from rest_framework import serializers
 from datetime import datetime
 
 from phrase.models import Phrase
+from quiz.models import Quiz
 from words.models import Word
 from words.serializers import WordSerializer, WordDtoSerializer
 from commons.utils import AudioFileGenerator
@@ -16,15 +17,27 @@ class PhraseSerializer(serializers.ModelSerializer):
         errors = {}
 
         if not attrs.get("name"):
-            errors.setdefault("name", "L'énoncé du mot ne peut pas être vide.")
+            errors.setdefault("name", "Le nom du texte ne peut pas être vide.")
+        elif len(attrs.get("name")) > 50:
+            errors.setdefault(
+                "name", "Le nom du texte ne peut pas dépasser 50 caractères.")
 
         if not attrs.get("statement"):
             errors.setdefault(
-                "statement", "L'explication du mot ne peut pas être vide.")
+                "statement", "L'explication du texte ne peut pas être vide.")
+        elif len(attrs.get("statement")) > 300:
+            errors.setdefault(
+                "statement", "L'explication du texte ne peut pas dépasser 300 caractères.")
 
         if not attrs.get("quizId"):
             errors.setdefault(
                 "quizId", "Le texte doit être associé à un quiz.")
+        else:
+            quizId = attrs.get("quizId")
+            quiz = Quiz.objects.filter(id=quizId).first()
+            if not quiz:
+                errors.setdefault(
+                    "quizId", f"Le quiz #{quizId} n'existe pas.")
 
         for word in attrs.get("words"):
             word_serializer = WordSerializer(data=word)

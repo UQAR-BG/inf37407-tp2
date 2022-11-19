@@ -4,6 +4,7 @@ from rest_framework import serializers
 from datetime import datetime
 
 from question.models import Question, Answer
+from quiz.models import Quiz
 from words.models import Word
 from words.serializers import WordSerializer, WordDtoSerializer
 from commons.utils import AudioFileGenerator
@@ -15,7 +16,10 @@ class AnswerSerializer(serializers.ModelSerializer):
 
         if not attrs.get("statement"):
             errors.setdefault("words", []).append(
-                {"statement": "L'énoncé du mot ne peut pas être vide."})
+                {"statement": "L'énoncé de la réponse ne peut pas être vide."})
+        elif len(attrs.get("statement")) > 300:
+            errors.setdefault(
+                "statement", "L'énoncé de la réponse ne peut pas dépasser 300 caractères.")
 
         if attrs.get("image") and not attrs.get("image").endswith(('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF')):
             errors.setdefault(
@@ -50,15 +54,28 @@ class QuestionSerializer(serializers.ModelSerializer):
         errors = {}
 
         if not attrs.get("name"):
-            errors.setdefault("name", "L'énoncé du mot ne peut pas être vide.")
+            errors.setdefault(
+                "name", "Le nom de la question ne peut pas être vide.")
+        elif len(attrs.get("name")) > 150:
+            errors.setdefault(
+                "name", "Le nom de la question ne peut pas dépasser 150 caractères.")
 
         if not attrs.get("statement"):
             errors.setdefault(
-                "statement", "L'explication du mot ne peut pas être vide.")
+                "statement", "L'énoncé de la question ne peut pas être vide.")
+        elif len(attrs.get("statement")) > 300:
+            errors.setdefault(
+                "statement", "L'énoncé de la question ne peut pas dépasser 300 caractères.")
 
         if not attrs.get("quizId"):
             errors.setdefault(
-                "quizId", "Le texte doit être associé à un quiz.")
+                "quizId", "La question doit être associé à un quiz.")
+        else:
+            quizId = attrs.get("quizId")
+            quiz = Quiz.objects.filter(id=quizId).first()
+            if not quiz:
+                errors.setdefault(
+                    "quizId", f"Le quiz #{quizId} n'existe pas.")
 
         for word in attrs.get("words"):
             word_serializer = WordSerializer(data=word)

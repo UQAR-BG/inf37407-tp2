@@ -2,6 +2,7 @@ from rest_framework import serializers
 from datetime import datetime
 
 from words.models import Word
+from questionWords.models import QuestionWord
 
 
 class WordSerializer(serializers.ModelSerializer):
@@ -10,7 +11,18 @@ class WordSerializer(serializers.ModelSerializer):
 
         if not attrs.get("statement"):
             errors.setdefault("words", []).append(
-                {"statement": "L'énoncé du mot ne peut pas être vide."})
+                {"statement": "Le mot ne peut pas être vide."})
+        elif len(attrs.get("statement")) > 50:
+            errors.setdefault(
+                "statement", "Le mot ne peut pas dépasser 50 caractères.")
+
+        if attrs.get("questionWordId"):
+            questionWordId = attrs.get("questionWordId")
+            questionWord = QuestionWord.objects.filter(
+                id=questionWordId).first()
+            if not questionWord:
+                errors.setdefault(
+                    "questionWordId", f"Le mot d'interrogation #{questionWordId} n'existe pas.")
 
         if len(errors) > 0:
             raise serializers.ValidationError(errors)

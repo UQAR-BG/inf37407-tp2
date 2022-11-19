@@ -1,16 +1,24 @@
 import * as Yup from "yup";
 
 const word = Yup.object({
-  statement: Yup.string().required("Ce champs est requis!"),
+  statement: Yup.string()
+    .required("Ce champs est requis!")
+    .max(50, "Le mot ne peut pas dépasser 50 caractères."),
 });
 
 const answer = Yup.object({
-  statement: Yup.string().required("Ce champs est requis!"),
+  statement: Yup.string()
+    .required("Ce champs est requis!")
+    .max(300, "L'énoncé de la réponse ne peut pas dépasser 300 caractères."),
 });
 
 export const createQuestionValidationSchema = Yup.object().shape({
-  name: Yup.string().required("Ce champs est requis!"),
-  statement: Yup.string().required("Ce champs est requis!"),
+  name: Yup.string()
+    .required("Ce champs est requis!")
+    .max(150, "Le nom de la question ne peut pas dépasser 150 caractères."),
+  statement: Yup.string()
+    .required("Ce champs est requis!")
+    .max(300, "L'énoncé de la question ne peut pas dépasser 300 caractères."),
   words: Yup.array().of(word),
   answers: Yup.array().of(answer),
 });
