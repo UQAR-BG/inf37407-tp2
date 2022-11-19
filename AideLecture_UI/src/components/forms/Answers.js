@@ -1,7 +1,10 @@
 import React from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
+import ActionButton from "../forms/buttons/ActionButton";
 import { Controller, useFormContext, useFieldArray } from "react-hook-form";
 
 const Answers = () => {
+  const audioFiles = [];
   const {
     control,
     register,
@@ -17,6 +20,10 @@ const Answers = () => {
     <>
       <h4>Réponses :</h4>
       {fields.map((field, index) => {
+        if (field.audio) {
+          audioFiles[index] = new Audio(`${DJANGO_API_URL}${field.audio}`);
+        }
+
         return (
           <div key={field.id} className="input-group mb-4">
             <div className="row">
@@ -57,7 +64,19 @@ const Answers = () => {
                   </div>
                 )}
               </div>
-              <div className="col-3">
+              <div className="col-1">
+                {audioFiles.length > 0 && field.audio && (
+                  <ActionButton
+                    icon="volume-high"
+                    color="primary"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      audioFiles[index].play();
+                    }}
+                  />
+                )}
+              </div>
+              <div className="col-5">
                 <label className="form-label">Fichier d'image</label>
                 <Controller
                   render={({ field }) => (
@@ -70,22 +89,6 @@ const Answers = () => {
                   )}
                   defaultValue={field.image}
                   name={`answers[${index}].image`}
-                  control={control}
-                />
-              </div>
-              <div className="col-3">
-                <label className="form-label">Fichier audio</label>
-                <Controller
-                  render={({ field }) => (
-                    <input
-                      {...field}
-                      type="text"
-                      className="form-control"
-                      autoComplete="off"
-                    />
-                  )}
-                  defaultValue={field.audio}
-                  name={`answers[${index}].audio`}
                   control={control}
                 />
               </div>

@@ -29,7 +29,6 @@ const PhraseEditPage = () => {
     const updatedPhrase = {
       ...phrase,
       quizId: quizId,
-      audio: formValues.audio,
       name: formValues.name,
       statement: formValues.statement,
       words: formValues.words,

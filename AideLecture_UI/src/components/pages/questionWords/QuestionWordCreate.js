@@ -18,7 +18,6 @@ const QuestionWordCreatePage = () => {
     }
 
     const word = {
-      audio: formValues.audio,
       name: formValues.name,
       statement: formValues.statement,
       words: formValues.words,

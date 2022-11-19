@@ -47,8 +47,13 @@ def put(request, id: int):
     if serializer.is_valid():
         phrase = serializer.save()
 
+        phrase.words = phrase.word_set.filter(  # type: ignore
+            questionId__isnull=True)
+
+        dto = PhraseDtoSerializer(phrase)
+
         return JsonResponse(
-            model_to_dict(phrase),
+            dto.data,
             status=status.HTTP_200_OK
         )
 
@@ -113,8 +118,13 @@ def create(request):
     if serializer.is_valid():
         phrase = serializer.save()
 
+        phrase.words = phrase.word_set.filter(  # type: ignore
+            questionId__isnull=True)
+
+        dto = PhraseDtoSerializer(phrase)
+
         return JsonResponse(
-            model_to_dict(phrase),
+            dto.data,
             status=status.HTTP_201_CREATED,
         )
 

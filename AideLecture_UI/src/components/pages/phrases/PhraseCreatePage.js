@@ -22,7 +22,6 @@ const PhraseCreatePage = () => {
     let quizId = formValues.quiz ?? selectedQuiz.id;
     const phrase = {
       quizId: quizId.toString(),
-      audio: formValues.audio,
       name: formValues.name,
       statement: formValues.statement,
       words: formValues.words,

@@ -1,9 +1,10 @@
 import React from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import ActionButton from "../forms/buttons/ActionButton";
 import Word from "./Word";
 
 const Sentence = ({ sentence }) => {
-  let audio = new Audio(`/ressources/audio/${sentence.audio}`);
+  let audio = new Audio(`${DJANGO_API_URL}${sentence.audio}`);
 
   return (
     <div className="m-0 pl-5">

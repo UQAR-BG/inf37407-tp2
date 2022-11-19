@@ -1,9 +1,12 @@
+import uuid
+
 from rest_framework import serializers
 from datetime import datetime
 
 from question.models import Question, Answer
 from words.models import Word
 from words.serializers import WordSerializer, WordDtoSerializer
+from commons.utils import AudioFileGenerator
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -13,10 +16,6 @@ class AnswerSerializer(serializers.ModelSerializer):
         if not attrs.get("statement"):
             errors.setdefault("words", []).append(
                 {"statement": "L'énoncé du mot ne peut pas être vide."})
-
-        if attrs.get("audio") and not attrs.get("audio").endswith(('.mp3', '.MP3')):
-            errors.setdefault(
-                "audio", "Vous devez fournir un fichier audio valide.")
 
         if attrs.get("image") and not attrs.get("image").endswith(('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF')):
             errors.setdefault(
@@ -40,7 +39,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = ("statement", "image", "audio", "isRightAnswer")
+        fields = ("statement", "image", "isRightAnswer")
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -56,10 +55,6 @@ class QuestionSerializer(serializers.ModelSerializer):
         if not attrs.get("statement"):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas être vide.")
-
-        if attrs.get("questionAudio") and not attrs.get("questionAudio").endswith(('.mp3', '.MP3')):
-            errors.setdefault(
-                "questionAudio", "Vous devez fournir un fichier audio valide.")
 
         if not attrs.get("quizId"):
             errors.setdefault(
@@ -81,11 +76,16 @@ class QuestionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         name = validated_data.get("name")
         statement = validated_data.get("statement")
-        audio = validated_data.get("questionAudio") or ""
         quiz = validated_data.get("quizId")
 
-        question = Question(
-            name=name, statement=statement, questionAudio=audio, quizId=quiz)
+        question = Question(name=name, statement=statement, quizId=quiz)
+        question.save()
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/questions/question_{question.id}', f'{uuid.uuid4()}.mp3', question.statement)
+
+        question.questionAudio = file_generator.get_filename()
 
         question.save()
         for word in validated_data.get("words"):
@@ -99,6 +99,13 @@ class QuestionSerializer(serializers.ModelSerializer):
             new_answer.questionId = question  # type: ignore
             new_answer.save()
 
+            file_generator = AudioFileGenerator()
+            file_generator.generate_audio_file(
+                f'audio/answers', f'{uuid.uuid4()}.mp3', new_answer.statement)
+
+            new_answer.audio = file_generator.get_filename()
+            new_answer.save()
+
             if new_answer.isRightAnswer:
                 rightAnswerId = new_answer.id
 
@@ -109,6 +116,13 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.date_modification = datetime.now()
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/questions/question_{instance.id}', f'{uuid.uuid4()}.mp3', validated_data.get(
+                'statement'))
+
+        instance.questionAudio = file_generator.get_filename()
+
         instance = super().update(instance, validated_data)
 
         Word.objects.filter(questionId=instance.id).delete()
@@ -125,6 +139,13 @@ class QuestionSerializer(serializers.ModelSerializer):
             new_answer.questionId = instance
             new_answer.save()
 
+            file_generator = AudioFileGenerator()
+            file_generator.generate_audio_file(
+                f'audio/answers', f'{uuid.uuid4()}.mp3', new_answer.statement)
+
+            new_answer.audio = file_generator.get_filename()
+            new_answer.save()
+
             if new_answer.isRightAnswer:
                 rightAnswerId = new_answer.id
 
@@ -133,8 +154,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ("name", "statement", "questionAudio",
-                  "words", "quizId", "answers")
+        fields = ("name", "statement", "words", "quizId", "answers")
 
 
 class AnswerDtoSerializer(serializers.ModelSerializer):

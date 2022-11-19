@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextInput from "./fields/TextInputHook";
 import WordsEdit from "./WordsEdit";
+import ActionButton from "../forms/buttons/ActionButton";
 import { selectWords, setWords } from "../../redux/questionWordsSlice";
 
 const QuestionWordForm = (props) => {
+  const audio = new Audio(`${DJANGO_API_URL}${props.phraseToEdit?.audio}`);
   const dispatch = useDispatch();
   const wordsOfQuestionWord = useSelector(selectWords);
   const [wordsDecomposed, setWordsDecomposed] = useState(false);
@@ -40,7 +43,7 @@ const QuestionWordForm = (props) => {
 
   const initialValues = {
     name: props.wordToEdit?.name,
-    audio: props.wordToEdit?.audio,
+    //audio: props.wordToEdit?.audio,
     statement:
       wordsDecomposed && isInEditMode() && props.wordToEdit.statement
         ? wordsOfQuestionWord.join(" ")
@@ -105,24 +108,41 @@ const QuestionWordForm = (props) => {
           </div>
         </div>
 
-        <TextInput
-          name="audio"
-          type="text"
-          label="Fichier audio"
-          className="mb-4"
-          id="txtExplanationAudio"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
-        <TextInput
-          name="statement"
-          type="text"
-          label="Texte"
-          className="mb-4"
-          id="txtQuestionWordExplanation"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
+        {isInEditMode() && props.wordToEdit.audio ? (
+          <div className="row">
+            <div className="col-md-2">
+              <ActionButton
+                icon="volume-high"
+                color="primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  audio.play();
+                }}
+              />
+            </div>
+            <div className="col-md-10">
+              <TextInput
+                name="statement"
+                type="text"
+                label="Texte"
+                className="mb-4"
+                id="txtQuestionWordExplanation"
+                register={methods.register}
+                errors={methods.formState.errors}
+              />
+            </div>
+          </div>
+        ) : (
+          <TextInput
+            name="statement"
+            type="text"
+            label="Texte"
+            className="mb-4"
+            id="txtQuestionWordExplanation"
+            register={methods.register}
+            errors={methods.formState.errors}
+          />
+        )}
 
         <WordsEdit onHandleClick={decomposeExplanation} />
 

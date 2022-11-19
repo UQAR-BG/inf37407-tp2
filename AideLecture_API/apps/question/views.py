@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -49,8 +48,14 @@ def put(request, id: int):
     if serializer.is_valid():
         question = serializer.save()
 
+        question.words = question.word_set.filter(  # type: ignore
+            phraseId__isnull=True)
+        question.answers = question.answer_set.all()  # type: ignore
+
+        dto = QuestionDtoSerializer(question)
+
         return JsonResponse(
-            model_to_dict(question),
+            dto.data,
             status=status.HTTP_200_OK
         )
 
@@ -116,8 +121,14 @@ def create(request):
     if serializer.is_valid():
         question = serializer.save()
 
+        question.words = question.word_set.filter(  # type: ignore
+            phraseId__isnull=True)
+        question.answers = question.answer_set.all()  # type: ignore
+
+        dto = QuestionDtoSerializer(question)
+
         return JsonResponse(
-            model_to_dict(question),
+            dto.data,
             status=status.HTTP_201_CREATED,
         )
 

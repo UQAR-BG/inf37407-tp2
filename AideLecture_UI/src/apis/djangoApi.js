@@ -1,7 +1,9 @@
 import axios from "axios";
 
+export const DJANGO_API_URL = "http://localhost:8000";
+
 export default axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: DJANGO_API_URL,
 });
 
 /*

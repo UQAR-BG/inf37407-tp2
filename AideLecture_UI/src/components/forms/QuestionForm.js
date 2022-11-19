@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import TextInput from "./fields/TextInputHook";
 import Answers from "./Answers";
 import WordsEdit from "./WordsEdit";
+import ActionButton from "../forms/buttons/ActionButton";
 import { selectQuiz, selectQuizzes, fetchQuizzes } from "../../redux/quizSlice";
 import {
   selectWords,
@@ -15,6 +17,9 @@ import {
 } from "../../redux/questionSlice";
 
 const QuestionForm = (props) => {
+  const audio = new Audio(
+    `${DJANGO_API_URL}${props.questionToEdit?.questionAudio}`
+  );
   const dispatch = useDispatch();
   const quizzes = useSelector(selectQuizzes);
   const selectedQuiz = useSelector(selectQuiz);
@@ -66,7 +71,7 @@ const QuestionForm = (props) => {
             isRightAnswer: index === 1,
             statement: "",
             image: "",
-            audio: "",
+            //audio: "",
           };
         });
       }
@@ -88,7 +93,7 @@ const QuestionForm = (props) => {
 
   const initialValues = {
     name: props.questionToEdit?.name,
-    questionAudio: props.questionToEdit?.questionAudio,
+    //questionAudio: props.questionToEdit?.questionAudio,
     statement:
       wordsDecomposed && isInEditMode() && props.questionToEdit.statement
         ? wordsOfQuestion.join(" ")
@@ -185,24 +190,41 @@ const QuestionForm = (props) => {
           </div>
         </div>
 
-        <TextInput
-          name="questionAudio"
-          type="text"
-          label="Fichier audio"
-          className="mb-4"
-          id="txtQuestionAudio"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
-        <TextInput
-          name="statement"
-          type="text"
-          label="Question"
-          className="mb-4"
-          id="txtQuestionStatement"
-          register={methods.register}
-          errors={methods.formState.errors}
-        />
+        {isInEditMode() && props.questionToEdit.questionAudio ? (
+          <div className="row">
+            <div className="col-md-2">
+              <ActionButton
+                icon="volume-high"
+                color="primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  audio.play();
+                }}
+              />
+            </div>
+            <div className="col-md-10">
+              <TextInput
+                name="statement"
+                type="text"
+                label="Question"
+                className="mb-4"
+                id="txtQuestionStatement"
+                register={methods.register}
+                errors={methods.formState.errors}
+              />
+            </div>
+          </div>
+        ) : (
+          <TextInput
+            name="statement"
+            type="text"
+            label="Question"
+            className="mb-4"
+            id="txtQuestionStatement"
+            register={methods.register}
+            errors={methods.formState.errors}
+          />
+        )}
 
         <WordsEdit onHandleClick={handleDecomposeQuestionOnClick} />
 

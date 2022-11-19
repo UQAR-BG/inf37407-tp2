@@ -1,9 +1,12 @@
+import uuid
+
 from rest_framework import serializers
 from datetime import datetime
 
 from questionWords.models import QuestionWord
 from words.models import Word
 from words.serializers import WordSerializer, WordDtoSerializer
+from commons.utils import AudioFileGenerator
 
 
 class QuestionWordSerializer(serializers.ModelSerializer):
@@ -19,10 +22,6 @@ class QuestionWordSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas être vide.")
 
-        if attrs.get("audio") and not attrs.get("audio").endswith(('.mp3', '.MP3')):
-            errors.setdefault(
-                "audio", "Vous devez fournir un fichier audio valide.")
-
         for word in attrs.get("words"):
             word_serializer = WordSerializer(data=word)
             word_serializer.validate(attrs=word)
@@ -35,10 +34,14 @@ class QuestionWordSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         name = validated_data.get("name")
         statement = validated_data.get("statement")
-        audio = validated_data.get("audio") or ""
 
-        questionWord = QuestionWord(
-            name=name, statement=statement, audio=audio)
+        questionWord = QuestionWord(name=name, statement=statement)
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/question_words/question_word_{questionWord.id}', f'{uuid.uuid4()}.mp3', questionWord.statement)
+
+        questionWord.audio = file_generator.get_filename()
 
         questionWord.save()
         for word in validated_data.get("words"):
@@ -50,6 +53,14 @@ class QuestionWordSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.date_modification = datetime.now()
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/question_words/question_word_{instance.id}', f'{uuid.uuid4()}.mp3', validated_data.get(
+                'statement'))
+
+        instance.audio = file_generator.get_filename()
+
         instance = super().update(instance, validated_data)
 
         Word.objects.filter(questionWordId=instance.id).delete()
@@ -63,7 +74,7 @@ class QuestionWordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QuestionWord
-        fields = ("name", "statement", "audio", "words")
+        fields = ("name", "statement", "words")
 
 
 class QuestionWordDtoSerializer(serializers.ModelSerializer):

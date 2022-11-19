@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_yasg",
+    'gTTS',
     # our apps
     'apps.user.apps.UserConfig',
     'apps.phrase.apps.PhraseConfig',
@@ -69,7 +70,8 @@ INSTALLED_APPS = [
     'apps.questionWords.apps.QuestionwordsConfig',
     'apps.quiz.apps.QuizConfig',
     'apps.result.apps.ResultConfig',
-    'apps.words.apps.WordsConfig'
+    'apps.words.apps.WordsConfig',
+    'apps.commons.apps.CommonsConfig'
 ]
 
 REST_FRAMEWORK = {
@@ -161,9 +163,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [STATIC_DIR, ]
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",

@@ -40,25 +40,22 @@ const AdminQuestionEditPage = () => {
         id: i,
         statement: formValues.answers[i].statement,
         image: formValues.answers[i].image,
-        audio: formValues.answers[i].audio,
         isRightAnswer: answerId === i.toString(),
       });
     }
     const updatedQuestion = {
       ...question,
-      quizId: quizId.toString(),
-      questionAudio: formValues.questionAudio,
+      quizId: parseInt(quizId),
       name: formValues.name,
       statement: formValues.statement,
       words: formValues.words,
       answers: answers,
-      rightAnswerId: answerId,
+      rightAnswerId: parseInt(answerId),
     };
     const questionWord = questionWords.find(
       ({ name }) =>
-        question.words[0].statement.toLowerCase() === name.toLowerCase()
+        updatedQuestion.words[0].statement.toLowerCase() === name.toLowerCase()
     );
-    console.log(questionWord);
     if (questionWord) updatedQuestion.words[0].questionWordId = questionWord.id;
 
     dispatch(editQuestion(updatedQuestion))
