@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/quiz/', include('apps.quiz.urls')),
     path('api/result/', include('apps.result.urls')),
     path('api/word/', include('apps.words.urls')),
+    path('gtts/', include('gTTS.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/swagger/', schema_view.with_ui('swagger',

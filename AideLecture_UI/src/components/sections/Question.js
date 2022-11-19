@@ -1,4 +1,5 @@
 import React from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import { shuffleArray } from "../../utils/randomUtils";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -9,7 +10,7 @@ import Answer from "./Answer";
 import { useEffect, useState } from "react";
 
 const Question = ({ question, next, nextText }) => {
-  let audio = new Audio(`/ressources/audio/${question.questionAudio}`);
+  let audio = new Audio(`${DJANGO_API_URL}${question.questionAudio}`);
   const [answers, setAnswers] = useState(null);
   const [selected, setSelected] = useState(null);
 

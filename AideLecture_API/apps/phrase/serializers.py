@@ -1,9 +1,12 @@
+import uuid
+
 from rest_framework import serializers
 from datetime import datetime
 
 from phrase.models import Phrase
 from words.models import Word
 from words.serializers import WordSerializer, WordDtoSerializer
+from commons.utils import AudioFileGenerator
 
 
 class PhraseSerializer(serializers.ModelSerializer):
@@ -38,6 +41,13 @@ class PhraseSerializer(serializers.ModelSerializer):
         quiz = validated_data.get("quizId")
 
         phrase = Phrase(name=name, statement=statement, quizId=quiz)
+        phrase.save()
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/phrases/phrase_{phrase.id}', f'{uuid.uuid4()}.mp3', phrase.statement)
+
+        phrase.audio = file_generator.get_filename()
 
         phrase.save()
         for word in validated_data.get("words"):
@@ -49,6 +59,13 @@ class PhraseSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.date_modification = datetime.now()
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/phrases/phrase_{instance.id}', f'{uuid.uuid4()}.mp3', validated_data.get(
+                'statement'))
+
+        instance.audio = file_generator.get_filename()
         instance = super().update(instance, validated_data)
 
         Word.objects.filter(phraseId=instance.id).delete()

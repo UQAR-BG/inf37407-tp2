@@ -1,9 +1,10 @@
 import React from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import Form from "react-bootstrap/Form";
 import ActionButton from "../forms/buttons/ActionButton";
 
 const Answer = ({ answer, attributes, className }) => {
-  let audio = new Audio(`/ressources/audio/${answer.audio}`);
+  let audio = new Audio(`${DJANGO_API_URL}${answer.audio}`);
 
   return (
     <div className="d-flex align-items-center">
