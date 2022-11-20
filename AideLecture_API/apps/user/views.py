@@ -188,6 +188,9 @@ def delete_participant(request, id: int):
         if not user:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+        if user.groups.filter(name=UserGroup.admin.value):
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
         if user.username != request.user.username and not request.user.groups.filter(name=UserGroup.admin.value):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
