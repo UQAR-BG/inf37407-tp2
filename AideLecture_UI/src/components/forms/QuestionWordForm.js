@@ -9,7 +9,7 @@ import ActionButton from "../forms/buttons/ActionButton";
 import { selectWords, setWords } from "../../redux/questionWordsSlice";
 
 const QuestionWordForm = (props) => {
-  const audio = new Audio(`${DJANGO_API_URL}${props.phraseToEdit?.audio}`);
+  const audio = new Audio(`${DJANGO_API_URL}${props.wordToEdit?.audio}`);
   const dispatch = useDispatch();
   const wordsOfQuestionWord = useSelector(selectWords);
   const [wordsDecomposed, setWordsDecomposed] = useState(false);
@@ -22,14 +22,15 @@ const QuestionWordForm = (props) => {
     if (isInEditMode() && props.wordToEdit.words) {
       if (!wordsDecomposed) {
         return props.wordToEdit.words.map((word) => {
-          return { statement: word.statement, image: word.image };
+          return { statement: word.statement, image: "", filename: word.image };
         });
       }
 
       return wordsOfQuestionWord.map((word, index) => {
         return {
           statement: word,
-          image: props.wordToEdit.words[index]
+          image: "",
+          filename: props.wordToEdit.words[index]
             ? props.wordToEdit.words[index].image
             : "",
         };
@@ -43,7 +44,6 @@ const QuestionWordForm = (props) => {
 
   const initialValues = {
     name: props.wordToEdit?.name,
-    //audio: props.wordToEdit?.audio,
     statement:
       wordsDecomposed && isInEditMode() && props.wordToEdit.statement
         ? wordsOfQuestionWord.join(" ")

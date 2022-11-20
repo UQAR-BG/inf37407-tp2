@@ -6,6 +6,7 @@ import {
   patchQuestionWord,
   deleteQuestionWord,
 } from "../apis/questionWordsApi";
+import { postWord } from "../apis/wordApi";
 
 const initialState = {
   questionWords: [],
@@ -33,9 +34,21 @@ export const fetchQuestionWord = createAsyncThunk(
 
 export const addQuestionWord = createAsyncThunk(
   "questionWord/addQuestionWord",
-  async (word, { rejectWithValue }) => {
+  async (questionWord, { rejectWithValue }) => {
     try {
-      const response = await postCreateQuestionWord(word);
+      // Appel pour créer le mot d'interrogation de base sans mots.
+      const words = questionWord.words;
+      questionWord.words = [];
+      const newQuestionWord = await postCreateQuestionWord(questionWord);
+
+      //Appels pour créer chaque mot avec téléversement d'image.
+      for (var i = 0; i < words.length; i++) {
+        words[i]["questionWordId"] = newQuestionWord.data.id;
+        await postWord(words[i]);
+      }
+
+      // Appel pour récupérer le mot d'interrogation avec toutes ses informations.
+      const response = await getQuestionWord(newQuestionWord.data.id);
       return response.data;
     } catch (err) {
       throw rejectWithValue(err.message);
@@ -45,9 +58,21 @@ export const addQuestionWord = createAsyncThunk(
 
 export const editQuestionWord = createAsyncThunk(
   "questionWord/editQuestionWord",
-  async (word, { rejectWithValue }) => {
+  async (questionWord, { rejectWithValue }) => {
     try {
-      const response = await patchQuestionWord(word);
+      // Appel pour créer le mot d'interrogation de base sans mots.
+      const words = questionWord.words;
+      questionWord.words = [];
+      const updatedQuestionWord = await patchQuestionWord(questionWord);
+
+      //Appels pour créer chaque mot avec téléversement d'image.
+      for (var i = 0; i < words.length; i++) {
+        words[i]["questionWordId"] = updatedQuestionWord.data.id;
+        await postWord(words[i]);
+      }
+
+      // Appel pour récupérer le mot d'interrogation avec toutes ses informations.
+      const response = await getQuestionWord(updatedQuestionWord.data.id);
       return response.data;
     } catch (err) {
       throw rejectWithValue(err.message);

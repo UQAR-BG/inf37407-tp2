@@ -7,7 +7,7 @@ import {
   patchPhrase,
   deletePhrase,
 } from "../apis/phraseApi";
-import { postWord, putWord } from "../apis/wordApi";
+import { postWord } from "../apis/wordApi";
 
 const initialState = {
   phrases: [],

@@ -11,11 +11,20 @@ const QuestionWordCreatePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async (formValues, e) => {
     if (!formValues.words) {
       errorDialogWrapper("Vous devez décomposer l'explication en mots.");
       return;
     }
+
+    formValues.words.forEach((word, index) => {
+      const fileInputName = `words[${index}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        formValues.words[index].image = imageFile;
+        formValues.words[index].filename = imageFile.name;
+      }
+    });
 
     const word = {
       name: formValues.name,

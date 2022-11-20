@@ -24,7 +24,16 @@ const QuestionWordEditPage = () => {
     dispatch(fetchQuestionWord(params.wordId));
   }, [dispatch, fetchQuestionWord, params]);
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async (formValues, e) => {
+    formValues.words.forEach((word, index) => {
+      const fileInputName = `words[${index}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        formValues.words[index].image = imageFile;
+        formValues.words[index].filename = imageFile.name;
+      }
+    });
+
     const updatedQuestionWord = {
       ...questionWord,
       name: formValues.name,
