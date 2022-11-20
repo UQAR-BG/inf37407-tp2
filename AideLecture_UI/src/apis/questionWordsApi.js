@@ -1,4 +1,8 @@
-import djangoApi, { authHeader } from "./djangoApi";
+import djangoApi, {
+  authHeader,
+  jsonContentTypeHeader,
+  combineHeaders,
+} from "./djangoApi";
 
 export const getQuestionWords = async (isActive = true) => {
   return await djangoApi.get(
@@ -17,7 +21,7 @@ export const getQuestionWord = async (id) => {
 
 export const postCreateQuestionWord = async (questionWord) => {
   return await djangoApi.post("/api/question-word/create", questionWord, {
-    headers: authHeader(),
+    headers: combineHeaders([authHeader(), jsonContentTypeHeader()]),
   });
 };
 
@@ -26,7 +30,7 @@ export const patchQuestionWord = async (questionWord) => {
     `/api/question-word/put/${questionWord.id}`,
     questionWord,
     {
-      headers: authHeader(),
+      headers: combineHeaders([authHeader(), jsonContentTypeHeader()]),
     }
   );
 };

@@ -1,4 +1,8 @@
-import djangoApi, { authHeader } from "./djangoApi";
+import djangoApi, {
+  authHeader,
+  jsonContentTypeHeader,
+  combineHeaders,
+} from "./djangoApi";
 
 export const getPhrases = async (isActive = true) => {
   return await djangoApi.get(`/api/phrase/phrases?is_active=${isActive}`, {
@@ -23,13 +27,13 @@ export const getPhrase = async (id) => {
 
 export const postCreatePhrase = async (phrase) => {
   return await djangoApi.post("/api/phrase/create", phrase, {
-    headers: authHeader(),
+    headers: combineHeaders([authHeader(), jsonContentTypeHeader()]),
   });
 };
 
 export const patchPhrase = async (phrase) => {
   return await djangoApi.put(`/api/phrase/put/${phrase.id}`, phrase, {
-    headers: authHeader(),
+    headers: combineHeaders([authHeader(), jsonContentTypeHeader()]),
   });
 };
 

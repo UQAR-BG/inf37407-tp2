@@ -1,7 +1,13 @@
-import djangoApi, { authHeader } from "./djangoApi";
+import djangoApi, {
+  authHeader,
+  jsonContentTypeHeader,
+  combineHeaders,
+} from "./djangoApi";
 
 export const login = async (loginData) => {
-  return await djangoApi.post("/api/user/login", loginData);
+  return await djangoApi.post("/api/user/login", loginData, {
+    headers: jsonContentTypeHeader(),
+  });
 };
 
 export const logout = async () => {
@@ -23,7 +29,9 @@ export const getResults = async () => {
 };
 
 export const postCreateParticipant = async (participant) => {
-  return await djangoApi.post("/api/user/register", participant);
+  return await djangoApi.post("/api/user/register", participant, {
+    headers: jsonContentTypeHeader(),
+  });
 };
 
 export const postAddResult = async (result) => {
@@ -34,7 +42,7 @@ export const postAddResult = async (result) => {
 
 export const patchParticipant = async (id, data) => {
   return await djangoApi.patch(`/api/user/update/${id}`, data, {
-    headers: authHeader(),
+    headers: combineHeaders([authHeader(), jsonContentTypeHeader()]),
   });
 };
 

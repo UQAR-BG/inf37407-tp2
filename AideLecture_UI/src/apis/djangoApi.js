@@ -21,3 +21,17 @@ export const authHeader = () => {
     return {};
   }
 };
+
+export const jsonContentTypeHeader = () => {
+  return { "Content-Type": "application/json" };
+};
+
+export const combineHeaders = (headers = []) => {
+  let combinedHeaders = {};
+  headers.forEach((header) => {
+    var headerKey = Object.keys(header);
+    combinedHeaders[headerKey] = header[headerKey];
+  });
+
+  return combinedHeaders;
+};
