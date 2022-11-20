@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from datetime import datetime
@@ -5,10 +7,14 @@ from datetime import datetime
 # Create your models here.
 
 
+def upload_to(instance, filename):
+    return f'images/answers/{uuid.uuid4()}_{filename}'
+
+
 class Answer(models.Model):
     id = models.AutoField(primary_key=True)
     statement = models.CharField(max_length=300)
-    image = models.CharField(max_length=200, null=True, blank=True)
+    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
     audio = models.CharField(max_length=1000, null=True, blank=True)
     isRightAnswer = models.BooleanField(default=False)
     questionId = models.ForeignKey(
