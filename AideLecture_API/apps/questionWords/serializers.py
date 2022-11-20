@@ -28,9 +28,13 @@ class QuestionWordSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas dépasser 300 caractères.")
 
-        for word in attrs.get("words"):
-            word_serializer = BasicWordSerializer(data=word)
-            word_serializer.validate(attrs=word)
+        if not attrs.get("words"):
+            errors.setdefault(
+                "words", "Le champ words est obligatoire.")
+        else:
+            for word in attrs.get("words"):
+                word_serializer = BasicWordSerializer(data=word)
+                word_serializer.validate(attrs=word)
 
         if len(errors) > 0:
             raise serializers.ValidationError(errors)

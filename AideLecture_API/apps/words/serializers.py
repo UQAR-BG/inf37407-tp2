@@ -67,10 +67,13 @@ class FullWordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Word
-        fields = ("statement", "image", "isQuestionWord", "questionWordId")
+        fields = ("statement", "image", "isQuestionWord",
+                  "questionWordId", "phraseId", "questionId")
 
 
 class WordDtoSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+
     class Meta:
         model = Word
         fields = ("id", "statement", "image", "isQuestionWord",

@@ -128,13 +128,21 @@ class QuestionSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "quizId", "La question doit être associé à un quiz.")
 
-        for word in attrs.get("words"):
-            word_serializer = BasicWordSerializer(data=word)
-            word_serializer.validate(attrs=word)
+        if not attrs.get("words"):
+            errors.setdefault(
+                "words", "Le champ words est obligatoire.")
+        else:
+            for word in attrs.get("words"):
+                word_serializer = BasicWordSerializer(data=word)
+                word_serializer.validate(attrs=word)
 
-        for answer in attrs.get("answers"):
-            answer_serializer = BasicAnswerSerializer(data=answer)
-            answer_serializer.validate(attrs=answer)
+        if not attrs.get("answers"):
+            errors.setdefault(
+                "answers", "Le champ answers est obligatoire.")
+        else:
+            for answer in attrs.get("answers"):
+                answer_serializer = BasicAnswerSerializer(data=answer)
+                answer_serializer.validate(attrs=answer)
 
         if len(errors) > 0:
             raise serializers.ValidationError(errors)

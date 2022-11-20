@@ -47,9 +47,11 @@ def put(request, id: int):
     if serializer.is_valid():
         word = serializer.save()
 
-        return JsonResponse(
-            model_to_dict(word),
-            status=status.HTTP_200_OK
+        serializer = WordDtoSerializer(word)
+
+        return Response(
+            serializer.data,
+            status=status.HTTP_200_OK,
         )
 
 
@@ -85,8 +87,10 @@ def create(request):
     if serializer.is_valid():
         word = serializer.save()
 
-        return JsonResponse(
-            model_to_dict(word),
+        serializer = WordDtoSerializer(word)
+
+        return Response(
+            serializer.data,
             status=status.HTTP_201_CREATED,
         )
 
