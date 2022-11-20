@@ -88,3 +88,99 @@
     }
   ]
 }
+
+{
+  "name": "Où",
+  "statement": "Cherche un endroit ou une place",
+  "words": [
+    {
+      "statement": "Cherche",
+      "image": "auto_electrique/voiture_a_essence.png"
+    },
+    {
+      "statement": "un",
+      "image": ""
+    },
+    {
+      "statement": "endroit",
+      "image": ""
+    },
+    {
+      "statement": "ou",
+      "image": ""
+    },
+    {
+      "statement": "une",
+      "image": ""
+    },
+    {
+      "statement": "place",
+      "image": ""
+    }
+  ]
+}
+
+{
+  "quizId": 1,
+  "name": "Pourquoi on veut construire un nouveau pont?",
+  "statement": "Pourquoi on veut construire un nouveau pont?",
+  "words": [
+    {
+      "statement": "Pourquoi",
+      "image": "3e_lien/Pourquoi.png",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "on",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "veut",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "construire",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "un",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "nouveau",
+      "image": "3e_lien/nouveau.png",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "pont?",
+      "image": "3e_lien/pont.png",
+      "isQuestionWord": false
+    }
+  ],
+  "answers": [
+    {
+      "statement": "On veut construire un pont parce qu’il y a des problèmes de circulation.",
+      "image": "3e_lien/probleme_de_circulation.png",
+      "isRightAnswer": true
+    },
+    {
+      "statement": "On veut construire un pont parce que le pont est sale.",
+      "image": "3e_lien/sale.png",
+      "isRightAnswer": false
+    },
+    {
+      "statement": "On veut construire un pont parce que le pont est vieux.",
+      "image": "3e_lien/vieux.png",
+      "isRightAnswer": false
+    },
+    {
+      "statement": "Le fleuve Saint-Laurent sépare Québec et Lévis.",
+      "image": "3e_lien/fleuve.png",
+      "isRightAnswer": false
+    }
+  ]
+}
