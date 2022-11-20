@@ -32,7 +32,7 @@ class PhraseSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "quizId", "Le texte doit être associé à un quiz.")
 
-        if not attrs.get("words"):
+        if not attrs.get("words") and attrs.get("words") is None:
             errors.setdefault(
                 "words", "Le champ words est obligatoire.")
         else:

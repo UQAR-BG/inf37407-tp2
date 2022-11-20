@@ -168,7 +168,7 @@ def put_answer(request, id: int):
 
     if serializer.is_valid():
         answer = serializer.save()
-        dto = AnswerDtoSerializer(question)
+        dto = AnswerDtoSerializer(answer)
 
         return JsonResponse(
             dto.data,

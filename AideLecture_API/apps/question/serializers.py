@@ -49,10 +49,6 @@ class FullAnswerSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "statement", "L'énoncé de la réponse ne peut pas dépasser 300 caractères.")
 
-        if attrs.get("image") and not attrs.get("image").endswith(('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF')):
-            errors.setdefault(
-                "image", "Vous devez fournir un fichier d'image valide.")
-
         if len(errors) > 0:
             raise serializers.ValidationError(errors)
 
@@ -128,7 +124,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "quizId", "La question doit être associé à un quiz.")
 
-        if not attrs.get("words"):
+        if not attrs.get("words") and attrs.get("words") is None:
             errors.setdefault(
                 "words", "Le champ words est obligatoire.")
         else:
@@ -136,7 +132,7 @@ class QuestionSerializer(serializers.ModelSerializer):
                 word_serializer = BasicWordSerializer(data=word)
                 word_serializer.validate(attrs=word)
 
-        if not attrs.get("answers"):
+        if not attrs.get("answers") and attrs.get("answers") is None:
             errors.setdefault(
                 "answers", "Le champ answers est obligatoire.")
         else:
@@ -236,7 +232,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 class AnswerDtoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = ("id", "statement", "image", "audio", "isRightAnswer")
+        fields = ("id", "statement", "image", "audio",
+                  "isRightAnswer", "questionId")
 
 
 class QuestionDtoSerializer(serializers.ModelSerializer):

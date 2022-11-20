@@ -28,7 +28,7 @@ class QuestionWordSerializer(serializers.ModelSerializer):
             errors.setdefault(
                 "statement", "L'explication du mot ne peut pas dépasser 300 caractères.")
 
-        if not attrs.get("words"):
+        if not attrs.get("words") and attrs.get("words") is None:
             errors.setdefault(
                 "words", "Le champ words est obligatoire.")
         else:
