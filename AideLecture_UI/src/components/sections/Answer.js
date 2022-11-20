@@ -27,7 +27,7 @@ const Answer = ({ answer, attributes, className }) => {
       <img
         width="80px"
         height="80px"
-        src={`/ressources/img/${answer.image}`}
+        src={`${DJANGO_API_URL}${answer.image}`}
         alt={answer.statement}
       />
     </div>

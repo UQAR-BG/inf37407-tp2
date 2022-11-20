@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmWrapper } from "../modals/ConfirmDialog";
-import Sentence from "./Sentence";
 import {
   selectedQuestionWord,
   fetchQuestionWord,
@@ -29,7 +29,7 @@ const Word = ({ word }) => {
                     key={index}
                     width="80px"
                     height="80px"
-                    src={`/ressources/img/${w.image}`}
+                    src={`${DJANGO_API_URL}${w.image}`}
                     alt={w.statement}
                   />
                 )}

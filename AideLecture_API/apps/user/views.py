@@ -3,8 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 
-from rest_framework.decorators import api_view, permission_classes, parser_classes
-from rest_framework.parsers import FormParser
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -30,7 +29,6 @@ from user.constants import UserGroup
     method="POST", tags=["Authentication"], request_body=RegisterSerializer
 )
 @api_view(["POST"])
-@parser_classes([FormParser])
 @permission_classes([AllowAny])
 def register(request):
     if request.method == "POST":
@@ -56,7 +54,6 @@ def register(request):
     method="POST", tags=["Authentication"], request_body=LoginSerializer
 )
 @api_view(["POST"])
-@parser_classes([FormParser])
 @permission_classes([AllowAny])
 def login(request):
     email = request.data["username"]
@@ -162,7 +159,6 @@ def whoami(request):
 
 @swagger_auto_schema(method="PATCH", tags=["User"], request_body=ParticipantUpdateSerializer)
 @api_view(["PATCH"])
-@parser_classes([FormParser])
 def update_participant(request, id: int):
     if request.method == "PATCH":
         user = User.objects.filter(id=id, is_active=True).first()

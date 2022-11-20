@@ -51,7 +51,7 @@ const Question = ({ question, next, nextText }) => {
                       key={index}
                       width="80px"
                       height="80px"
-                      src={`/ressources/img/${word.image}`}
+                      src={`${DJANGO_API_URL}${word.image}`}
                       alt={word.statement}
                     />
                   )}
