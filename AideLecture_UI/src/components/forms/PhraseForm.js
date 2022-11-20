@@ -26,14 +26,15 @@ const PhraseForm = (props) => {
     if (isInEditMode() && props.phraseToEdit.words) {
       if (!wordsDecomposed) {
         return props.phraseToEdit.words.map((word) => {
-          return { statement: word.statement, image: word.image };
+          return { statement: word.statement, image: "", filename: word.image };
         });
       }
 
       return wordsOfPhrase.map((word, index) => {
         return {
           statement: word,
-          image: props.phraseToEdit.words[index]
+          image: "",
+          filename: props.phraseToEdit.words[index]
             ? props.phraseToEdit.words[index].image
             : "",
         };

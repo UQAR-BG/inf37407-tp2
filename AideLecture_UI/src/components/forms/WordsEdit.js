@@ -1,4 +1,5 @@
 import React from "react";
+import { DJANGO_API_URL } from "../../apis/djangoApi";
 import { Controller, useFormContext, useFieldArray } from "react-hook-form";
 
 const WordsEdit = (props) => {
@@ -28,7 +29,7 @@ const WordsEdit = (props) => {
             <li key={field.id} className="list-group-item">
               <div className="row">
                 <div className="col-1">{position}</div>
-                <div className="col-5">
+                <div className="col-4">
                   <label className="form-label"></label>
                   <Controller
                     render={({ field }) => (
@@ -53,18 +54,29 @@ const WordsEdit = (props) => {
                     </div>
                   )}
                 </div>
-                <div className="col-6">
+                <div className="col-2">
+                  {field.filename && (
+                    <img
+                      key={index}
+                      width="80px"
+                      height="80px"
+                      src={`${DJANGO_API_URL}${field.filename}`}
+                      alt={field.statement}
+                    />
+                  )}
+                </div>
+                <div className="col-5">
                   <label className="form-label">Fichier d'image</label>
                   <Controller
                     render={({ field }) => (
                       <input
                         {...field}
-                        type="text"
+                        type="file"
                         className="form-control"
-                        autoComplete="off"
+                        accept="image/jpeg,image/png,image/gif"
                       />
                     )}
-                    defaultValue={field.image}
+                    defaultValue={field.image ? field.image : ""}
                     name={`words[${index}].image`}
                     control={control}
                   />

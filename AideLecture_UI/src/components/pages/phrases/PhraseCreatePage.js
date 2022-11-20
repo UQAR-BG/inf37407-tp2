@@ -13,11 +13,20 @@ const PhraseCreatePage = () => {
   const dispatch = useDispatch();
   const selectedQuiz = useSelector(selectQuiz);
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async (formValues, e) => {
     if (!formValues.words) {
       errorDialogWrapper("Vous devez décomposer le texte en mots.");
       return;
     }
+
+    formValues.words.forEach((word, index) => {
+      const fileInputName = `words[${index}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        formValues.words[index].image = imageFile;
+        formValues.words[index].filename = imageFile.name;
+      }
+    });
 
     let quizId = formValues.quiz ?? selectedQuiz.id;
     const phrase = {

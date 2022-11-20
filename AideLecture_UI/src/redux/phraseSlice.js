@@ -7,6 +7,7 @@ import {
   patchPhrase,
   deletePhrase,
 } from "../apis/phraseApi";
+import { postWord, putWord } from "../apis/wordApi";
 
 const initialState = {
   phrases: [],
@@ -43,7 +44,19 @@ export const addPhrase = createAsyncThunk(
   "phrase/addPhrase",
   async (phrase, { rejectWithValue }) => {
     try {
-      const response = await postCreatePhrase(phrase);
+      // Appel pour créer le texte de base sans mots.
+      const words = phrase.words;
+      phrase.words = [];
+      const newPhrase = await postCreatePhrase(phrase);
+
+      //Appels pour créer chaque mot avec téléversement d'image.
+      for (var i = 0; i < words.length; i++) {
+        words[i]["phraseId"] = newPhrase.data.id;
+        await postWord(words[i]);
+      }
+
+      // Appel pour récupérer le texte avec toutes ses informations.
+      const response = await getPhrase(newPhrase.data.id);
       return response.data;
     } catch (err) {
       throw rejectWithValue(err.message);
@@ -55,7 +68,19 @@ export const editPhrase = createAsyncThunk(
   "phrase/editPhrase",
   async (phrase, { rejectWithValue }) => {
     try {
-      const response = await patchPhrase(phrase);
+      // Appel pour mettre à jour le texte de base sans mots.
+      const words = phrase.words;
+      phrase.words = [];
+      const updatedPhrase = await patchPhrase(phrase);
+
+      //Appels pour créer chaque mot avec téléversement d'image.
+      for (var i = 0; i < words.length; i++) {
+        words[i]["phraseId"] = updatedPhrase.data.id;
+        await postWord(words[i]);
+      }
+
+      // Appel pour récupérer le texte avec toutes ses informations.
+      const response = await getPhrase(updatedPhrase.data.id);
       return response.data;
     } catch (err) {
       throw rejectWithValue(err.message);

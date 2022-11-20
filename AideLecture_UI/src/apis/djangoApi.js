@@ -26,6 +26,10 @@ export const jsonContentTypeHeader = () => {
   return { "Content-Type": "application/json" };
 };
 
+export const multipartFormDataContentTypeHeader = () => {
+  return { "Content-Type": "multipart/form-data" };
+};
+
 export const combineHeaders = (headers = []) => {
   let combinedHeaders = {};
   headers.forEach((header) => {

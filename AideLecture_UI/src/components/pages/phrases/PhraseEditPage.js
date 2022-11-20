@@ -24,8 +24,18 @@ const PhraseEditPage = () => {
     dispatch(fetchPhrase(params.phraseId));
   }, [dispatch, fetchPhrase, params]);
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async (formValues, e) => {
     let quizId = formValues.quiz ?? phrase.quizId;
+
+    formValues.words.forEach((word, index) => {
+      const fileInputName = `words[${index}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        formValues.words[index].image = imageFile;
+        formValues.words[index].filename = imageFile.name;
+      }
+    });
+
     const updatedPhrase = {
       ...phrase,
       quizId: quizId,
