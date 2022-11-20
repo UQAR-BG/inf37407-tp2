@@ -55,6 +55,13 @@ export const postAnswer = async (answer) => {
   });
 };
 
+/*
+ * Je remercie M. Thom Zolghadr pour cette procédure de création d'un FormData
+ * pour préparer le téléversement d'un fichier.
+ * Source: https://dev.to/thomz/uploading-images-to-django-rest-framework-from-forms-in-react-3jhj
+ * Date de plublication: 13/01/2022
+ */
+
 const createAnswerFormData = (answerModel) => {
   let formData = new FormData();
   if (answerModel.image && answerModel.filename) {
