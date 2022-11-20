@@ -4,14 +4,13 @@ from rest_framework import serializers
 from datetime import datetime
 
 from phrase.models import Phrase
-from quiz.models import Quiz
 from words.models import Word
-from words.serializers import WordSerializer, WordDtoSerializer
+from words.serializers import BasicWordSerializer, WordDtoSerializer
 from commons.utils import AudioFileGenerator
 
 
 class PhraseSerializer(serializers.ModelSerializer):
-    words = WordSerializer(many=True)
+    words = BasicWordSerializer(many=True)
 
     def validate(self, attrs):
         errors = {}
@@ -32,15 +31,9 @@ class PhraseSerializer(serializers.ModelSerializer):
         if not attrs.get("quizId"):
             errors.setdefault(
                 "quizId", "Le texte doit être associé à un quiz.")
-        else:
-            quizId = attrs.get("quizId")
-            quiz = Quiz.objects.filter(id=quizId).first()
-            if not quiz:
-                errors.setdefault(
-                    "quizId", f"Le quiz #{quizId} n'existe pas.")
 
         for word in attrs.get("words"):
-            word_serializer = WordSerializer(data=word)
+            word_serializer = BasicWordSerializer(data=word)
             word_serializer.validate(attrs=word)
 
         if len(errors) > 0:

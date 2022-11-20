@@ -4,13 +4,41 @@ from rest_framework import serializers
 from datetime import datetime
 
 from question.models import Question, Answer
-from quiz.models import Quiz
 from words.models import Word
-from words.serializers import WordSerializer, WordDtoSerializer
+from words.serializers import BasicWordSerializer, WordDtoSerializer
 from commons.utils import AudioFileGenerator
 
 
-class AnswerSerializer(serializers.ModelSerializer):
+class BasicAnswerSerializer(serializers.ModelSerializer):
+    def validate(self, attrs):
+        errors = {}
+
+        if not attrs.get("statement"):
+            errors.setdefault("words", []).append(
+                {"statement": "L'énoncé de la réponse ne peut pas être vide."})
+        elif len(attrs.get("statement")) > 300:
+            errors.setdefault(
+                "statement", "L'énoncé de la réponse ne peut pas dépasser 300 caractères.")
+
+        if len(errors) > 0:
+            raise serializers.ValidationError(errors)
+
+        return attrs
+
+    def create(self, validated_data):
+        answer = Answer(**validated_data)
+        answer.save()
+
+        return answer
+
+    class Meta:
+        model = Answer
+        fields = ("statement", "isRightAnswer")
+
+
+class FullAnswerSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+
     def validate(self, attrs):
         errors = {}
 
@@ -31,24 +59,53 @@ class AnswerSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        question = validated_data.get("questionId")
+        if not question:
+            raise serializers.ValidationError(
+                {"questionId": "La question n'existe pas."})
+
         answer = Answer(**validated_data)
+        answer.questionId = question  # type: ignore
         answer.save()
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/answers', f'{uuid.uuid4()}.mp3', answer.statement)
+
+        answer.audio = file_generator.get_filename()
+        answer.save()
+
+        if answer.isRightAnswer:
+            question.rightAnswerId = answer.id
+            question.save()
 
         return answer
 
     def update(self, instance, validated_data):
         updated_answer = super().update(instance, validated_data)
         updated_answer.date_modification = datetime.now()
+
+        file_generator = AudioFileGenerator()
+        file_generator.generate_audio_file(
+            f'audio/answers', f'{uuid.uuid4()}.mp3', updated_answer.statement)
+
+        updated_answer.audio = file_generator.get_filename()
+
+        if updated_answer.isRightAnswer:
+            question = updated_answer.questionId
+            question.rightAnswerId = updated_answer.id
+            question.save()
+
         return updated_answer
 
     class Meta:
         model = Answer
-        fields = ("statement", "image", "isRightAnswer")
+        fields = ("statement", "image", "isRightAnswer", "questionId")
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    words = WordSerializer(many=True)
-    answers = AnswerSerializer(many=True)
+    words = BasicWordSerializer(many=True)
+    answers = BasicAnswerSerializer(many=True)
 
     def validate(self, attrs):
         errors = {}
@@ -70,19 +127,13 @@ class QuestionSerializer(serializers.ModelSerializer):
         if not attrs.get("quizId"):
             errors.setdefault(
                 "quizId", "La question doit être associé à un quiz.")
-        else:
-            quizId = attrs.get("quizId")
-            quiz = Quiz.objects.filter(id=quizId).first()
-            if not quiz:
-                errors.setdefault(
-                    "quizId", f"Le quiz #{quizId} n'existe pas.")
 
         for word in attrs.get("words"):
-            word_serializer = WordSerializer(data=word)
+            word_serializer = BasicWordSerializer(data=word)
             word_serializer.validate(attrs=word)
 
         for answer in attrs.get("answers"):
-            answer_serializer = AnswerSerializer(data=answer)
+            answer_serializer = BasicAnswerSerializer(data=answer)
             answer_serializer.validate(attrs=answer)
 
         if len(errors) > 0:

@@ -5,12 +5,12 @@ from datetime import datetime
 
 from questionWords.models import QuestionWord
 from words.models import Word
-from words.serializers import WordSerializer, WordDtoSerializer
+from words.serializers import BasicWordSerializer, WordDtoSerializer
 from commons.utils import AudioFileGenerator
 
 
 class QuestionWordSerializer(serializers.ModelSerializer):
-    words = WordSerializer(many=True)
+    words = BasicWordSerializer(many=True)
 
     def validate(self, attrs):
         errors = {}
@@ -29,7 +29,7 @@ class QuestionWordSerializer(serializers.ModelSerializer):
                 "statement", "L'explication du mot ne peut pas dépasser 300 caractères.")
 
         for word in attrs.get("words"):
-            word_serializer = WordSerializer(data=word)
+            word_serializer = BasicWordSerializer(data=word)
             word_serializer.validate(attrs=word)
 
         if len(errors) > 0:

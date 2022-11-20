@@ -1,14 +1,15 @@
 from django.http import JsonResponse
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
-from question.models import Question
-from question.serializers import QuestionSerializer, QuestionDtoSerializer
+from question.models import Question, Answer
+from question.serializers import QuestionSerializer, QuestionDtoSerializer, FullAnswerSerializer, AnswerDtoSerializer
 from user.decorators import is_part_of_group
 from user.constants import UserGroup
 
@@ -131,6 +132,66 @@ def create(request):
             dto.data,
             status=status.HTTP_201_CREATED,
         )
+
+
+@swagger_auto_schema(
+    method="POST", tags=["Question"], request_body=FullAnswerSerializer
+)
+@api_view(["POST"])
+@parser_classes([MultiPartParser, FormParser])
+@is_part_of_group(UserGroup.admin)
+def add_answer(request):
+    serializer = FullAnswerSerializer(data=request.data)
+    serializer.validate(attrs=request.data)
+
+    if serializer.is_valid():
+        answer = serializer.save()
+        dto = AnswerDtoSerializer(answer)
+
+        return JsonResponse(
+            dto.data,
+            status=status.HTTP_201_CREATED,
+        )
+
+
+@swagger_auto_schema(method="PUT", tags=["Question"], request_body=FullAnswerSerializer)
+@api_view(["PUT"])
+@parser_classes([MultiPartParser, FormParser])
+@is_part_of_group(UserGroup.admin)
+def put_answer(request, id: int):
+    answer = Answer.objects.filter(id=id).first()
+    if not answer:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = FullAnswerSerializer(answer, data=request.data)
+    serializer.validate(attrs=request.data)
+
+    if serializer.is_valid():
+        answer = serializer.save()
+        dto = AnswerDtoSerializer(question)
+
+        return JsonResponse(
+            dto.data,
+            status=status.HTTP_200_OK
+        )
+
+
+@swagger_auto_schema(method="DELETE", tags=["Question"])
+@api_view(["DELETE"])
+@is_part_of_group(UserGroup.admin)
+def delete_answer(request, id: int):
+    answer = Answer.objects.filter(id=id).first()
+    if not answer:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    answer.delete()
+
+    return Response(
+        {
+            "deletedId": id
+        },
+        status=status.HTTP_200_OK,
+    )
 
 
 quiz_id_param = openapi.Parameter(

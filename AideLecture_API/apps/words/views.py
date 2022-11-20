@@ -1,14 +1,15 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
 
 from drf_yasg.utils import swagger_auto_schema
 
 from words.models import Word
-from words.serializers import WordSerializer, WordDtoSerializer
+from words.serializers import FullWordSerializer, WordDtoSerializer
 from user.decorators import is_part_of_group
 from user.constants import UserGroup
 
@@ -30,8 +31,9 @@ def word(request, id: int):
     )
 
 
-@swagger_auto_schema(method="PUT", tags=["Word"], request_body=WordSerializer)
+@swagger_auto_schema(method="PUT", tags=["Word"], request_body=FullWordSerializer)
 @api_view(["PUT"])
+@parser_classes([MultiPartParser, FormParser])
 @is_part_of_group(UserGroup.admin)
 def put(request, id: int):
     word = Word.objects.filter(id=id).first()
@@ -39,7 +41,7 @@ def put(request, id: int):
     if not word:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = WordSerializer(word, data=request.data)
+    serializer = FullWordSerializer(word, data=request.data)
     serializer.validate(attrs=request.data)
 
     if serializer.is_valid():
@@ -71,12 +73,13 @@ def delete(request, id: int):
 
 
 @swagger_auto_schema(
-    method="POST", tags=["Word"], request_body=WordSerializer
+    method="POST", tags=["Word"], request_body=FullWordSerializer
 )
 @api_view(["POST"])
+@parser_classes([MultiPartParser, FormParser])
 @is_part_of_group(UserGroup.admin)
 def create(request):
-    serializer = WordSerializer(data=request.data)
+    serializer = FullWordSerializer(data=request.data)
     serializer.validate(attrs=request.data)
 
     if serializer.is_valid():
