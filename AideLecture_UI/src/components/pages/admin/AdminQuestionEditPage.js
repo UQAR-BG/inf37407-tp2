@@ -30,8 +30,17 @@ const AdminQuestionEditPage = () => {
     dispatch(fetchQuestionWords());
   }, [dispatch, fetchQuestion, params]);
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async (formValues, e) => {
     let answerId = formValues["rightAnswer"] ?? question.rightAnswerId;
+
+    formValues.words.forEach((word, index) => {
+      const fileInputName = `words[${index}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        formValues.words[index].image = imageFile;
+        formValues.words[index].filename = imageFile.name;
+      }
+    });
 
     let quizId = formValues.quiz ?? question.quizId;
     let answers = [];
@@ -39,9 +48,15 @@ const AdminQuestionEditPage = () => {
       answers.push({
         id: i,
         statement: formValues.answers[i].statement,
-        image: formValues.answers[i].image,
         isRightAnswer: answerId === i.toString(),
       });
+
+      const fileInputName = `answers[${i}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        answers[i].image = imageFile;
+        answers[i].filename = imageFile.name;
+      }
     }
     const updatedQuestion = {
       ...question,

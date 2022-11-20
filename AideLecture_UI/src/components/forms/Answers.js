@@ -64,30 +64,41 @@ const Answers = () => {
                   </div>
                 )}
               </div>
-              <div className="col-1">
-                {audioFiles.length > 0 && field.audio && (
-                  <ActionButton
-                    icon="volume-high"
-                    color="primary"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      audioFiles[index].play();
-                    }}
-                  />
-                )}
+              <div className="col-2">
+                <div className="row">
+                  {audioFiles.length > 0 && field.audio && (
+                    <ActionButton
+                      icon="volume-high"
+                      color="primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        audioFiles[index].play();
+                      }}
+                    />
+                  )}
+                  {field.filename && (
+                    <img
+                      key={index}
+                      width="80px"
+                      height="80px"
+                      src={`${DJANGO_API_URL}${field.filename}`}
+                      alt={field.statement}
+                    />
+                  )}
+                </div>
               </div>
-              <div className="col-5">
+              <div className="col-4">
                 <label className="form-label">Fichier d'image</label>
                 <Controller
                   render={({ field }) => (
                     <input
                       {...field}
-                      type="text"
+                      type="file"
                       className="form-control"
-                      autoComplete="off"
+                      accept="image/jpeg,image/png,image/gif"
                     />
                   )}
-                  defaultValue={field.image}
+                  defaultValue={field.image ? field.image : ""}
                   name={`answers[${index}].image`}
                   control={control}
                 />

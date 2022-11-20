@@ -37,7 +37,8 @@ const QuestionForm = (props) => {
         return props.questionToEdit.words.map((word) => {
           return {
             statement: word.statement,
-            image: word.image,
+            image: "",
+            filename: word.image,
             isQuestionWord: word.isQuestionWord,
           };
         });
@@ -46,7 +47,8 @@ const QuestionForm = (props) => {
       return wordsOfQuestion.map((word, index) => {
         return {
           statement: word,
-          image: props.questionToEdit.words[index]
+          image: "",
+          filename: props.questionToEdit.words[index]
             ? props.questionToEdit.words[index].image
             : "",
         };
@@ -60,9 +62,25 @@ const QuestionForm = (props) => {
 
   const getAnswersInitialValues = () => {
     if (isInEditMode()) {
-      return !wordsDecomposed
-        ? props.questionToEdit.answers
-        : answersOfQuestion;
+      if (!wordsDecomposed) {
+        return props.questionToEdit.answers.map((answer) => {
+          return {
+            ...answer,
+            image: "",
+            filename: answer.image,
+          };
+        });
+      }
+
+      return answersOfQuestion.map((answer, index) => {
+        return {
+          ...answer,
+          image: "",
+          filename: props.questionToEdit.answers[index]
+            ? props.questionToEdit.answers[index].image
+            : "",
+        };
+      });
     } else {
       if (!wordsDecomposed) {
         return [1, 2, 3, 4].map((index) => {
@@ -71,7 +89,6 @@ const QuestionForm = (props) => {
             isRightAnswer: index === 1,
             statement: "",
             image: "",
-            //audio: "",
           };
         });
       }
@@ -93,7 +110,6 @@ const QuestionForm = (props) => {
 
   const initialValues = {
     name: props.questionToEdit?.name,
-    //questionAudio: props.questionToEdit?.questionAudio,
     statement:
       wordsDecomposed && isInEditMode() && props.questionToEdit.statement
         ? wordsOfQuestion.join(" ")

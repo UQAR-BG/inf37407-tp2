@@ -4,13 +4,13 @@ import djangoApi, {
   combineHeaders,
 } from "./djangoApi";
 
-export const getQuestions = async () => {
+export const getWords = async () => {
   return await djangoApi.get("/api/word/words", {
     headers: authHeader(),
   });
 };
 
-export const getQuestion = async (id) => {
+export const getWord = async (id) => {
   return await djangoApi.get(`/api/word/word/${id}`, {
     headers: authHeader(),
   });
@@ -44,7 +44,6 @@ export const deleteWord = async (id) => {
 };
 
 const createWordFormData = (wordModel) => {
-  console.log(wordModel);
   let formData = new FormData();
   if (wordModel.image && wordModel.filename) {
     formData.append("image", wordModel.image, wordModel.filename);

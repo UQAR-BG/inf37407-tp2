@@ -1,6 +1,7 @@
 import djangoApi, {
   authHeader,
   jsonContentTypeHeader,
+  multipartFormDataContentTypeHeader,
   combineHeaders,
 } from "./djangoApi";
 
@@ -42,4 +43,31 @@ export const deleteQuestion = async (id) => {
     headers: authHeader(),
   });
   return { data: { deletedId: id } };
+};
+
+export const postAnswer = async (answer) => {
+  const answerFormData = createAnswerFormData(answer);
+  return await djangoApi.post("/api/question/add_answer", answerFormData, {
+    headers: combineHeaders([
+      authHeader(),
+      multipartFormDataContentTypeHeader(),
+    ]),
+  });
+};
+
+const createAnswerFormData = (answerModel) => {
+  let formData = new FormData();
+  if (answerModel.image && answerModel.filename) {
+    formData.append("image", answerModel.image, answerModel.filename);
+  }
+  formData.append("statement", answerModel.statement);
+  if (answerModel.isRightAnswer) {
+    formData.append("isRightAnswer", answerModel.isRightAnswer);
+  } else {
+    formData.append("isRightAnswer", false);
+  }
+  if (answerModel.questionId) {
+    formData.append("questionId", answerModel.questionId);
+  }
+  return formData;
 };

@@ -22,7 +22,7 @@ const AdminQuestionCreatePage = () => {
     dispatch(fetchQuestionWords());
   }, [dispatch, fetchQuestionWords]);
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async (formValues, e) => {
     if (!formValues.words) {
       errorDialogWrapper("Vous devez décomposer la question en mots.");
       return;
@@ -33,16 +33,32 @@ const AdminQuestionCreatePage = () => {
       return;
     }
 
+    formValues.words.forEach((word, index) => {
+      const fileInputName = `words[${index}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        formValues.words[index].image = imageFile;
+        formValues.words[index].filename = imageFile.name;
+      }
+    });
+
     let quizId = formValues.quiz ?? selectedQuiz.id;
     let answers = [];
     for (let i = 0; i < 4; i++) {
       answers.push({
         id: i,
         statement: formValues.answers[i].statement,
-        image: formValues.answers[i].image,
         isRightAnswer: formValues["rightAnswer"] === i.toString(),
       });
+
+      const fileInputName = `answers[${i}].image`;
+      if (e.target[fileInputName].value && e.target[fileInputName].files) {
+        var imageFile = e.target[fileInputName].files[0];
+        answers[i].image = imageFile;
+        answers[i].filename = imageFile.name;
+      }
     }
+
     const question = {
       quizId: parseInt(quizId),
       name: formValues.name,
