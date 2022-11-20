@@ -1,7 +1,7 @@
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.parsers import FormParser
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -33,6 +33,7 @@ def quiz(request, id: int):
 
 @swagger_auto_schema(method="PATCH", tags=["Quiz"], request_body=QuizSerializer)
 @api_view(["PATCH"])
+@parser_classes([FormParser])
 @is_part_of_group(UserGroup.admin)
 def patch(request, id: int):
     quiz = Quiz.objects.filter(id=id, is_active=True).first()
@@ -45,9 +46,11 @@ def patch(request, id: int):
     if serializer.is_valid():
         quiz = serializer.save()
 
+        serializer = QuizDtoSerializer(quiz)
+
         return JsonResponse(
-            model_to_dict(quiz),
-            status=status.HTTP_200_OK
+            serializer.data,
+            status=status.HTTP_201_CREATED
         )
 
 
@@ -97,6 +100,7 @@ def quizzes(request):
     method="POST", tags=["Quiz"], request_body=QuizSerializer
 )
 @api_view(["POST"])
+@parser_classes([FormParser])
 @is_part_of_group(UserGroup.admin)
 def create(request):
     serializer = QuizSerializer(data=request.data)
@@ -105,7 +109,9 @@ def create(request):
     if serializer.is_valid():
         quiz = serializer.save()
 
+        serializer = QuizDtoSerializer(quiz)
+
         return JsonResponse(
-            model_to_dict(quiz),
-            status=status.HTTP_201_CREATED,
+            serializer.data,
+            status=status.HTTP_201_CREATED
         )
