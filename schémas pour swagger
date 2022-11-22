@@ -1,19 +1,119 @@
 {
   "username": "test3@example.com",
-  "password": "test123"
+  "password": "iGypQH7JkqXNtcU"
 }
 
 {
-  "username": "mariane.pouliot@uqar.ca",
-  "password": "mariane123"
+    "username": "admin@gmail.com",
+    "password": "KGc2E4pGlUTKBO760pOW"
+}
+
+*** QUIZ ***
+
+{
+  "name": "La voiture à essence et la voiture électrique",
+  "description": "La voiture à essence et la voiture électrique"
+}
+
+*** PHRASES ***
+
+{
+  "quizId": "2",
+  "audio": "auto_electrique/sentence_01.mp3",
+  "name": "sentence_01",
+  "statement": "Au Québec, il y a beaucoup de voitures.",
+  "words": [
+    {
+      "statement": "Au",
+      "image": ""
+    },
+    {
+      "statement": "Québec,",
+      "image": "auto_electrique/quebec.png"
+    },
+    {
+      "statement": "il",
+      "image": ""
+    },
+    {
+      "statement": "y",
+      "image": ""
+    },
+    {
+      "statement": "a",
+      "image": ""
+    },
+    {
+      "statement": "beaucoup",
+      "image": "auto_electrique/beaucoup.png"
+    },
+    {
+      "statement": "de",
+      "image": ""
+    },
+    {
+      "statement": "voitures.",
+      "image": "auto_electrique/voiture.png"
+    }
+  ],
+  "id": 15
 }
 
 {
-  "username": "bastien.goulet@uqar.ca",
-  "password": "mLiEZ$CsY8ee%8hvBlV;17q"
+  "quizId": "2",
+  "audio": "auto_electrique/sentence_02.mp3",
+  "name": "sentence_02",
+  "statement": "Il y a des voitures à essence et des voitures électriques. ",
+  "words": [
+    {
+      "statement": "Il",
+      "image": ""
+    },
+    {
+      "statement": "y",
+      "image": ""
+    },
+    {
+      "statement": "a",
+      "image": ""
+    },
+    {
+      "statement": "des",
+      "image": ""
+    },
+    {
+      "statement": "voitures",
+      "image": ""
+    },
+    {
+      "statement": "à",
+      "image": "auto_electrique/voiture_a_essence.png"
+    },
+    {
+      "statement": "essence",
+      "image": ""
+    },
+    {
+      "statement": "et",
+      "image": ""
+    },
+    {
+      "statement": "des",
+      "image": ""
+    },
+    {
+      "statement": "voitures",
+      "image": "auto_electrique/recharger.png"
+    },
+    {
+      "statement": "électriques.",
+      "image": ""
+    }
+  ],
+  "id": 16
 }
 
-Token 8a1c8d3f5ee284b90428976cf2f467660be64702
+*** RESULTS ***
 
 {
   "score": 4,
@@ -39,150 +139,136 @@ Token 8a1c8d3f5ee284b90428976cf2f467660be64702
   ]
 }
 
-{
-  "quizId": 2,
-  "name": "sentence_09",
-  "statement": "Beaucoup de personnes aimeraient avoir 3 ponts entre les 2 villes.",
-  "words": [
-    {
-      "statement": "Beaucoup",
-      "image": "3e_lien/beaucoup.png"
-    },
-    {
-      "statement": "de",
-      "image": ""
-    },
-    {
-      "statement": "personnes",
-      "image": "3e_lien/personnes.png"
-    },
-    {
-      "statement": "aimeraient",
-      "image": ""
-    },
-    {
-      "statement": "avoir",
-      "image": ""
-    },
-    {
-      "statement": "3",
-      "image": "3e_lien/troisième.png"
-    },
-    {
-      "statement": "ponts",
-      "image": "3e_lien/pont.png"
-    },
-    {
-      "statement": "entre",
-      "image": ""
-    },
-    {
-      "statement": "les",
-      "image": ""
-    },
-    {
-      "statement": "2",
-      "image": ""
-    },
-    {
-      "statement": "villes.",
-      "image": ""
-    }
-  ]
-}
+*** QUESTIONS ***
 
 {
-  "name": "Où",
-  "statement": "Cherche un endroit ou une place",
+  "quizId": "2",
+  "questionAudio": "auto_electrique/question_01/question.mp3",
+  "name": "Qu’est-ce qui détruit beaucoup l’environnement?",
+  "statement": "Qu’est-ce qui détruit beaucoup l’environnement?",
   "words": [
     {
-      "statement": "Cherche",
-      "image": "auto_electrique/voiture_a_essence.png"
-    },
-    {
-      "statement": "un",
-      "image": ""
-    },
-    {
-      "statement": "endroit",
-      "image": ""
-    },
-    {
-      "statement": "ou",
-      "image": ""
-    },
-    {
-      "statement": "une",
-      "image": ""
-    },
-    {
-      "statement": "place",
-      "image": ""
-    }
-  ]
-}
-
-{
-  "quizId": 1,
-  "name": "Pourquoi on veut construire un nouveau pont?",
-  "statement": "Pourquoi on veut construire un nouveau pont?",
-  "words": [
-    {
-      "statement": "Pourquoi",
-      "image": "3e_lien/Pourquoi.png",
+      "statement": "Qu'est-ce",
+      "image": "auto_electrique/qu_est_ce_que.png",
       "isQuestionWord": false
     },
     {
-      "statement": "on",
+      "statement": "qui",
       "image": "",
       "isQuestionWord": false
     },
     {
-      "statement": "veut",
+      "statement": "détruit",
+      "image": "auto_electrique/detruire.png",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "beaucoup",
       "image": "",
       "isQuestionWord": false
     },
     {
-      "statement": "construire",
-      "image": "",
-      "isQuestionWord": false
-    },
-    {
-      "statement": "un",
-      "image": "",
-      "isQuestionWord": false
-    },
-    {
-      "statement": "nouveau",
-      "image": "3e_lien/nouveau.png",
-      "isQuestionWord": false
-    },
-    {
-      "statement": "pont?",
-      "image": "3e_lien/pont.png",
+      "statement": "l'environnement?",
+      "image": "auto_electrique/environnement.png",
       "isQuestionWord": false
     }
   ],
   "answers": [
     {
-      "statement": "On veut construire un pont parce qu’il y a des problèmes de circulation.",
-      "image": "3e_lien/probleme_de_circulation.png",
+      "id": 0,
+      "statement": "L’essence détruit beaucoup l’environnement.\t",
+      "image": "auto_electrique/essence.png",
+      "audio": "auto_electrique/question_01/response_01.mp3",
       "isRightAnswer": true
     },
     {
-      "statement": "On veut construire un pont parce que le pont est sale.",
-      "image": "3e_lien/sale.png",
+      "id": 1,
+      "statement": "L’électricité détruit beaucoup l’environnement.",
+      "image": "auto_electrique/electricite.png",
+      "audio": "auto_electrique/question_01/response_02.mp3",
       "isRightAnswer": false
     },
     {
-      "statement": "On veut construire un pont parce que le pont est vieux.",
-      "image": "3e_lien/vieux.png",
+      "id": 2,
+      "statement": "Le Québec détruit beaucoup l’environnement.",
+      "image": "auto_electrique/quebec.png",
+      "audio": "auto_electrique/question_01/response_03.mp3",
       "isRightAnswer": false
     },
     {
-      "statement": "Le fleuve Saint-Laurent sépare Québec et Lévis.",
-      "image": "3e_lien/fleuve.png",
+      "id": 3,
+      "statement": "L’essence coûte cher.",
+      "image": "auto_electrique/cher.png",
+      "audio": "auto_electrique/question_01/response_04.mp3",
       "isRightAnswer": false
     }
-  ]
+  ],
+  "rightAnswerId": "0",
+  "id": 7
+}
+
+{
+  "quizId": "2",
+  "questionAudio": "auto_electrique/question_02/question.mp3",
+  "name": "Pourquoi irais-tu à la station-service? ",
+  "statement": "Pourquoi irais-tu à la station-service? ",
+  "words": [
+    {
+      "statement": "Pourquoi",
+      "image": "auto_electrique/pourquoi.png",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "irais-tu",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "à",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "la",
+      "image": "",
+      "isQuestionWord": false
+    },
+    {
+      "statement": "station-service?",
+      "image": "auto_electrique/station_service.png",
+      "isQuestionWord": false
+    }
+  ],
+  "answers": [
+    {
+      "id": 0,
+      "statement": "Je vais à la station-service pour mettre de l’essence.",
+      "image": "auto_electrique/essence.png",
+      "audio": "auto_electrique/question_02/response_01.mp3",
+      "isRightAnswer": true
+    },
+    {
+      "id": 1,
+      "statement": "Je vais à la station-service pour mettre de l’électricité.",
+      "image": "auto_electrique/electricite.png",
+      "audio": "auto_electrique/question_02/response_02.mp3",
+      "isRightAnswer": false
+    },
+    {
+      "id": 2,
+      "statement": "Je vais à la station-service pour l’environnement.",
+      "image": "auto_electrique/environnement.png",
+      "audio": "auto_electrique/question_02/response_03.mp3",
+      "isRightAnswer": false
+    },
+    {
+      "id": 3,
+      "statement": "La batterie spéciale fonctionne avec l’électricité.",
+      "image": "auto_electrique/batterie.png",
+      "audio": "auto_electrique/question_02/response_04.mp3",
+      "isRightAnswer": false
+    }
+  ],
+  "rightAnswerId": "0",
+  "id": 8
 }

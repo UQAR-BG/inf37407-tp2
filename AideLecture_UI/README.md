@@ -1,28 +1,32 @@
-# Lien vers la vidéo de démonstration
+# Lien vers l'API REST Django déployée
 
-https://youtu.be/Sm7VNGdTEhQ
+https://bastiengoulet.pythonanywhere.com/api/swagger/
+
+# Lien vers l'application React déployée
+
+https://inf37407-aide-lecture-qxo8xnsze-bastiengoulet.vercel.app/
+
+# Lien vers la vidéo de démonstration
 
 # Procédure de lancement de l'application
 
 Bien entendu, la première étape est d'installer les dépendances. Cependant,
 il faut effectuer cette opération dans les deux projets:
 
-1 - Lancez la commande npm install dans le dossier /api pour installer les dépendances de json-server
-2 - Lancez la commande npm install dans le dossier /client pour installer les dépendances de l'application React
+2 - Lancez la commande npm install dans le dossier du projet pour installer les dépendances de l'application React
 
 Une fois les dépendances installées, il est possible de démarrer l'application.
 
-1 - Lancez la commande npm start dans le dossier /api pour démarrer le json-server
-2 - Lancez la commande npm start dans le dossier /client pour démarrer l'application React
+2 - Lancez la commande npm start dans le dossier du projet pour démarrer l'application React
 
 # Informations de connexion à l'application
 
 Pour vous connecter à l'application en tant qu'administrateur:
 
 Username: admin@gmail.com
-Password: admin123
+Password: KGc2E4pGlUTKBO760pOW
 
 Pour vous connecter avec le compte existant de participant:
 
 Username: test@gmail.com
-Password: test123
+Password: iGypQH7JkqXNtcU
